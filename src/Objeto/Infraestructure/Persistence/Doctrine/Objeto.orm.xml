@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Objeto\Domain\Objeto" table="objeto">
+        <id name="id" type="integer" column="id">
+            <generator/>
+        </id>
+
+        <field name="nombre" length="50" column="nombre" />
+        <field name="descripcion" nullable="true" column="descripcion" />
+        <field name="estado" type="smallint" column="estado">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
+        <field name="usuarioId" type="integer" column="usuario_id"/>
+    </entity>
+
+</doctrine-mapping>
