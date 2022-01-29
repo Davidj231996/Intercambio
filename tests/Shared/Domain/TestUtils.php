@@ -2,8 +2,8 @@
 
 namespace App\Tests\Shared\Domain;
 
-use App\Tests\Shared\Infraestructure\Mockery\MatcherIsSimilar;
-use App\Tests\Shared\Infraestructure\PhpUnit\Constraint\ConstraintIsSimilar;
+use App\Tests\Shared\Infrastructure\Mockery\MatcherIsSimilar;
+use App\Tests\Shared\Infrastructure\PhpUnit\Constraint\ConstraintIsSimilar;
 
 class TestUtils
 {

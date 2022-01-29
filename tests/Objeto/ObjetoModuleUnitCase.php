@@ -4,7 +4,7 @@ namespace App\Tests\Objeto;
 
 use App\Objeto\Domain\Objeto;
 use App\Objeto\Domain\ObjetoRepository;
-use App\Tests\Shared\Infraestructure\PhpUnit\UnitTestCase;
+use App\Tests\Shared\Infrastructure\PhpUnit\UnitTestCase;
 use Mockery\MockInterface;
 
 abstract class ObjetoModuleUnitCase extends UnitTestCase
