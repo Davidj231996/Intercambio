@@ -2,23 +2,25 @@
 
 namespace App\Favorito\Domain;
 
+use App\Objeto\Domain\Objeto;
 use App\Shared\Domain\Root\Root;
+use App\Usuario\Domain\Usuario;
 use DateTime;
 
 class Favorito extends Root
 {
     public function __construct(
         private int      $id,
-        private int      $usuarioId,
-        private int      $objetoId,
+        private Usuario  $usuario,
+        private Objeto   $objeto,
         private DateTime $fecha
     )
     {
     }
 
-    public static function create(int $id, int $usuarioId, int $objetoId, DateTime $fecha): Favorito
+    public static function create(int $id, Usuario $usuario, Objeto $objeto, DateTime $fecha): Favorito
     {
-        return new self($id, $usuarioId, $objetoId, $fecha);
+        return new self($id, $usuario, $objeto, $fecha);
     }
 
     public function id(): int
@@ -26,14 +28,14 @@ class Favorito extends Root
         return $this->id;
     }
 
-    public function usuarioId(): int
+    public function usuario(): Usuario
     {
-        return $this->usuarioId;
+        return $this->usuario;
     }
 
-    public function objetoId(): int
+    public function objeto(): Objeto
     {
-        return $this->objetoId;
+        return $this->objeto;
     }
 
     public function fecha(): DateTime

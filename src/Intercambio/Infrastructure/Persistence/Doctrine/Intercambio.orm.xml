@@ -9,16 +9,8 @@
             <generator/>
         </id>
 
-        <field name="objetoIntercambioId" type="integer" column="objetoIntercambio_id">
-            <options>
-                <option name="comment">El objeto que se intercambia</option>
-            </options>
-        </field>
-        <field name="objetoIntercambiarId" type="integer" column="objetoIntercambiar_id">
-            <options>
-                <option name="comment">El objeto por el que se quiere intercambiar</option>
-            </options>
-        </field>
+        <one-to-one field="objetoIntercambio" target-entity="App\Objeto\Domain\Objeto" inversed-by="intercambio"/>
+        <one-to-one field="objetoIntercambiar" target-entity="App\Objeto\Domain\Objeto" inversed-by="intercambiar"/>
         <field name="fechaCreacion" type="datetime" column="fechaCreacion" />
         <field name="fechaActualizacion" type="datetime" column="fechaActualizacion" />
         <field name="estado" type="smallint" column="estado" />

@@ -3,20 +3,21 @@
 namespace App\Valoracion\Domain;
 
 use App\Shared\Domain\Root\Root;
+use App\Usuario\Domain\Usuario;
 
 class Valoracion extends Root
 {
     public function __construct(
         private int $id,
-        private int $usuarioId,
+        private Usuario $usuario,
         private float $valor,
         private int $totales
     )
     {}
 
-    public static function create(int $id, int $usuarioId, float $valor): Valoracion
+    public static function create(int $id, Usuario $usuario, float $valor): Valoracion
     {
-        return new self($id, $usuarioId, $valor, 1);
+        return new self($id, $usuario, $valor, 1);
     }
 
     public function id(): int
@@ -24,9 +25,9 @@ class Valoracion extends Root
         return $this->id;
     }
 
-    public function usuarioId(): int
+    public function usuario(): Usuario
     {
-        return $this->usuarioId;
+        return $this->usuario;
     }
 
     public function valor(): float

@@ -3,6 +3,7 @@
 namespace App\Direccion\Domain;
 
 use App\Shared\Domain\Root\Root;
+use App\Usuario\Domain\Usuario;
 
 class Direccion extends Root
 {
@@ -12,14 +13,15 @@ class Direccion extends Root
         private string $ciudad,
         private string $provincia,
         private string $comunidadAutonoma,
-        private string $codigoPostal
+        private string $codigoPostal,
+        private Usuario $usuario
     )
     {
     }
 
-    public static function create(int $id, string $direccion, string $ciudad, string $provincia, string $comunidadAutonoma, string $codigoPostal): Direccion
+    public static function create(int $id, string $direccion, string $ciudad, string $provincia, string $comunidadAutonoma, string $codigoPostal, Usuario $usuario): Direccion
     {
-        return new self($id, $direccion, $ciudad, $provincia, $comunidadAutonoma, $codigoPostal);
+        return new self($id, $direccion, $ciudad, $provincia, $comunidadAutonoma, $codigoPostal, $usuario);
     }
 
     public function id(): int
@@ -50,6 +52,11 @@ class Direccion extends Root
     public function codigoPostal(): string
     {
         return $this->codigoPostal;
+    }
+
+    public function usuario(): Usuario
+    {
+        return $this->usuario;
     }
 
     public function update(string $direccion, string $ciudad, string $provincia, string $comunidadAutonoma, string $codigoPostal)

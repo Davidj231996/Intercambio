@@ -4,16 +4,13 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Reserva\Domain\Reserva" table="reserva">
+    <entity name="App\CategoriaObjeto\Domain\CategoriaObjeto" table="categoria_objeto">
         <id name="id" type="integer" column="id">
             <generator/>
         </id>
 
-        <many-to-one field="usuario" target-entity="App\Usuario\Domain\Usuario" inversed-by="reservas"/>
-        <many-to-one field="objeto" target-entity="App\Objeto\Domain\Objeto" inversed-by="reservas"/>
-        <field name="fechaCreacion" type="datetime" column="fechaCreacion" />
-        <field name="fechaActualizacion" type="datetime" column="fechaActualizacion" />
-        <field name="estado" type="smallint" column="estado" />
+        <many-to-one field="categoria" target-entity="App\Categoria\Domain\Categoria" inversed-by="objetos"/>
+        <many-to-one field="objeto" target-entity="App\Objeto\Domain\Objeto" inversed-by="categorias"/>
     </entity>
 
 </doctrine-mapping>

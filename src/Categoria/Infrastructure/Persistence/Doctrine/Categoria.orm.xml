@@ -11,7 +11,11 @@
 
         <field name="nombre" length="50" column="nombre" />
         <field name="descripcion" length="255" column="descripcion" />
-        <field name="categoriaId" nullable="true" type="integer" column="categoria_id" />
+        <one-to-many field="subcategorias" target-entity="App\Categoria\Domain\Categoria" mapped-by="categoria" />
+        <many-to-one field="categoria" target-entity="App\Categoria\Domain\Categoria" inversed-by="subcategorias" />
+        <one-to-many field="preferencias" target-entity="App\Preferencia\Domain\Preferencia" mapped-by="categoria" />
+        <one-to-many field="objetos" target-entity="App\CategoriaObjeto\Domain\CategoriaObjeto" mapped-by="categoria"/>
+        <one-to-many field="objetosIntercambio" target-entity="App\CategoriaIntercambio\Domain\CategoriaIntercambio" mapped-by="categoria"/>
     </entity>
 
 </doctrine-mapping>

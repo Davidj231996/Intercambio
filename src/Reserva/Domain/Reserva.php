@@ -2,7 +2,9 @@
 
 namespace App\Reserva\Domain;
 
+use App\Objeto\Domain\Objeto;
 use App\Shared\Domain\Root\Root;
+use App\Usuario\Domain\Usuario;
 use DateTime;
 
 class Reserva extends Root
@@ -13,17 +15,17 @@ class Reserva extends Root
 
     public function __construct(
         private int $id,
-        private int $usuarioId,
-        private int $objetoId,
+        private Usuario $usuario,
+        private Objeto $objeto,
         private DateTime $fechaCreacion,
         private DateTime $fechaActualizacion,
         private int $estado
     )
     {}
 
-    public static function create(int $id, int $usuarioId, int $objetoId, DateTime $fechaCreacion, DateTime $fechaActualizacion): Reserva
+    public static function create(int $id, Usuario $usuario, Objeto $objeto, DateTime $fechaCreacion, DateTime $fechaActualizacion): Reserva
     {
-        return new self($id, $usuarioId, $objetoId, $fechaCreacion, $fechaActualizacion, self::ESTADO_PENDIENTE);
+        return new self($id, $usuario, $objeto, $fechaCreacion, $fechaActualizacion, self::ESTADO_PENDIENTE);
     }
 
     public function id(): int
@@ -31,14 +33,14 @@ class Reserva extends Root
         return $this->id;
     }
 
-    public function usuarioId(): int
+    public function usuario(): Usuario
     {
-        return $this->usuarioId;
+        return $this->usuario;
     }
 
-    public function objetoId(): int
+    public function objeto(): Objeto
     {
-        return $this->objetoId;
+        return $this->objeto;
     }
 
     public function fechaCreacion(): DateTime

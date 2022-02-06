@@ -4,6 +4,7 @@ namespace App\Imagen\Application\Create;
 
 use App\Imagen\Domain\Imagen;
 use App\Imagen\Domain\ImagenRepository;
+use App\Objeto\Domain\Objeto;
 
 class ImagenCreator
 {
@@ -11,9 +12,9 @@ class ImagenCreator
     {
     }
 
-    public function create(int $id, string $ruta, ?string $descripcion): Imagen
+    public function create(int $id, string $ruta, Objeto $objeto, ?string $descripcion): Imagen
     {
-        $imagen = Imagen::create($id, $ruta, $descripcion);
+        $imagen = Imagen::create($id, $ruta, $objeto, null, $descripcion);
         $this->repository->save($imagen);
         return $imagen;
     }

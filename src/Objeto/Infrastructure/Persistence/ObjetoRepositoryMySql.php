@@ -5,20 +5,11 @@ namespace App\Objeto\Infrastructure\Persistence;
 use App\Objeto\Domain\Objeto;
 use App\Objeto\Domain\ObjetoRepository;
 use App\Objeto\Domain\Objetos;
-use App\Shared\Domain\Criteria\Criteria;
-use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
+use App\Usuario\Domain\Usuario;
 
 final class ObjetoRepositoryMySql extends DoctrineRepository implements ObjetoRepository
 {
-    private static array $criteriaToDoctrineFields = [
-        'id' => 'id',
-        'nombre' => 'nombre',
-        'descripcion' => 'descripcion',
-        'estado' => 'estado',
-        'usuarioId' => 'usuarioId'
-    ];
-
     public function save(Objeto $objeto): void
     {
         $this->persist($objeto);
@@ -29,11 +20,9 @@ final class ObjetoRepositoryMySql extends DoctrineRepository implements ObjetoRe
         return $this->repository(Objeto::class)->find($id);
     }
 
-    public function searchByCriteria(Criteria $criteria): Objetos
+    public function searchByUsuario(Usuario $usuario): ?Objetos
     {
-        $doctrineCriteria = DoctrineCriteriaConverter::convert($criteria, self::$criteriaToDoctrineFields);
-        $objetos = $this->repository(Objeto::class)->matching($doctrineCriteria)->toArray();
-
+        $objetos = $this->repository(Objeto::class)->findBy(['usuario' => $usuario]);
         return new Objetos($objetos);
     }
 }

@@ -11,6 +11,12 @@
 
         <field name="descripcion" nullable="true" length="255" column="descripcion" />
         <field name="ruta" length="255" column="ruta" />
+        <many-to-one field="objeto" target-entity="App\Objeto\Domain\Objeto" inversed-by="imagenes">
+            <join-column name="objeto_id"/>
+        </many-to-one>
+        <one-to-one field="usuarioId" target-entity="App\Usuario\Domain\Usuario">
+            <join-column name="usuario_id"/>
+        </one-to-one>
     </entity>
 
 </doctrine-mapping>

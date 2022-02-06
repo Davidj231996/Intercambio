@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Objeto\Domain;
 
-use App\Shared\Domain\Criteria\Criteria;
+use App\Usuario\Domain\Usuario;
 
 interface ObjetoRepository
 {
@@ -12,5 +12,5 @@ interface ObjetoRepository
 
     public function search(int $id): ?Objeto;
 
-    public function searchByCriteria(Criteria $criteria): Objetos;
+    public function searchByUsuario(Usuario $usuario): ?Objetos;
 }

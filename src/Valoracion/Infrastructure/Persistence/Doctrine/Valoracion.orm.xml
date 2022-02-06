@@ -9,8 +9,10 @@
             <generator/>
         </id>
 
-        <field name="usuarioId" type="integer" column="usuario_id" />
-        <field name="valor" type="float" column="valor" />
+        <one-to-one field="usuario" target-entity="App\Usuario\Domain\Usuario" inversed-by="valoracion">
+            <join-column name="usuario_id" nullable="false"/>
+        </one-to-one>
+        <field name="valor" type="decimal" scale="2" precision="3" column="valor" />
         <field name="totales" type="integer" column="totales" />
     </entity>
 

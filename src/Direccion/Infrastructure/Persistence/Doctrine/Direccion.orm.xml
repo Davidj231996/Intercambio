@@ -9,11 +9,12 @@
             <generator/>
         </id>
 
-        <field name="direccion" length="255" column="direccion" />
-        <field name="ciudad" length="100" column="ciudad" />
-        <field name="provincia" length="100" column="provincia" />
-        <field name="comunidadAutonoma" length="100" column="comunidadAutonoma" />
-        <field name="codigoPostal" length="5" column="codigoPostal" />
+        <field name="direccion" length="255" column="direccion"/>
+        <field name="ciudad" length="100" column="ciudad"/>
+        <field name="provincia" length="100" column="provincia"/>
+        <field name="comunidadAutonoma" length="100" column="comunidadAutonoma"/>
+        <field name="codigoPostal" length="5" column="codigoPostal"/>
+        <one-to-one field="usuario" target-entity="App\Usuario\Domain\Usuario" inversed-by="direccion"/>
     </entity>
 
 </doctrine-mapping>

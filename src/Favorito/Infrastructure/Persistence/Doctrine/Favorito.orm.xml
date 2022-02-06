@@ -9,8 +9,8 @@
             <generator/>
         </id>
 
-        <field name="usuarioId" type="integer" column="usuario_id"/>
-        <field name="objetoId" type="integer" column="objeto_id"/>
+        <many-to-one field="usuario" target-entity="App\Usuario\Domain\Usuario" inversed-by="favoritos"/>
+        <many-to-one field="objeto" target-entity="App\Objeto\Domain\Objeto" inversed-by="favoritos"/>
         <field name="fecha" type="datetime" column="fecha" />
     </entity>
 

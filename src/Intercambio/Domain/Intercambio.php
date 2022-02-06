@@ -2,6 +2,7 @@
 
 namespace App\Intercambio\Domain;
 
+use App\Objeto\Domain\Objeto;
 use App\Shared\Domain\Root\Root;
 use DateTime;
 
@@ -14,8 +15,8 @@ class Intercambio extends Root
 
     public function __construct(
         private int      $id,
-        private int      $objetoIntercambioId,
-        private int      $objetoIntercambiarId,
+        private Objeto      $objetoIntercambio,
+        private Objeto      $objetoIntercambiar,
         private DateTime $fechaCreacion,
         private DateTime $fechaActualizacion,
         private int      $estado
@@ -23,9 +24,9 @@ class Intercambio extends Root
     {
     }
 
-    public static function create(int $id, int $objetoIntercambioId, int $objetoIntercambiarId, DateTime $fechaCreacion, DateTime $fechaActualizacion): Intercambio
+    public static function create(int $id, Objeto $objetoIntercambio, Objeto $objetoIntercambiar, DateTime $fechaCreacion, DateTime $fechaActualizacion): Intercambio
     {
-        return new self($id, $objetoIntercambioId, $objetoIntercambiarId, $fechaCreacion, $fechaActualizacion, self::ESTADO_PENDIENTE);
+        return new self($id, $objetoIntercambio, $objetoIntercambiar, $fechaCreacion, $fechaActualizacion, self::ESTADO_PENDIENTE);
     }
 
     public function id(): int
@@ -33,14 +34,14 @@ class Intercambio extends Root
         return $this->id;
     }
 
-    public function objetoIntercambioId(): int
+    public function objetoIntercambio(): Objeto
     {
-        return $this->objetoIntercambioId;
+        return $this->objetoIntercambio;
     }
 
-    public function objetoIntercambiarId(): int
+    public function objetoIntercambiar(): Objeto
     {
-        return $this->objetoIntercambiarId;
+        return $this->objetoIntercambiar;
     }
 
     public function fechaCreacion(): DateTime
@@ -60,16 +61,12 @@ class Intercambio extends Root
 
     public function estadoToString(): string
     {
-        switch ($this->estado) {
-            case self::ESTADO_CANCELADO:
-                return 'Cancelado';
-            case self::ESTADO_ENVIADO:
-                return 'Enviado';
-            case self::ESTADO_FINALIZADO:
-                return 'Finalizado';
-            default:
-                return 'Pendiente';
-        }
+        return match ($this->estado) {
+            self::ESTADO_CANCELADO => 'Cancelado',
+            self::ESTADO_ENVIADO => 'Enviado',
+            self::ESTADO_FINALIZADO => 'Finalizado',
+            default => 'Pendiente',
+        };
     }
 
     public function update(int $estado, DateTime $fechaActualizacion)

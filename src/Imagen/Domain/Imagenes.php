@@ -4,7 +4,7 @@ namespace App\Imagen\Domain;
 
 use App\Shared\Domain\Collection;
 
-class Imagenes extends Collection
+abstract class Imagenes extends Collection
 {
     protected function type(): string
     {

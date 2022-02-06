@@ -1,24 +1,23 @@
 <?php
 
-namespace App\Preferencia\Domain;
+namespace App\CategoriaObjeto\Domain;
 
 use App\Categoria\Domain\Categoria;
+use App\Objeto\Domain\Objeto;
 use App\Shared\Domain\Root\Root;
-use App\Usuario\Domain\Usuario;
 
-class Preferencia extends Root
+class CategoriaObjeto extends Root
 {
     public function __construct(
         private int $id,
-        private Usuario $usuario,
+        private Objeto $objeto,
         private Categoria $categoria
     )
-    {
-    }
+    {}
 
-    public static function create(int $id, Usuario $usuario, Categoria $categoria): Preferencia
+    public static function create(int $id, Objeto $objeto, Categoria $categoria): CategoriaObjeto
     {
-        return new self($id, $usuario, $categoria);
+        return new self($id, $objeto, $categoria);
     }
 
     public function id(): int
@@ -26,9 +25,9 @@ class Preferencia extends Root
         return $this->id;
     }
 
-    public function usuario(): Usuario
+    public function objeto(): Objeto
     {
-        return $this->usuario;
+        return $this->objeto;
     }
 
     public function categoria(): Categoria
