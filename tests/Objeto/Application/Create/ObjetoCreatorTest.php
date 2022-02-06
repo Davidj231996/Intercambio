@@ -25,10 +25,11 @@ final class ObjetoCreatorTest extends ObjetoModuleUnitCase
         $descripcion = 'Unos pantalones muy bonitos';
         $estado = 0;
 
-        $objeto = Objeto::create($id, $nombre, $descripcion, $estado, 1);
+        $usuario = Usuario::create(1, '', '', '', '', '', '');
+        $objeto = Objeto::create($id, $nombre, $descripcion, $estado, $usuario);
         $this->shouldSave($objeto);
-        $this->creator->create($id, $nombre, $descripcion, $estado, 1);
+        $this->creator->create($id, $nombre, $descripcion, $estado, $usuario);
 
-        print("Fin " . $objeto->descripcion());
+        print("Objeto creado");
     }
 }
