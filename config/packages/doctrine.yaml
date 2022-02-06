@@ -13,6 +13,18 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Categoria/Infrastructure/Persistence/Doctrine'
                 prefix: 'App\Categoria\Domain'
                 alias: Categoria
+            CategoriaObjeto:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/CategoriaObjeto/Infrastructure/Persistence/Doctrine'
+                prefix: 'App\CategoriaObjeto\Domain'
+                alias: CategoriaObjeto
+            CategoriaIntercambio:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/CategoriaIntercambio/Infrastructure/Persistence/Doctrine'
+                prefix: 'App\CategoriaIntercambio\Domain'
+                alias: CategoriaIntercambio
             Direccion:
                 is_bundle: false
                 type: xml
