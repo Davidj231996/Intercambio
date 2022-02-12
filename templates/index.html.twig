@@ -1,0 +1,7 @@
+<p>Hola mundo</p>
+
+{% if app.user %}
+<a href="{{ path('usuario', {'usuarioId': app.user.id}) }}">Ir a ver admin</a>
+{% else %}
+    <a href="{{ path('login') }}">Login</a>
+{% endif %}

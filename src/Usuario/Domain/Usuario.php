@@ -8,9 +8,13 @@ use App\Direccion\Domain\Direccion;
 use App\Shared\Domain\Root\Root;
 use App\Valoracion\Domain\Valoracion;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-class Usuario extends Root
+class Usuario extends Root implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    private UserPasswordHasherInterface $passwordHasher;
     private ?Valoracion $valoracion = null;
     private ?Direccion $direccion = null;
     private ?Collection $objetos = null;
@@ -124,5 +128,35 @@ class Usuario extends Root
         $this->telefono = $telefono;
         $this->email = $email;
         $this->password = $password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function getRoles(): array
+    {
+        return [
+            'ROLE_USER'
+        ];
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->alias;
     }
 }
