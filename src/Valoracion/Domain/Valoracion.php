@@ -8,14 +8,14 @@ use App\Usuario\Domain\Usuario;
 class Valoracion extends Root
 {
     public function __construct(
-        private int $id,
+        private ?int $id,
         private Usuario $usuario,
         private float $valor,
         private int $totales
     )
     {}
 
-    public static function create(int $id, Usuario $usuario, float $valor): Valoracion
+    public static function create(?int $id, Usuario $usuario, float $valor): Valoracion
     {
         return new self($id, $usuario, $valor, 1);
     }
