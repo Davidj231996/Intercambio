@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Datos Personales</h1>
+    </div>
+    <div class="row">
+        <div class="cardCompleta shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Sin favoritos</h6>
+            </div>
+            <div class="card-body">
+                <p>Alias: {{ usuario.alias }}</p>
+                <p>Nombre: {{ usuario.nombre }}</p>
+                <p>Apellidos: {{ usuario.apellidos }}</p>
+                <p>Teléfono: {{ usuario.telefono }}</p>
+                <p>Correo: {{ usuario.email }}</p>
+                <p>Password: {{ usuario.password }}</p>
+                <p>Dirección: {{ usuario.direccion.direccion }}, {{ usuario.direccion.ciudad }}, {{ usuario.direccion.provincia }}, {{ usuario.direccion.codigoPostal }}, {{ usuario.direccion.comunidadAutonoma }}</p>
+            </div>
+        </div>
+    </div>
+</div>
