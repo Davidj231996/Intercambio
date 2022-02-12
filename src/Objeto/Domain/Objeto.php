@@ -14,6 +14,7 @@ class Objeto extends Root
     private ?Collection $imagenes = null;
     private ?Collection $favoritos = null;
     private ?Collection $categorias = null;
+    private ?Collection $categoriasIntercambio = null;
     private ?Collection $reservas = null;
     private ?Intercambio $intercambio = null;
     private ?Intercambio $intercambiar = null;
@@ -73,6 +74,11 @@ class Objeto extends Root
     public function categorias(): ?Collection
     {
         return $this->categorias;
+    }
+
+    public function categoriasIntercambio(): ?Collection
+    {
+        return $this->categoriasIntercambio;
     }
 
     public function reservas(): ?Collection

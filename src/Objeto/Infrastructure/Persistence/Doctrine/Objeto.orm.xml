@@ -20,6 +20,7 @@
         <one-to-many field="imagenes" target-entity="App\Imagen\Domain\Imagen" mapped-by="objeto" />
         <one-to-many field="favoritos" target-entity="App\Favorito\Domain\Favorito" mapped-by="objeto" />
         <one-to-many field="categorias" target-entity="App\CategoriaObjeto\Domain\CategoriaObjeto" mapped-by="objeto"/>
+        <one-to-many field="categoriasIntercambio" target-entity="App\CategoriaIntercambio\Domain\CategoriaIntercambio" mapped-by="objeto"/>
         <one-to-many field="reservas" target-entity="App\Reserva\Domain\Reserva" mapped-by="objeto" />
         <one-to-one field="intercambio" target-entity="App\Intercambio\Domain\Intercambio" mapped-by="objetoIntercambio"/>
         <one-to-one field="intercambiar" target-entity="App\Intercambio\Domain\Intercambio" mapped-by="objetoIntercambiar"/>
