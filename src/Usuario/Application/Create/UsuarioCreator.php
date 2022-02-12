@@ -14,9 +14,9 @@ final class UsuarioCreator
     {
     }
 
-    public function create(int $id, string $alias, string $nombre, string $apellidos, string $telefono, string $email, string $password): void
+    public function create(string $alias, string $nombre, string $apellidos, string $telefono, string $email, string $password): void
     {
-        $usuario = Usuario::create($id, $alias, $nombre, $apellidos, $telefono, $email, $password);
+        $usuario = Usuario::create(null, $alias, $nombre, $apellidos, $telefono, $email, $password);
 
         $this->repository->save($usuario);
     }

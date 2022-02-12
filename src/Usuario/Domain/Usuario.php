@@ -19,7 +19,7 @@ class Usuario extends Root
     private ?Collection $reservas = null;
 
     public function __construct(
-        private int    $id,
+        private ?int    $id,
         private string $alias,
         private string $nombre,
         private string $apellidos,
@@ -31,7 +31,7 @@ class Usuario extends Root
     }
 
     public static function create(
-        int    $id,
+        ?int    $id,
         string $alias,
         string $nombre,
         string $apellidos,
