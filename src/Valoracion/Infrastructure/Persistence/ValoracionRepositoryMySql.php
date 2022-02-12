@@ -16,6 +16,6 @@ class ValoracionRepositoryMySql extends DoctrineRepository implements Valoracion
 
     public function search(int $usuarioId): ?Valoracion
     {
-        return $this->repository(Valoracion::class)->findOneBy(['usuarioId' => $usuarioId]);
+        return $this->repository(Valoracion::class)->findOneBy(['usuario' => $usuarioId]);
     }
 }
