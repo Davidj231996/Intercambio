@@ -10,7 +10,7 @@ use App\Objeto\Domain\Objeto;
 use App\Objeto\Domain\ObjetoRepository;
 use App\Usuario\Domain\Usuario;
 
-final class ObjetoCreator
+final class ObjetoCreate
 {
     public function __construct(private ObjetoRepository $repository)
     {
