@@ -11345,3 +11345,7 @@ body.sidebar-toggled footer.sticky-footer {
     -webkit-columns: 2;
     -moz-columns: 2;
 }
+
+#menuUsuario li {
+    cursor: pointer;
+}
