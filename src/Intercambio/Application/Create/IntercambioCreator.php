@@ -12,10 +12,10 @@ class IntercambioCreator
     {
     }
 
-    public function create(int $id, int $objetoIntercambioId, int $objetoIntercambiarId): void
+    public function create(int $objetoIntercambioId, int $objetoIntercambiarId): void
     {
         $now = new DateTime();
-        $intercambio = Intercambio::create($id, $objetoIntercambioId, $objetoIntercambiarId, $now, $now);
+        $intercambio = Intercambio::create(null, $objetoIntercambioId, $objetoIntercambiarId, $now, $now);
         $this->repository->save($intercambio);
     }
 }

@@ -14,7 +14,7 @@ class Intercambio extends Root
     public const ESTADO_FINALIZADO = 2;
 
     public function __construct(
-        private int      $id,
+        private ?int      $id,
         private Objeto      $objetoIntercambio,
         private Objeto      $objetoIntercambiar,
         private DateTime $fechaCreacion,
@@ -24,7 +24,7 @@ class Intercambio extends Root
     {
     }
 
-    public static function create(int $id, Objeto $objetoIntercambio, Objeto $objetoIntercambiar, DateTime $fechaCreacion, DateTime $fechaActualizacion): Intercambio
+    public static function create(?int $id, Objeto $objetoIntercambio, Objeto $objetoIntercambiar, DateTime $fechaCreacion, DateTime $fechaActualizacion): Intercambio
     {
         return new self($id, $objetoIntercambio, $objetoIntercambiar, $fechaCreacion, $fechaActualizacion, self::ESTADO_PENDIENTE);
     }
