@@ -4,15 +4,16 @@ namespace App\Shared\Infrastructure\Persistence\Doctrine;
 
 use App\Shared\Domain\Root\Root;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
 class DoctrineRepository
 {
-    public function __construct(private EntityManager $entityManager)
+    public function __construct(private EntityManagerInterface $entityManager)
     {
     }
 
-    protected function entityManager(): EntityManager
+    protected function entityManager(): EntityManagerInterface
     {
         return $this->entityManager;
     }
