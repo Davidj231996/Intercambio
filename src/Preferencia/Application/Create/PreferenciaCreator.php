@@ -10,9 +10,9 @@ class PreferenciaCreator
     public function __construct(private PreferenciaRepository $repository)
     {}
 
-    public function create(int $id, int $usuarioId, int $categoriaId): void
+    public function create(int $usuarioId, int $categoriaId): void
     {
-        $preferencia = Preferencia::create($id, $usuarioId, $categoriaId);
+        $preferencia = Preferencia::create(null, $usuarioId, $categoriaId);
         $this->repository->save($preferencia);
     }
 }

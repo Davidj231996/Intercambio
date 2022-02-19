@@ -9,14 +9,14 @@ use App\Usuario\Domain\Usuario;
 class Preferencia extends Root
 {
     public function __construct(
-        private int $id,
+        private ?int $id,
         private Usuario $usuario,
         private Categoria $categoria
     )
     {
     }
 
-    public static function create(int $id, Usuario $usuario, Categoria $categoria): Preferencia
+    public static function create(?int $id, Usuario $usuario, Categoria $categoria): Preferencia
     {
         return new self($id, $usuario, $categoria);
     }
