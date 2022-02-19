@@ -10,7 +10,7 @@ use DateTime;
 class Favorito extends Root
 {
     public function __construct(
-        private int      $id,
+        private ?int      $id,
         private Usuario  $usuario,
         private Objeto   $objeto,
         private DateTime $fecha
@@ -18,7 +18,7 @@ class Favorito extends Root
     {
     }
 
-    public static function create(int $id, Usuario $usuario, Objeto $objeto, DateTime $fecha): Favorito
+    public static function create(?int $id, Usuario $usuario, Objeto $objeto, DateTime $fecha): Favorito
     {
         return new self($id, $usuario, $objeto, $fecha);
     }

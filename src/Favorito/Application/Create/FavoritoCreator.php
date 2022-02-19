@@ -13,9 +13,9 @@ class FavoritoCreator
     {
     }
 
-    public function create(int $id, int $usuarioId, int $objetoId, DateTime $fecha): Favorito
+    public function create(int $usuarioId, int $objetoId, DateTime $fecha): Favorito
     {
-        $favorito = Favorito::create($id, $usuarioId, $objetoId, $fecha);
+        $favorito = Favorito::create(null, $usuarioId, $objetoId, $fecha);
 
         $this->repository->save($favorito);
 
