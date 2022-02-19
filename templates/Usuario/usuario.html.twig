@@ -3,23 +3,23 @@
 
 {% block content %}
     <div id="datosUsuario" class="active">
-        {% embed "datos.html.twig" with {'usuario': usuario} %}
+        {% embed "usuario/datos.html.twig" %}
         {% endembed %}
     </div>
     <div id="objetosUsuario" style="display: none">
-        {% embed "objetos.html.twig" with {'objetos': usuario.objetos} %}
+        {% embed "usuario/objetos.html.twig" with {'objetos': usuario.objetos} %}
         {% endembed %}
     </div>
     <div id="favoritosUsuario" style="display: none">
-        {% embed "favoritos.html.twig" with {'favoritos': usuario.favoritos} %}
+        {% embed "usuario/favoritos.html.twig" with {'favoritos': usuario.favoritos} %}
         {% endembed %}
     </div>
     <div id="preferenciasUsuario" style="display: none">
-        {% embed "preferencias.html.twig" with {'preferencias': usuario.preferencias} %}
+        {% embed "usuario/preferencias.html.twig" with {'preferencias': usuario.preferencias} %}
         {% endembed %}
     </div>
     <div id="reservasUsuario" style="display: none">
-        {% embed "reservas.html.twig" with {'reservas': usuario.reservas} %}
+        {% embed "usuario/reservas.html.twig" with {'reservas': usuario.reservas} %}
         {% endembed %}
     </div>
 {% endblock %}
