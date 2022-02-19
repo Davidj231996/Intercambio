@@ -6,7 +6,7 @@ use App\Usuario\Domain\Usuario;
 use App\Valoracion\Domain\Valoracion;
 use App\Valoracion\Domain\ValoracionRepository;
 
-class ValoracionCreator
+class ValoracionCreate
 {
     public function __construct(private ValoracionRepository $repository)
     {}
