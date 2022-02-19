@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Mis Objetos</h1>
+    </div>
+    <div class="row">
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ objeto.nombre }}</h6>
+                </div>
+                <div class="card-body">
+                    {% if objeto.imagenes is not empty %}
+                        <div class="text-center">
+                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 20rem;"
+                                 src="{{ asset((objeto.imagenes.get(0).ruta)) }}" alt="...">
+                        </div>
+                    {% endif %}
+                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                        Descripción
+                    </div>
+                    <p class="p-indent">{{ objeto.descripcion|u.truncate(100, '...') }}</p>
+                    {% if objeto.usuario == app.user and objeto.reservas is not empty %}
+                        <p>Tiene reservas: </p>
+                        <ul>
+                            {% for reserva in objeto.reservas %}
+                                <li>Reserva realizada por: {{ reserva.usuario.nombre }}
+                                    ({{ reserva.fechaCreacion|date('d/m/Y H:i') }})
+                                    ({{ reserva.estadoToString }})
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No hay reservas</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
