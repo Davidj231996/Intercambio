@@ -15,7 +15,6 @@ class ValoracionCreatorController extends AbstractController
     /**
      * @Route("/valoracionCreator/{valor}")
      * @param float $valor
-     * @param int $valoracionId
      * @return Response
      */
     public function valoracionCreator(float $valor): Response
