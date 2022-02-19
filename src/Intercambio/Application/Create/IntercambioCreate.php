@@ -7,7 +7,7 @@ use App\Intercambio\Domain\IntercambioRepository;
 use App\Objeto\Domain\Objeto;
 use DateTime;
 
-class IntercambioCreator
+class IntercambioCreate
 {
     public function __construct(private IntercambioRepository $repository)
     {
