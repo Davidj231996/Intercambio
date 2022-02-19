@@ -14,7 +14,7 @@
         <many-to-one field="objeto" target-entity="App\Objeto\Domain\Objeto" inversed-by="imagenes">
             <join-column name="objeto_id"/>
         </many-to-one>
-        <one-to-one field="usuarioId" target-entity="App\Usuario\Domain\Usuario">
+        <one-to-one field="usuario" target-entity="App\Usuario\Domain\Usuario" inversed-by="imagen">
             <join-column name="usuario_id"/>
         </one-to-one>
     </entity>

@@ -4,6 +4,7 @@ namespace App\Imagen\Domain;
 
 use App\Objeto\Domain\Objeto;
 use App\Shared\Domain\Root\Root;
+use App\Usuario\Domain\Usuario;
 
 class Imagen extends Root
 {
@@ -11,7 +12,7 @@ class Imagen extends Root
         private int     $id,
         private string  $ruta,
         private ?Objeto     $objeto,
-        private ?int     $usuarioId,
+        private ?Usuario     $usuario,
         private ?string $descripcion
     )
     {
@@ -22,11 +23,11 @@ class Imagen extends Root
         int     $id,
         string  $ruta,
         ?Objeto     $objeto,
-        ?int     $usuarioId,
+        ?Usuario     $usuario,
         ?string $descripcion
     ): Imagen
     {
-        return new self($id, $ruta, $objeto, $usuarioId, $descripcion);
+        return new self($id, $ruta, $objeto, $usuario, $descripcion);
     }
 
     public function id(): int
@@ -49,9 +50,9 @@ class Imagen extends Root
         return $this->objeto;
     }
 
-    public function usuarioId(): int
+    public function usuario(): Usuario
     {
-        return $this->usuarioId;
+        return $this->usuario;
     }
 
     public function update(string $descripcion): void

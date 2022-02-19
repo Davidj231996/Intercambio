@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Usuario\Domain;
 
 use App\Direccion\Domain\Direccion;
+use App\Imagen\Domain\Imagen;
 use App\Shared\Domain\Root\Root;
 use App\Valoracion\Domain\Valoracion;
 use Doctrine\Common\Collections\Collection;
@@ -17,6 +18,7 @@ class Usuario extends Root implements UserInterface, PasswordAuthenticatedUserIn
     private UserPasswordHasherInterface $passwordHasher;
     private ?Valoracion $valoracion = null;
     private ?Direccion $direccion = null;
+    private ?Imagen $imagen = null;
     private ?Collection $objetos = null;
     private ?Collection $preferencias = null;
     private ?Collection $favoritos = null;
@@ -95,6 +97,11 @@ class Usuario extends Root implements UserInterface, PasswordAuthenticatedUserIn
     public function direccion(): Direccion
     {
         return $this->direccion;
+    }
+
+    public function imagen(): ?Imagen
+    {
+        return $this->imagen;
     }
 
     public function preferencias(): Collection
