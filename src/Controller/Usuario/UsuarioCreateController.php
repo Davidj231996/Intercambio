@@ -16,7 +16,7 @@ class UsuarioCreateController extends AbstractController
     }
 
     /**
-     * @Route("/usuarioCreate")
+     * @Route("/usuarioCreate", name="usuario_create")
      * @param Request $request
      * @return Response
      */
