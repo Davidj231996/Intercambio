@@ -31,7 +31,7 @@ class UsuarioController extends AbstractController
             'action' => $this->generateUrl('updatePassword')
         ]);
         $direccionForm = $this->createForm(DireccionUpdateType::class, $usuario->direccion());
-        return $this->render('usuario.html.twig', [
+        return $this->render('usuario/usuario.html.twig', [
             'usuario' => $usuario,
             'usuarioForm' => $usuarioForm->createView(),
             'passwordForm' => $passwordForm->createView(),
