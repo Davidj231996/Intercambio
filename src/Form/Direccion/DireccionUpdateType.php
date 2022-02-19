@@ -17,6 +17,6 @@ class DireccionUpdateType extends AbstractType
             ->add('provincia', TextType::class)
             ->add('comunidadAutonoma', TextType::class)
             ->add('codigoPostal', NumberType::class)
-            ->add('save', SubmitType::class);
+            ->add('actualizar', SubmitType::class);
     }
 }

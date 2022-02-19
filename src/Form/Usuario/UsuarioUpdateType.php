@@ -17,6 +17,6 @@ class UsuarioUpdateType extends AbstractType
             ->add('apellidos', TextType::class)
             ->add('telefono', TelType::class)
             ->add('email', EmailType::class)
-            ->add('save', SubmitType::class);
+            ->add('actualizar', SubmitType::class);
     }
 }
