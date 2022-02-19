@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Objeto\Application\Create\ObjetoCreator;
-use App\Objeto\Infrastructure\Persistence\ObjetoRepositoryMySql;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
