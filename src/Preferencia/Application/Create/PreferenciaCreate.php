@@ -7,7 +7,7 @@ use App\Preferencia\Domain\Preferencia;
 use App\Preferencia\Domain\PreferenciaRepository;
 use App\Usuario\Domain\Usuario;
 
-class PreferenciaCreator
+class PreferenciaCreate
 {
     public function __construct(private PreferenciaRepository $repository)
     {}
