@@ -15,12 +15,13 @@ final class UsuarioCreator
     {
     }
 
-    public function create(string $alias, string $nombre, string $apellidos, string $telefono, string $email, string $password): void
+    public function create(array $usuarioRequest): Usuario
     {
-        $usuario = Usuario::create(null, $alias, $nombre, $apellidos, $telefono, $email, $password);
-        $usuario->setPassword($this->passwordHasher->hashPassword($usuario, $password));
+        $usuario = Usuario::create(null, $usuarioRequest['alias'], $usuarioRequest['nombre'], $usuarioRequest['apellidos'], $usuarioRequest['telefono'], $usuarioRequest['email'], $usuarioRequest['password']);
+        $usuario->setPassword($this->passwordHasher->hashPassword($usuario, $usuario->password()));
 
         $this->repository->save($usuario);
+        return $usuario;
     }
 
 }
