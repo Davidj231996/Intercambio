@@ -13,14 +13,13 @@ class ValoracionAddController extends AbstractController
     {}
 
     /**
-     * @Route("/valoracionAdd/{usuarioId}/{valor}")
-     * @param int $usuarioId
+     * @Route("/valoracionAdd/{valor}")
      * @param float $valor
      * @return Response
      */
-    public function valoracionAdd(int $usuarioId, float $valor): Response
+    public function valoracionAdd(float $valor): Response
     {
-        $this->add->add($usuarioId, $valor);
+        $this->add->add($this->getUser(), $valor);
         return $this->render('index.html.twig');
     }
 }

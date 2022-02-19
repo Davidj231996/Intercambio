@@ -2,18 +2,17 @@
 
 namespace App\Valoracion\Application\Create;
 
-use App\Usuario\Domain\UsuarioRepository;
+use App\Usuario\Domain\Usuario;
 use App\Valoracion\Domain\Valoracion;
 use App\Valoracion\Domain\ValoracionRepository;
 
 class ValoracionCreator
 {
-    public function __construct(private ValoracionRepository $repository, private UsuarioRepository $usuarioRepository)
+    public function __construct(private ValoracionRepository $repository)
     {}
 
-    public function create(int $usuarioId, float $valor): void
+    public function create(Usuario $usuario, float $valor): void
     {
-        $usuario = $this->usuarioRepository->search($usuarioId);
         $valoracion = Valoracion::create(null, $usuario, $valor);
         $this->repository->save($valoracion);
     }

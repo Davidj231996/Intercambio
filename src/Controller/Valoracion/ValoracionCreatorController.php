@@ -13,15 +13,14 @@ class ValoracionCreatorController extends AbstractController
     {}
 
     /**
-     * @Route("/valoracionCreator/{usuarioId}/{valor}")
-     * @param int $valoracionId
-     * @param int $usuarioId
+     * @Route("/valoracionCreator/{valor}")
      * @param float $valor
+     * @param int $valoracionId
      * @return Response
      */
-    public function valoracionCreator(int $usuarioId, float $valor): Response
+    public function valoracionCreator(float $valor): Response
     {
-        $this->creator->create($usuarioId, $valor);
+        $this->creator->create($this->getUser(), $valor);
         return $this->render('index.html.twig');
     }
 }
