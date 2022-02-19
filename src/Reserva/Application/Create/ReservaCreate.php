@@ -8,7 +8,7 @@ use App\Reserva\Domain\ReservaRepository;
 use App\Usuario\Domain\Usuario;
 use DateTime;
 
-class ReservaCreator
+class ReservaCreate
 {
     public function __construct(private ReservaRepository $repository)
     {
