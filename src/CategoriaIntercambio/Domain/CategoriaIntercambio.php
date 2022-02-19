@@ -8,13 +8,13 @@ use App\Objeto\Domain\Objeto;
 class CategoriaIntercambio
 {
     public function __construct(
-        private int $id,
+        private ?int $id,
         private Objeto $objeto,
         private Categoria $categoria
     )
     {}
 
-    public static function create(int $id, Objeto $objeto, Categoria $categoria): CategoriaIntercambio
+    public static function create(?int $id, Objeto $objeto, Categoria $categoria): CategoriaIntercambio
     {
         return new self($id, $objeto, $categoria);
     }
