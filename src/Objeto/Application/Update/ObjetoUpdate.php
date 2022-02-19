@@ -4,6 +4,7 @@ namespace App\Objeto\Application\Update;
 
 use App\Objeto\Domain\ObjetoFinder;
 use App\Objeto\Domain\ObjetoRepository;
+use App\Usuario\Domain\Usuario;
 
 class ObjetoUpdate
 {
@@ -14,10 +15,10 @@ class ObjetoUpdate
         $this->finder = new ObjetoFinder($repository);
     }
 
-    public function update(int $id, string $nombre, string $descripcion, int $estado, int $usuarioId): void
+    public function update(int $id, string $nombre, string $descripcion, int $estado): void
     {
         $objeto = $this->finder->__invoke($id);
-        $objeto->update($nombre, $descripcion, $estado, $usuarioId);
+        $objeto->update($nombre, $descripcion, $estado);
         $this->repository->save($objeto);
     }
 }

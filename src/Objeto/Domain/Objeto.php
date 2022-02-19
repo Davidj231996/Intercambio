@@ -97,12 +97,11 @@ class Objeto extends Root
     }
 
     public function update(
-        string $nombre, string $descripcion, int $estado, Usuario $usuario
+        string $nombre, string $descripcion, int $estado
     )
     {
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
         $this->estado = $estado;
-        $this->usuario = $usuario;
     }
 }
