@@ -20,7 +20,7 @@ class Objeto extends Root
     private ?Intercambio $intercambiar = null;
 
     public function __construct(
-        private int $id,
+        private ?int $id,
         private string $nombre,
         private string $descripcion,
         private int $estado,
@@ -30,7 +30,7 @@ class Objeto extends Root
     }
 
     public static function create(
-        int $id, string $nombre, string $descripcion, int $estado, Usuario $usuario
+        ?int $id, string $nombre, string $descripcion, int $estado, Usuario $usuario
     ) : Objeto
     {
         return new self($id, $nombre, $descripcion, $estado, $usuario);
