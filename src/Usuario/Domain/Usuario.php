@@ -9,13 +9,11 @@ use App\Imagen\Domain\Imagen;
 use App\Shared\Domain\Root\Root;
 use App\Valoracion\Domain\Valoracion;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class Usuario extends Root implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    private UserPasswordHasherInterface $passwordHasher;
     private ?Valoracion $valoracion = null;
     private ?Direccion $direccion = null;
     private ?Imagen $imagen = null;
@@ -125,8 +123,7 @@ class Usuario extends Root implements UserInterface, PasswordAuthenticatedUserIn
         string $nombre,
         string $apellidos,
         string $telefono,
-        string $email,
-        string $password
+        string $email
     ): void
     {
         $this->alias = $alias;
@@ -134,7 +131,6 @@ class Usuario extends Root implements UserInterface, PasswordAuthenticatedUserIn
         $this->apellidos = $apellidos;
         $this->telefono = $telefono;
         $this->email = $email;
-        $this->password = $password;
     }
 
     /**
