@@ -2,8 +2,10 @@
 
 namespace App\Reserva\Application\Create;
 
+use App\Objeto\Domain\Objeto;
 use App\Reserva\Domain\Reserva;
 use App\Reserva\Domain\ReservaRepository;
+use App\Usuario\Domain\Usuario;
 use DateTime;
 
 class ReservaCreator
@@ -12,10 +14,10 @@ class ReservaCreator
     {
     }
 
-    public function create(int $usuarioId, int $objetoId): void
+    public function create(Usuario $usuario, Objeto $objeto): void
     {
         $now = new DateTime();
-        $reserva = Reserva::create(null, $usuarioId, $objetoId, $now, $now);
+        $reserva = Reserva::create(null, $usuario, $objeto, $now, $now);
         $this->repository->save($reserva);
     }
 }
