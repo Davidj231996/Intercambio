@@ -20,7 +20,7 @@ class ObjetoController extends AbstractController
      */
     public function objeto(int $objetoId): Response
     {
-        return $this->render('objeto.html.twig', [
+        return $this->render('objeto/objeto.html.twig', [
             'objeto' => $this->finder->__invoke($objetoId)
         ]);
     }
