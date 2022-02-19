@@ -9,7 +9,7 @@ use App\Usuario\Domain\Usuario;
 class Imagen extends Root
 {
     public function __construct(
-        private int     $id,
+        private ?int     $id,
         private string  $ruta,
         private ?Objeto     $objeto,
         private ?Usuario     $usuario,
@@ -20,7 +20,7 @@ class Imagen extends Root
     }
 
     public static function create(
-        int     $id,
+        ?int     $id,
         string  $ruta,
         ?Objeto     $objeto,
         ?Usuario     $usuario,

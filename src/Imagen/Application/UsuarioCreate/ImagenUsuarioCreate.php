@@ -12,9 +12,9 @@ class ImagenUsuarioCreate
     {
     }
 
-    public function create(int $id, string $ruta, Usuario $usuario, ?string $descripcion): Imagen
+    public function create(string $ruta, Usuario $usuario, ?string $descripcion): Imagen
     {
-        $imagen = Imagen::create($id, $ruta, null, $usuario, $descripcion);
+        $imagen = Imagen::create(null, $ruta, null, $usuario, $descripcion);
         $this->repository->save($imagen);
         return $imagen;
     }
