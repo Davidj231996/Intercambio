@@ -1,7 +1,9 @@
-<p>Hola mundo</p>
+{% extends 'base.html.twig' %}
 
-{% if app.user %}
-<a href="{{ path('usuario', {'usuarioId': app.user.id}) }}">Ir a ver admin</a>
-{% else %}
-    <a href="{{ path('login') }}">Login</a>
-{% endif %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    {% if app.user %}
+        <p>Bienvenido de nuevo {{ app.user.nombre }}</p>
+    {% endif %}
+{% endblock %}
