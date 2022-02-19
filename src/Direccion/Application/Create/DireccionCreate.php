@@ -7,7 +7,7 @@ use App\Direccion\Domain\DireccionRepository;
 use App\Usuario\Domain\Usuario;
 use App\Usuario\Domain\UsuarioFinder;
 
-class DireccionCreator
+class DireccionCreate
 {
     public function __construct(private DireccionRepository $repository, private UsuarioFinder $usuarioFinder)
     {

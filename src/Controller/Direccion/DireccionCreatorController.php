@@ -2,7 +2,7 @@
 
 namespace App\Controller\Direccion;
 
-use App\Direccion\Application\Create\DireccionCreator;
+use App\Direccion\Application\Create\DireccionCreate;
 use App\Form\Direccion\DireccionType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DireccionCreatorController extends AbstractController
 {
-    public function __construct(private DireccionCreator $creator)
+    public function __construct(private DireccionCreate $creator)
     {}
 
     /**
