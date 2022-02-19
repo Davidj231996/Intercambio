@@ -8,7 +8,7 @@ use App\Objeto\Domain\Objeto;
 use App\Usuario\Domain\Usuario;
 use DateTime;
 
-class FavoritoCreator
+class FavoritoCreate
 {
 
     public function __construct(private FavoritoRepository $repository)
