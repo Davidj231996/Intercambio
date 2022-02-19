@@ -17,12 +17,12 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/base.css') }}" rel="stylesheet">
 </head>
-<body id="page-top">
+<body class="" id="page-top">
 <!-- Page Wrapper -->
 <div id="wrapper">
 
     <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content-wrapper" class="d-flex flex-column min-vh-100">
 
         <!-- Main Content -->
         <div id="content">
@@ -217,52 +217,51 @@
 
                     <div class="topbar-divider d-none d-sm-block"></div>
 
-                    <!-- Nav Item - User Information -->
-                    <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {% if app.user %}
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                {% if usuario is defined and usuario.valoracion is not null %}
-                                    {{ usuario.valoracion.valor|round(2, 'floor') }}
-                                    {% set valor = usuario.valoracion.valor %}
+                                {% if app.user.valoracion is not null %}
+                                    {{ app.user.valoracion.valor|round(2, 'floor') }}
+                                    {% set valor = app.user.valoracion.valor %}
                                     {% for i in 1..valor %}
                                         <i class="fa fa-star"></i>
                                     {% endfor %}
-                                    {% if valor != 5 and (valor - valor|round(0, 'floor')) != 0 %}
+                                {% if valor != 5 and (valor - valor|round(0, 'floor')) != 0 %}
                                     <i class="fa fa-star-half"></i>
                                 {% endif %}
-                                {% else %}
-                                    Douglas McGee
                                 {% endif %}
                             </span>
-                            <img class="img-profile rounded-circle"
-                                 src="{{ asset('images/profile_' ~ random(1, 4) ~ '.svg') }}">
-                            {% if usuario is defined %}
-                                <span>David</span>
-                            {% endif %}
-                        </a>
-                        <!-- Dropdown - User Information -->
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                             aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
+                                <img class="img-profile rounded-circle"
+                                     src="{{ asset('images/profile_' ~ random(1, 4) ~ '.svg') }}">
+                                <span>{{ app.user.alias }}</span>
                             </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Settings
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{{ path('usuario', {'usuarioId': app.user.id}) }}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path('logout') }}">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link" href="{{ path('login') }}" id="login" role="button">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                <i class="fa fa-right-to-bracket"></i>
+                                    Login
+                            </span>
                             </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Activity Log
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
-                            </a>
-                        </div>
-                    </li>
+                        </li>
+                    {% endif %}
 
                 </ul>
 
@@ -609,7 +608,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <footer class="sticky-footer bg-white">
+        <footer class="mt-auto sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
                     <span>Copyright &copy; Your Website 2021</span>
@@ -628,26 +627,6 @@
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Bootstrap core JavaScript-->
 <script src="{{ asset('jquery/jquery.min.js') }}"></script>
