@@ -8,7 +8,7 @@ use App\Usuario\Domain\Usuario;
 class Direccion extends Root
 {
     public function __construct(
-        private int    $id,
+        private ?int    $id,
         private string $direccion,
         private string $ciudad,
         private string $provincia,
@@ -19,7 +19,7 @@ class Direccion extends Root
     {
     }
 
-    public static function create(int $id, string $direccion, string $ciudad, string $provincia, string $comunidadAutonoma, string $codigoPostal, Usuario $usuario): Direccion
+    public static function create(?int $id, string $direccion, string $ciudad, string $provincia, string $comunidadAutonoma, string $codigoPostal, Usuario $usuario): Direccion
     {
         return new self($id, $direccion, $ciudad, $provincia, $comunidadAutonoma, $codigoPostal, $usuario);
     }
