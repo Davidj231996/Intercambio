@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Imagen\Application\Create;
+namespace App\Imagen\Application\ObjetoCreate;
 
 use App\Imagen\Domain\Imagen;
 use App\Imagen\Domain\ImagenRepository;
 use App\Objeto\Domain\Objeto;
 
-class ImagenCreator
+class ImagenObjetoCreate
 {
     public function __construct(private ImagenRepository $repository)
     {
