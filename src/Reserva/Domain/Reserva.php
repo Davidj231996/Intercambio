@@ -14,7 +14,7 @@ class Reserva extends Root
     public const ESTADO_ACEPTADO = 1;
 
     public function __construct(
-        private int $id,
+        private ?int $id,
         private Usuario $usuario,
         private Objeto $objeto,
         private DateTime $fechaCreacion,
@@ -23,7 +23,7 @@ class Reserva extends Root
     )
     {}
 
-    public static function create(int $id, Usuario $usuario, Objeto $objeto, DateTime $fechaCreacion, DateTime $fechaActualizacion): Reserva
+    public static function create(?int $id, Usuario $usuario, Objeto $objeto, DateTime $fechaCreacion, DateTime $fechaActualizacion): Reserva
     {
         return new self($id, $usuario, $objeto, $fechaCreacion, $fechaActualizacion, self::ESTADO_PENDIENTE);
     }

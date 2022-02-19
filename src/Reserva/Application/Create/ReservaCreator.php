@@ -12,10 +12,10 @@ class ReservaCreator
     {
     }
 
-    public function create(int $id, int $usuarioId, int $objetoId): void
+    public function create(int $usuarioId, int $objetoId): void
     {
         $now = new DateTime();
-        $reserva = Reserva::create($id, $usuarioId, $objetoId, $now, $now);
+        $reserva = Reserva::create(null, $usuarioId, $objetoId, $now, $now);
         $this->repository->save($reserva);
     }
 }
