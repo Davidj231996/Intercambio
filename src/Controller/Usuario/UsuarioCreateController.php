@@ -3,7 +3,7 @@
 namespace App\Controller\Usuario;
 
 use App\Form\Usuario\UsuarioType;
-use App\Usuario\Application\Create\UsuarioCreator;
+use App\Usuario\Application\Create\UsuarioCreate;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UsuarioCreateController extends AbstractController
 {
-    public function __construct(private UsuarioCreator $creator)
+    public function __construct(private UsuarioCreate $creator)
     {
     }
 

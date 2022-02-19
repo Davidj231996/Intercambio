@@ -9,7 +9,7 @@ use App\Usuario\Domain\Usuario;
 use App\Usuario\Domain\UsuarioRepository;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-final class UsuarioCreator
+final class UsuarioCreate
 {
     public function __construct(private UsuarioRepository $repository, private UserPasswordHasherInterface $passwordHasher)
     {
