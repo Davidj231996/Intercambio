@@ -2,20 +2,20 @@
 
 namespace App\Tests\Objeto\Application\Create;
 
-use App\Objeto\Application\Create\ObjetoCreator;
+use App\Objeto\Application\Create\ObjetoCreate;
 use App\Objeto\Domain\Objeto;
 use App\Tests\Objeto\ObjetoModuleUnitCase;
 use App\Usuario\Domain\Usuario;
 
-final class ObjetoCreatorTest extends ObjetoModuleUnitCase
+final class ObjetoCreateTest extends ObjetoModuleUnitCase
 {
-    private ObjetoCreator|null $creator;
+    private ObjetoCreate|null $creator;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->creator = new ObjetoCreator($this->repository());
+        $this->creator = new ObjetoCreate($this->repository());
     }
 
     public function testCrearObjeto()
@@ -28,7 +28,7 @@ final class ObjetoCreatorTest extends ObjetoModuleUnitCase
         $usuario = Usuario::create(1, '', '', '', '', '', '');
         $objeto = Objeto::create($id, $nombre, $descripcion, $estado, $usuario);
         $this->shouldSave($objeto);
-        $this->creator->create($id, $nombre, $descripcion, $estado, $usuario);
+        $this->creator->create($nombre, $descripcion, $estado, $usuario);
 
         print("Objeto creado");
     }
