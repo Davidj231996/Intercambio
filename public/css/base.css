@@ -11349,3 +11349,7 @@ body.sidebar-toggled footer.sticky-footer {
 #menuUsuario li {
     cursor: pointer;
 }
+
+#objetoCreate {
+    margin-top: 12.5%;
+}
