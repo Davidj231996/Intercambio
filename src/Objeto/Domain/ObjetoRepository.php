@@ -16,4 +16,6 @@ interface ObjetoRepository
     public function searchByUsuario(Usuario $usuario): ?Objetos;
 
     public function searchByCriteria(Criteria $criteria): ?Objetos;
+
+    public function delete(Objeto $objeto): void;
 }

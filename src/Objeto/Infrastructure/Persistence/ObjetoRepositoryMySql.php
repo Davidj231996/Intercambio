@@ -40,4 +40,9 @@ final class ObjetoRepositoryMySql extends DoctrineRepository implements ObjetoRe
 
         return new Objetos($objetos);
     }
+
+    public function delete(Objeto $objeto): void
+    {
+        $this->remove($objeto);
+    }
 }
