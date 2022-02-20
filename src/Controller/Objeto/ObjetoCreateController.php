@@ -31,10 +31,8 @@ class ObjetoCreateController extends AbstractController
      */
     public function create(Request $request): RedirectResponse|Response
     {
-        $categorias = $this->finder->__invoke();
-        $form = $this->createForm(ObjetoCreateType::class, null, [
-            'categorias' => $categorias
-        ]);
+//        $categorias = $this->finder->__invoke();
+        $form = $this->createForm(ObjetoCreateType::class, null);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

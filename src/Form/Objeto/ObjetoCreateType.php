@@ -3,6 +3,7 @@
 namespace App\Form\Objeto;
 
 use App\Categoria\Domain\Categoria;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -19,7 +20,9 @@ class ObjetoCreateType extends AbstractType
             ->add('descripcion', TextType::class)
             ->add('categorias', EntityType::class, [
                 'class' => Categoria::class,
-                'choices' => $options['categorias'],
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('categoria');
+                },
                 'choice_label' => 'nombre',
                 'multiple' => true,
                 'attr' => [
