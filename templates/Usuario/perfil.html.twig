@@ -1,0 +1,25 @@
+{% extends "baseUsuario.html.twig" %}
+{% block title %}{{ usuario.nombre }} {{ usuario.apellidos }}{% endblock %}
+
+{% block content %}
+    <div id="datosUsuario" class="active">
+        {% embed "usuario/datosPerfil.html.twig" %}
+        {% endembed %}
+    </div>
+    <div id="objetosUsuario" style="display: none">
+        {% embed "usuario/objetosPerfil.html.twig" with {'objetos': usuario.objetos} %}
+        {% endembed %}
+    </div>
+    <div id="favoritosUsuario" style="display: none">
+        {% embed "usuario/favoritos.html.twig" with {'favoritos': usuario.favoritos} %}
+        {% endembed %}
+    </div>
+    <div id="preferenciasUsuario" style="display: none">
+        {% embed "usuario/preferenciasPerfil.html.twig" with {'preferencias': usuario.preferencias} %}
+        {% endembed %}
+    </div>
+    <div id="reservasUsuario" style="display: none">
+        {% embed "usuario/reservas.html.twig" with {'reservas': usuario.reservas} %}
+        {% endembed %}
+    </div>
+{% endblock %}
