@@ -24,7 +24,8 @@ class CategoriaRepositoryMySql extends DoctrineRepository implements CategoriaRe
 
     public function searchAll(): Categorias
     {
-        return $this->repository(Categoria::class)->findAll();
+        $categorias = $this->repository(Categoria::class)->findAll();
+        return new Categorias($categorias);
     }
 
     public function searchByCriteria(Criteria $criteria): Categorias
