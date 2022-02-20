@@ -2,7 +2,6 @@
 
 namespace App\Controller\Objeto;
 
-use App\Categoria\Domain\CategoriasFinder;
 use App\CategoriaObjeto\Application\AddCategorias\AddCategoriasObjeto;
 use App\Form\Objeto\ObjetoCreateType;
 use App\Imagen\Application\ObjetoCreate\ImagenObjetoCreate;
@@ -17,7 +16,6 @@ class ObjetoCreateController extends AbstractController
 {
     public function __construct(
         private ObjetoCreate $objetoCreate,
-        private CategoriasFinder $finder,
         private AddCategoriasObjeto $addCategoriasObjeto,
         private ImagenObjetoCreate $imagenObjetoCreate
     )
@@ -31,7 +29,6 @@ class ObjetoCreateController extends AbstractController
      */
     public function create(Request $request): RedirectResponse|Response
     {
-//        $categorias = $this->finder->__invoke();
         $form = $this->createForm(ObjetoCreateType::class, null);
 
         $form->handleRequest($request);
