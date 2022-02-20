@@ -15,8 +15,8 @@ class ImagenObjetoCreate
 
     public function create(UploadedFile $imagen, Objeto $objeto): Imagen
     {
-        $imagen->move('public/images', $imagen->getClientOriginalName());
-        $imagenObjeto = Imagen::create(null, 'images/' . $imagen->getClientOriginalName(), $objeto, null, $imagen->getClientOriginalName());
+        $imagen->move('images/objetos', $objeto->id() . '.' . $imagen->getClientOriginalExtension());
+        $imagenObjeto = Imagen::create(null, 'images/objetos/' . $objeto->id() . '.' . $imagen->getClientOriginalExtension(), $objeto, null, $imagen->getClientOriginalName());
         $this->repository->save($imagenObjeto);
         return $imagenObjeto;
     }
