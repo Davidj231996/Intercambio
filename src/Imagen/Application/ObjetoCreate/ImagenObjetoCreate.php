@@ -5,6 +5,7 @@ namespace App\Imagen\Application\ObjetoCreate;
 use App\Imagen\Domain\Imagen;
 use App\Imagen\Domain\ImagenRepository;
 use App\Objeto\Domain\Objeto;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImagenObjetoCreate
 {
@@ -12,10 +13,11 @@ class ImagenObjetoCreate
     {
     }
 
-    public function create(string $ruta, Objeto $objeto, ?string $descripcion): Imagen
+    public function create(UploadedFile $imagen, Objeto $objeto): Imagen
     {
-        $imagen = Imagen::create(null, $ruta, $objeto, null, $descripcion);
-        $this->repository->save($imagen);
-        return $imagen;
+        $imagen->move('public/images', $imagen->getClientOriginalName());
+        $imagenObjeto = Imagen::create(null, 'images/' . $imagen->getClientOriginalName(), $objeto, null, $imagen->getClientOriginalName());
+        $this->repository->save($imagenObjeto);
+        return $imagenObjeto;
     }
 }
