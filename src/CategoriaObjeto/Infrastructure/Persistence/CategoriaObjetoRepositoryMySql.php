@@ -12,4 +12,9 @@ class CategoriaObjetoRepositoryMySql extends DoctrineRepository implements Categ
     {
         $this->persist($objeto);
     }
+
+    public function delete(CategoriaObjeto $categoriaObjeto): void
+    {
+        $this->remove($categoriaObjeto);
+    }
 }
