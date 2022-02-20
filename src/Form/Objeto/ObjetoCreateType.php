@@ -2,11 +2,14 @@
 
 namespace App\Form\Objeto;
 
+use App\Categoria\Domain\Categoria;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ObjetoCreateType extends AbstractType
 {
@@ -14,9 +17,26 @@ class ObjetoCreateType extends AbstractType
     {
         $builder->add('nombre', TextType::class)
             ->add('descripcion', TextType::class)
-            ->add('categorias', ChoiceType::class, [
-                'choices' => $options['categorias']
+            ->add('categorias', EntityType::class, [
+                'class' => Categoria::class,
+                'choices' => $options['categorias'],
+                'choice_label' => 'nombre',
+                'multiple' => true,
+                'attr' => [
+                    'class' => 'selectpicker pl-4',
+                ]
+            ])
+            ->add('imagen', FileType::class, [
+                'required' => false
             ])
             ->add('save', SubmitType::class);
+    }
+
+    public function configureOptions(OptionsResolver  $resolver)
+    {
+        $resolver->setDefaults([
+            // default form options
+            'categorias' => []
+        ]);
     }
 }
