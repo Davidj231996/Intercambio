@@ -39,7 +39,7 @@ class ObjetoCreateController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $objeto = $this->objetoCreate->create($data, $this->getUser());
+            $objeto = $this->objetoCreate->create($data['nombre'], $data['descripcion'], $this->getUser());
             if (isset($data['imagen'])) {
                 $this->imagenObjetoCreate->create($data['imagen'], $objeto);
             }

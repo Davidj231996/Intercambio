@@ -15,9 +15,9 @@ final class UsuarioCreate
     {
     }
 
-    public function create(array $usuarioRequest): Usuario
+    public function create($alias, $nombre, $apellidos, $telefono, $email, $password): Usuario
     {
-        $usuario = Usuario::create(null, $usuarioRequest['alias'], $usuarioRequest['nombre'], $usuarioRequest['apellidos'], $usuarioRequest['telefono'], $usuarioRequest['email'], $usuarioRequest['password']);
+        $usuario = Usuario::create(null, $alias, $nombre, $apellidos, $telefono, $email, $password);
         $usuario->setPassword($this->passwordHasher->hashPassword($usuario, $usuario->password()));
 
         $this->repository->save($usuario);

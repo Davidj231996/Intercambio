@@ -16,9 +16,9 @@ final class ObjetoCreate
     {
     }
 
-    public function create(array $objetoRequest, Usuario $usuario): Objeto
+    public function create(string $nombre, string $descripcion, Usuario $usuario): Objeto
     {
-        $objeto = Objeto::create(null, $objetoRequest['nombre'], $objetoRequest['descripcion'], 0, $usuario);
+        $objeto = Objeto::create(null, $nombre, $descripcion, 0, $usuario);
 
         $this->repository->save($objeto);
 

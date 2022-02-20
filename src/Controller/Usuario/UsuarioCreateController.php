@@ -26,7 +26,8 @@ class UsuarioCreateController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $usuario = $this->creator->create($request->get('usuario'));
+            $data = $form->getData();
+            $usuario = $this->creator->create($data['alias'], $data['nombre'], $data['apellidos'], $data['telefono'], $data['email'], $data['password']);
             return $this->redirectToRoute('direccion_creator', ['usuarioId' => $usuario->id()]);
         }
         return $this->renderForm('usuario/create.html.twig', [

@@ -13,10 +13,10 @@ class DireccionCreate
     {
     }
 
-    public function create(array $direccionRequest): Direccion
+    public function create(string $direccion, string $ciudad, string $provincia, string $comunidadAutonoma, string $codigoPostal, int $usuarioId): Direccion
     {
-        $usuario = $this->usuarioFinder->__invoke($direccionRequest['usuario']);
-        $direccion = Direccion::create(null, $direccionRequest['direccion'], $direccionRequest['ciudad'], $direccionRequest['provincia'], $direccionRequest['comunidadAutonoma'], $direccionRequest['codigoPostal'], $usuario);
+        $usuario = $this->usuarioFinder->__invoke($usuarioId);
+        $direccion = Direccion::create(null, $direccion, $ciudad, $provincia, $comunidadAutonoma, $codigoPostal, $usuario);
         $this->repository->save($direccion);
         return $direccion;
     }
