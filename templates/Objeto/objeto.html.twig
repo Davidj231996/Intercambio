@@ -1,3 +1,8 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Objeto {{ objeto.nombre }}{% endblock %}
+
+{% block content %}
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -21,6 +26,18 @@
                         Descripción
                     </div>
                     <p class="p-indent">{{ objeto.descripcion|u.truncate(100, '...') }}</p>
+                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                        Categorias
+                    </div>
+                    {% if objeto.categorias is not empty %}
+                        <ul>
+                            {% for categoria in objeto.categorias %}
+                                <li>{{ categoria.categoria.nombre }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="p-indent">Sin categorias</p>
+                    {% endif %}
                     {% if objeto.usuario == app.user and objeto.reservas is not empty %}
                         <p>Tiene reservas: </p>
                         <ul>
@@ -39,3 +56,4 @@
         </div>
     </div>
 </div>
+{% endblock %}
