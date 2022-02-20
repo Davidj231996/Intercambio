@@ -8,5 +8,7 @@ interface CategoriaRepository
 {
     public function search(int $id): ?Categoria;
 
+    public function searchAll(): Categorias;
+
     public function searchByCriteria(Criteria $criteria): Categorias;
 }
