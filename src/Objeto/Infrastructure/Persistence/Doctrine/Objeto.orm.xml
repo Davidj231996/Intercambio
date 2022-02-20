@@ -26,6 +26,7 @@
         <one-to-many field="categorias" target-entity="App\CategoriaObjeto\Domain\CategoriaObjeto" mapped-by="objeto">
             <cascade>
                 <cascade-remove/>
+                <cascade-persist/>
             </cascade>
         </one-to-many>
         <one-to-many field="categoriasIntercambio" target-entity="App\CategoriaIntercambio\Domain\CategoriaIntercambio" mapped-by="objeto"/>
