@@ -18,7 +18,8 @@
                 <div class="card-body">
                     {% if objeto.imagenes is not empty %}
                         <div class="text-center">
-                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 20rem;"
+                            <img title="{{ objeto.imagenes.get(0).descripcion }}" alt="{{ objeto.imagenes.get(0).descripcion }}"
+                                 class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 20rem;"
                                  src="{{ asset((objeto.imagenes.get(0).ruta)) }}" alt="...">
                         </div>
                     {% endif %}
