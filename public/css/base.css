@@ -10337,11 +10337,12 @@ a:focus {
 
 .sidebar {
     width: 6.5rem;
-    height: 4.375rem;
+    min-height: 100vh;
 }
 
 .sidebar-full {
-    min-height: 100vh;
+    height: 4.375rem;
+    min-height: 4.375rem !important;
 }
 
 .sidebar .nav-item {
@@ -10565,8 +10566,9 @@ a:focus {
         font-size: 0.85rem;
         margin-right: 0.25rem;
     }
-    .sidebar .nav-item span.nav-link {
+    .sidebar .nav-item .nav-link span {
         font-size: 0.85rem;
+        display: inline;
     }
     .sidebar .nav-item .nav-link[data-toggle="collapse"]::after {
         width: 1rem;
@@ -11312,27 +11314,6 @@ body.sidebar-toggled footer.sticky-footer {
 
 .pointer-element {
     cursor: pointer;
-}
-
-/* fixed and fluid only on sm and up */
-@media (min-width: 768px) {
-    .left {
-        position:fixed;
-    }
-    .fixed {
-        min-height: 100vh;
-        min-width: 14rem;
-        max-width: 14rem;
-    }
-    .col .fluid {
-        min-height: 100vh;
-    }
-    .flex-grow {
-        flex:1;
-    }
-    #topNav { width: calc(100vh-200px);
-        margin-left:180px;
-    }
 }
 
 .body-fluid {
