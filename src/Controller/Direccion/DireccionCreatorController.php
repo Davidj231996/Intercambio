@@ -29,8 +29,8 @@ class DireccionCreatorController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $direccion = $this->creator->create($data['direccion'], $data['ciudad'], $data['provincia'], $data['comunidadAutonoma'], $data['codigoPostal'], $data['usuario']);
-            return $this->redirectToRoute('usuario', ['usuarioId' => $direccion->usuario()->id()]);
+            $this->creator->create($data['direccion'], $data['ciudad'], $data['provincia'], $data['comunidadAutonoma'], $data['codigoPostal'], $data['usuario']);
+            return $this->redirectToRoute('login');
         }
         return $this->renderForm('direccion/create.html.twig', [
             'form' => $form
