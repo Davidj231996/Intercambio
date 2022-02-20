@@ -10,6 +10,15 @@
             </div>
             <div class="card-body">
                 <p>Alias: {{ usuario.alias }}</p>
+                {{ form(usuarioForm) }}
+            </div>
+        </div>
+        <div class="cardCompleta shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Contraseña</h6>
+            </div>
+            <div class="card-body">
+                {{ form(passwordForm) }}
             </div>
         </div>
         <div class="cardCompleta shadow mb-4">
@@ -17,7 +26,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">Dirección</h6>
             </div>
             <div class="card-body">
-                <p>Direccion: {{ usuario.direccion.provincia }}</p>
+                {{ form(direccionForm) }}
             </div>
         </div>
     </div>
