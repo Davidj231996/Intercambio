@@ -22,6 +22,11 @@ class CategoriaRepositoryMySql extends DoctrineRepository implements CategoriaRe
         return $this->repository(Categoria::class)->find($id);
     }
 
+    public function searchAll(): Categorias
+    {
+        return $this->repository(Categoria::class)->findAll();
+    }
+
     public function searchByCriteria(Criteria $criteria): Categorias
     {
         $doctrineCriteria = DoctrineCriteriaConverter::convert($criteria, self::$criteriaToDoctrineFields);
