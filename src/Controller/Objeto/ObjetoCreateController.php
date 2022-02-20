@@ -3,7 +3,9 @@
 namespace App\Controller\Objeto;
 
 use App\Categoria\Domain\CategoriasFinder;
+use App\CategoriaObjeto\Application\AddCategorias\AddCategoriasObjeto;
 use App\Form\Objeto\ObjetoCreateType;
+use App\Imagen\Application\ObjetoCreate\ImagenObjetoCreate;
 use App\Objeto\Application\Create\ObjetoCreate;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -13,7 +15,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ObjetoCreateController extends AbstractController
 {
-    public function __construct(private ObjetoCreate $objetoCreate, private CategoriasFinder $finder)
+    public function __construct(
+        private ObjetoCreate $objetoCreate,
+        private CategoriasFinder $finder,
+        private AddCategoriasObjeto $addCategoriasObjeto,
+        private ImagenObjetoCreate $imagenObjetoCreate
+    )
     {
     }
 
@@ -31,7 +38,12 @@ class ObjetoCreateController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $objeto = $this->objetoCreate->create($request->get('objeto'), $this->getUser());
+            $data = $form->getData();
+            $objeto = $this->objetoCreate->create($data, $this->getUser());
+            if (isset($data['imagen'])) {
+                $this->imagenObjetoCreate->create($data['imagen'], $objeto);
+            }
+            $this->addCategoriasObjeto->addCategoriasObjeto($data['categorias'], $objeto);
             return $this->redirectToRoute('objeto', ['objetoId' => $objeto->id()]);
         }
         return $this->renderForm('objeto/create.html.twig', [
