@@ -23,7 +23,7 @@ class ObjetosBusqueda
             'value' => $busqueda
         ]);
         $filterDescripcion = Filter::fromValues([
-            'field' => 'nombre',
+            'field' => 'descripcion',
             'operator' => FilterOperator::CONTAINS,
             'value' => $busqueda
         ]);
