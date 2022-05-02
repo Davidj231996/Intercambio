@@ -8,8 +8,11 @@ use App\Usuario\Domain\UsuarioRepository;
 
 class UsuarioUpdate
 {
-    public function __construct(private UsuarioRepository $repository, private UsuarioFinder $finder)
+    private UsuarioFinder $finder;
+
+    public function __construct(private UsuarioRepository $repository)
     {
+        $this->finder = new UsuarioFinder($repository);
     }
 
     public function update(int $id, string $alias, string $nombre, string $apellidos, string $telefono, string $email): void
