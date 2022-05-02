@@ -4,6 +4,7 @@ namespace App\Tests\Shared\Infrastructure\PhpUnit;
 
 use App\Tests\Shared\Domain\TestUtils;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Throwable;
 
@@ -27,17 +28,17 @@ abstract class InfrastructureTestCase extends KernelTestCase
 
     protected function service(string $id): mixed
     {
-        return self::$container->get($id);
+        return self::getContainer()->get($id);
     }
 
     protected function parameter($parameter): mixed
     {
-        return self::$container->getParameter($parameter);
+        return self::getContainer()->getParameter($parameter);
     }
 
     protected function clearUnitOfWork(): void
     {
-        $this->service(EntityManager::class)->clear();
+        $this->service(EntityManagerInterface::class)->clear();
     }
 
     protected function eventually(callable $fn, $totalRetries = 3, $timeToWaitOnErrorInSeconds = 1, $attempt = 0): void
