@@ -9,7 +9,7 @@ use App\Usuario\Domain\Usuario;
 
 interface ObjetoRepository
 {
-    public function save(Objeto $video): void;
+    public function save(Objeto $objeto): void;
 
     public function search(int $id): ?Objeto;
 
