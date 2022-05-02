@@ -3,7 +3,6 @@
 namespace App\Shared\Infrastructure\Persistence\Doctrine;
 
 use App\Shared\Domain\Root\Root;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
