@@ -9,7 +9,7 @@ use App\Usuario\Domain\Usuario;
 use App\Usuario\Domain\UsuarioRepository;
 use App\Usuario\Domain\Usuarios;
 
-final class UsuarioRepositoryMySql extends DoctrineRepository implements UsuarioRepository
+final class UsuarioRepositoryDoctrine extends DoctrineRepository implements UsuarioRepository
 {
     private static array $criteriaToDoctrineFields = [
         'id' => 'id',

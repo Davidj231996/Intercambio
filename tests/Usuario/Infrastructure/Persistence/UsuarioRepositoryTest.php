@@ -6,7 +6,7 @@ use App\Tests\Shared\Domain\IdMother;
 use App\Tests\Usuario\Domain\UsuarioMother;
 use App\Tests\Usuario\UsuarioModuleInfraestructureTestCase;
 use App\Usuario\Domain\UsuarioRepository;
-use App\Usuario\Infrastructure\Persistence\UsuarioRepositoryMySql;
+use App\Usuario\Infrastructure\Persistence\UsuarioRepositoryDoctrine;
 
 class UsuarioRepositoryTest extends UsuarioModuleInfraestructureTestCase
 {

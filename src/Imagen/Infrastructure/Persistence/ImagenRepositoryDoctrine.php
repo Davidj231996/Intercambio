@@ -9,7 +9,7 @@ use App\Shared\Domain\Criteria\Criteria;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 
-class ImagenRepositoryMySQL extends DoctrineRepository implements ImagenRepository
+class ImagenRepositoryDoctrine extends DoctrineRepository implements ImagenRepository
 {
     private static array $criteriaToDoctrineFields = [
         'id' => 'id',

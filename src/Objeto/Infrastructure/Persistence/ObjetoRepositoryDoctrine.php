@@ -10,7 +10,7 @@ use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 use App\Usuario\Domain\Usuario;
 
-final class ObjetoRepositoryMySql extends DoctrineRepository implements ObjetoRepository
+final class ObjetoRepositoryDoctrine extends DoctrineRepository implements ObjetoRepository
 {
     private static array $criteriaToDoctrineFields = [
         'nombre' => 'nombre',

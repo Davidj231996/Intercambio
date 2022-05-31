@@ -7,7 +7,7 @@ use App\Reserva\Domain\ReservaRepository;
 use App\Reserva\Domain\Reservas;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 
-class ReservaRepositoryMySql extends DoctrineRepository implements ReservaRepository
+class ReservaRepositoryDoctrine extends DoctrineRepository implements ReservaRepository
 {
     public function save(Reserva $reserva): void
     {

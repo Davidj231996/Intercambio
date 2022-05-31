@@ -6,7 +6,7 @@ use App\Preferencia\Domain\Preferencia;
 use App\Preferencia\Domain\PreferenciaRepository;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 
-class PreferenciaRepositoryMysql extends DoctrineRepository implements PreferenciaRepository
+class PreferenciaRepositoryDoctrine extends DoctrineRepository implements PreferenciaRepository
 {
 
     public function save(Preferencia $preferencia): void

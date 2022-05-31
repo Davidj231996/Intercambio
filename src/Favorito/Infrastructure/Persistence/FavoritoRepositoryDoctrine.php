@@ -9,7 +9,7 @@ use App\Shared\Domain\Criteria\Criteria;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 
-class FavoritoRepositoryMySql extends DoctrineRepository implements FavoritoRepository
+class FavoritoRepositoryDoctrine extends DoctrineRepository implements FavoritoRepository
 {
     private static array $criteriaToDoctrineFields = [
         'id' => 'id',

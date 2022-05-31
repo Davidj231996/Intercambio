@@ -7,7 +7,7 @@ use App\Intercambio\Domain\IntercambioRepository;
 use App\Intercambio\Domain\Intercambios;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 
-class IntercambioRepositoryMySql extends DoctrineRepository implements IntercambioRepository
+class IntercambioRepositoryDoctrine extends DoctrineRepository implements IntercambioRepository
 {
 
     public function save(Intercambio $intercambio): void

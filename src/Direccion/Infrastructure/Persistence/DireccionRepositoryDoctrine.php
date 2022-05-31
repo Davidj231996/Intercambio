@@ -7,7 +7,7 @@ use App\Direccion\Domain\DireccionRepository;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 use App\Usuario\Domain\Usuario;
 
-class DireccionRepositoryMySql extends DoctrineRepository implements DireccionRepository
+class DireccionRepositoryDoctrine extends DoctrineRepository implements DireccionRepository
 {
     public function save(Direccion $direccion): void
     {
