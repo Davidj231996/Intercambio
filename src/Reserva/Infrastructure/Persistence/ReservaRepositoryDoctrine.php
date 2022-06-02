@@ -26,13 +26,13 @@ class ReservaRepositoryDoctrine extends DoctrineRepository implements ReservaRep
 
     public function searchByUsuario(int $usuarioId): Reservas
     {
-        $reservas = $this->repository(Reserva::class)->findBy(['usuarioId' => $usuarioId]);
+        $reservas = $this->repository(Reserva::class)->findBy(['usuario' => $usuarioId]);
         return new Reservas($reservas);
     }
 
     public function searchByObjeto(int $objetoId): Reservas
     {
-        $reservas = $this->repository(Reserva::class)->findBy(['objetoId' => $objetoId]);
+        $reservas = $this->repository(Reserva::class)->findBy(['objeto' => $objetoId]);
         return new Reservas($reservas);
     }
 }
