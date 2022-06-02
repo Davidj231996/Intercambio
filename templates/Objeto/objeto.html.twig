@@ -3,58 +3,80 @@
 {% block title %}{{ objeto.nombre }}{% endblock %}
 
 {% block content %}
-<div class="container-fluid">
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Objeto</h1>
-    </div>
-    <div class="row">
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-12 col-md-12 mb-4">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">{{ objeto.nombre }}</h6>
-                </div>
-                <div class="card-body">
-                    {% if objeto.imagenes is not empty %}
-                        <div class="text-center">
-                            <img title="{{ objeto.imagenes.get(0).descripcion }}" alt="{{ objeto.imagenes.get(0).descripcion }}"
-                                 class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 20rem;"
-                                 src="{{ asset((objeto.imagenes.get(0).ruta)) }}" alt="...">
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Objeto</h1>
+        </div>
+        <div class="row">
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-12 col-md-12 mb-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex">
+                        <h6 class="m-0 font-weight-bold text-primary">{{ objeto.nombre }}</h6>
+                        <div class="ml-auto">
+                            {% if objeto.usuario == app.user %}
+                                <a href="{{ path('objeto_edit', {"objetoId": objeto.id}) }}"
+                                   class="btn btn-primary btn-sm">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a href="{{ path('objeto_delete', {"objetoId": objeto.id}) }}"
+                                   class="btn btn-danger btn-sm">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            {% else %}
+                                {% if not reservado %}
+                                    <a href="{{ path('reserva_create', {"objetoId": objeto.id}) }}"
+                                       class="btn btn-primary btn-sm">
+                                        <i class="fa fa-check-square"></i>
+                                    </a>
+                                {% endif %}
+                            {% endif %}
                         </div>
-                    {% endif %}
-                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                        Descripción
                     </div>
-                    <p class="p-indent">{{ objeto.descripcion|u.truncate(100, '...') }}</p>
-                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                        Categorias
+                    <div class="card-body">
+                        {% if objeto.imagenes is not empty %}
+                            <div class="text-center">
+                                <img title="{{ objeto.imagenes.get(0).descripcion }}"
+                                     alt="{{ objeto.imagenes.get(0).descripcion }}"
+                                     class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 20rem;"
+                                     src="{{ asset((objeto.imagenes.get(0).ruta)) }}" alt="...">
+                            </div>
+                        {% endif %}
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Descripción
+                        </div>
+                        <p class="p-indent">{{ objeto.descripcion }}</p>
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Categorias
+                        </div>
+                        {% if objeto.categorias is not empty %}
+                            <ul>
+                                {% for categoria in objeto.categorias %}
+                                    <li>{{ categoria.categoria.nombre }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p class="p-indent">Sin categorias</p>
+                        {% endif %}
+                        {% if objeto.usuario == app.user %}
+                            {% if objeto.reservas is not empty %}
+                                <p>Tiene reservas: </p>
+                                <ul>
+                                    {% for reserva in objeto.reservas %}
+                                        <li>Reserva realizada por: {{ reserva.usuario.nombre }}
+                                            ({{ reserva.fechaCreacion|date('d/m/Y H:i') }})
+                                            ({{ reserva.estadoToString }})
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>No hay reservas</p>
+                            {% endif %}
+                        {% endif %}
                     </div>
-                    {% if objeto.categorias is not empty %}
-                        <ul>
-                            {% for categoria in objeto.categorias %}
-                                <li>{{ categoria.categoria.nombre }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        <p class="p-indent">Sin categorias</p>
-                    {% endif %}
-                    {% if objeto.usuario == app.user and objeto.reservas is not empty %}
-                        <p>Tiene reservas: </p>
-                        <ul>
-                            {% for reserva in objeto.reservas %}
-                                <li>Reserva realizada por: {{ reserva.usuario.nombre }}
-                                    ({{ reserva.fechaCreacion|date('d/m/Y H:i') }})
-                                    ({{ reserva.estadoToString }})
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        <p>No hay reservas</p>
-                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
