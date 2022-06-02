@@ -11,6 +11,9 @@ use Doctrine\Common\Collections\Collection;
 
 class Objeto extends Root
 {
+    private const ESTADO_RESERVADO = 1;
+    private const ESTADO_TRANSFERIDO = 2;
+
     private ?Collection $imagenes = null;
     private ?Collection $favoritos = null;
     private ?Collection $categorias = null;
@@ -18,6 +21,7 @@ class Objeto extends Root
     private ?Collection $reservas = null;
     private ?Intercambio $intercambio = null;
     private ?Intercambio $intercambiar = null;
+    private ?Usuario $usuarioReceptor = null;
 
     public function __construct(
         private ?int $id,
@@ -96,6 +100,11 @@ class Objeto extends Root
         return $this->intercambiar;
     }
 
+    public function usuarioReceptor(): ?Usuario
+    {
+        return $this->usuarioReceptor;
+    }
+
     public function update(
         string $nombre, string $descripcion, int $estado
     )
@@ -103,5 +112,13 @@ class Objeto extends Root
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
         $this->estado = $estado;
+    }
+
+    public function reservado(): bool {
+        return $this->estado() == self::ESTADO_RESERVADO || $this->estado() == self::ESTADO_TRANSFERIDO;
+    }
+
+    public function transferido(): bool {
+        return $this->estado() == self::ESTADO_TRANSFERIDO;
     }
 }
