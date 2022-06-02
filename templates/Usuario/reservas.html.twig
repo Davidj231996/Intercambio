@@ -3,32 +3,30 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Mis Reservas</h1>
     </div>
-    <div class="row">
+    <h4>Reservas hechas por mi</h4>
+    <div class="row mb-4">
         {% if reservas is  not empty %}
-            {% for reserva in reservas %}
-                <!-- Earnings (Monthly) Card Example -->
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">{{ reserva.objeto.nombre }}</h6>
-                        </div>
-                        <div class="card-body">
-                            {% if reserva.objeto.imagenes is not empty %}
-                                <div class="text-center">
-                                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 20rem;"
-                                         src="{{ asset((reserva.objeto.imagenes.get(0).ruta)) }}" alt="...">
-                                </div>
-                            {% endif %}
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Descripción
-                            </div>
-                            <p class="p-indent">{{ reserva.objeto.descripcion|u.truncate(100, '...') }}</p>
-                            <p>Reserva realizada: {{ reserva.fechaCreacion|date('d/m/Y H:i') }}
-                                ({{ reserva.estadoToString }})</p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Objeto</th>
+                    <th>Fecha Reserva</th>
+                    <th>Fecha Actualización</th>
+                    <th>Estado</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for reserva in reservas %}
+                    <tr>
+                        <td class="clickable"
+                            onclick="window.open('{{ path('objeto', {"objetoId": reserva.objeto.id}) }}', '_blank')">{{ reserva.objeto.nombre }}</td>
+                        <td>{{ reserva.fechaCreacion|date('d/m/Y H:i') }}</td>
+                        <td>{{ reserva.fechaActualizacion|date('d/m/Y H:i') }}</td>
+                        <td class="{{ reserva.estadoClase }}">{{ reserva.estadoToString }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         {% else %}
             <div class="cardCompleta shadow mb-4">
                 <div class="card-header py-3">
@@ -36,6 +34,56 @@
                 </div>
                 <div class="card-body">
                     <p>Aún no has reservado ningún objeto, pruébelo.</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <h4>Reservas hechas a mis objetos</h4>
+    <div class="row">
+        {% if usuario.reservasAMi is  not empty %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Objeto</th>
+                    <th>Usuario</th>
+                    <th>Fecha Reserva</th>
+                    <th>Fecha Actualización</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for reserva in usuario.reservasAMi %}
+                    <tr>
+                        <td class="clickable"
+                            onclick="window.open('{{ path('objeto', {"objetoId": reserva.objeto.id}) }}', '_blank')">{{ reserva.objeto.nombre }}</td>
+                        <td>{{ reserva.usuario.nombre }}</td>
+                        <td>{{ reserva.fechaCreacion|date('d/m/Y H:i') }}</td>
+                        <td>{{ reserva.fechaActualizacion|date('d/m/Y H:i') }}</td>
+                        <td class="{{ reserva.estadoClase }}">{{ reserva.estadoToString }}</td>
+                        <td>
+                            {% if reserva.pendiente %}
+                                <a href="{{ path('reserva_aceptar', {"reservaId": reserva.id}) }}"
+                                   class="btn btn-success btn-sm">
+                                    <i class="fa fa-check"></i>
+                                </a>
+                                <a href="{{ path('reserva_cancelar', {"reservaId": reserva.id}) }}"
+                                   class="btn btn-danger btn-sm">
+                                    <i class="fa fa-xmark"></i>
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="cardCompleta shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Sin reservas</h6>
+                </div>
+                <div class="card-body">
+                    <p>Aún no te han reservado ningún objeto.</p>
                 </div>
             </div>
         {% endif %}
