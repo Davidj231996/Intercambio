@@ -22,6 +22,7 @@
         <one-to-many field="preferencias" target-entity="App\Preferencia\Domain\Preferencia" mapped-by="usuario" />
         <one-to-many field="favoritos" target-entity="App\Favorito\Domain\Favorito" mapped-by="usuario" />
         <one-to-many field="reservas" target-entity="App\Reserva\Domain\Reserva" mapped-by="usuario" />
+        <one-to-many field="reservasAMi" target-entity="App\Reserva\Domain\Reserva" mapped-by="usuarioObjeto" />
     </entity>
 
 </doctrine-mapping>

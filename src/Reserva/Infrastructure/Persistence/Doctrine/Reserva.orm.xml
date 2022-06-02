@@ -11,6 +11,7 @@
 
         <many-to-one field="usuario" target-entity="App\Usuario\Domain\Usuario" inversed-by="reservas"/>
         <many-to-one field="objeto" target-entity="App\Objeto\Domain\Objeto" inversed-by="reservas"/>
+        <many-to-one field="usuarioObjeto" target-entity="App\Usuario\Domain\Usuario" inversed-by="reservasAMi"/>
         <field name="fechaCreacion" type="datetime" column="fechaCreacion" />
         <field name="fechaActualizacion" type="datetime" column="fechaActualizacion" />
         <field name="estado" type="smallint" column="estado" />

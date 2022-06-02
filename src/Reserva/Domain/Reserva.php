@@ -17,6 +17,7 @@ class Reserva extends Root
         private ?int $id,
         private Usuario $usuario,
         private Objeto $objeto,
+        private Usuario $usuarioObjeto,
         private DateTime $fechaCreacion,
         private DateTime $fechaActualizacion,
         private int $estado
@@ -25,7 +26,7 @@ class Reserva extends Root
 
     public static function create(?int $id, Usuario $usuario, Objeto $objeto, DateTime $fechaCreacion, DateTime $fechaActualizacion): Reserva
     {
-        return new self($id, $usuario, $objeto, $fechaCreacion, $fechaActualizacion, self::ESTADO_PENDIENTE);
+        return new self($id, $usuario, $objeto, $objeto->usuario(), $fechaCreacion, $fechaActualizacion, self::ESTADO_PENDIENTE);
     }
 
     public function id(): int
@@ -41,6 +42,11 @@ class Reserva extends Root
     public function objeto(): Objeto
     {
         return $this->objeto;
+    }
+
+    public function usuarioObjeto(): Usuario
+    {
+        return $this->usuarioObjeto;
     }
 
     public function fechaCreacion(): DateTime
@@ -68,6 +74,23 @@ class Reserva extends Root
             default:
                 return 'Pendiente';
         }
+    }
+
+    public function estadoClase(): string
+    {
+        switch ($this->estado) {
+            case self::ESTADO_ACEPTADO:
+                return 'text-success';
+            case self::ESTADO_CANCELADO:
+                return 'text-danger';
+            default:
+                return '';
+        }
+    }
+
+    public function pendiente(): bool
+    {
+        return $this->estado == self::ESTADO_PENDIENTE;
     }
 
     public function update(int $estado, DateTime $fechaActualizacion)
