@@ -16,7 +16,7 @@ class ReservaCancelar
     {
         $reserva = $this->repository->search($id);
         $now = new DateTime();
-        $reserva->update(Reserva::ESTADO_ACEPTADO, $now);
+        $reserva->update(Reserva::ESTADO_CANCELADO, $now);
         $this->repository->save($reserva);
     }
 }
