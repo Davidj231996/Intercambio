@@ -12,9 +12,17 @@ class PreferenciaCreate
     public function __construct(private PreferenciaRepository $repository)
     {}
 
-    public function create(Usuario $usuario, Categoria $categoria): void
+    public function create(Usuario $usuario, array $categorias): void
     {
-        $preferencia = Preferencia::create(null, $usuario, $categoria);
-        $this->repository->save($preferencia);
+        foreach ($usuario->preferencias() as $preferencia) {
+            $this->repository->delete($preferencia);
+        }
+        $usuario->preferencias()->clear();
+
+        /** @var Categoria $categoria */
+        foreach ($categorias as $categoria) {
+            $preferencia = Preferencia::create(null, $usuario, $categoria);
+            $this->repository->save($preferencia);
+        }
     }
 }
