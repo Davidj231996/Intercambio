@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear Preferencias{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Crear Preferencias</h1>
+        </div>
+        <div class="row">
+            <div class="col-xl-12 col-md-12 mb-4">
+                <div class="card shadow mb-4 p-4">
+                    {{ form(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{{ asset('bootstrap-select/css/bootstrap-select.min.css') }}">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="{{ asset('bootstrap-select/js/bootstrap-select.min.js') }}"></script>
+
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <script src="{{ asset('bootstrap-select/js/i18n/defaults-es_ES.min.js') }}"></script>
+{% endblock %}
