@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Objeto\Domain;
 
 use App\Intercambio\Domain\Intercambio;
+use App\Reserva\Domain\Reserva;
 use App\Shared\Domain\Root\Root;
 use App\Usuario\Domain\Usuario;
 use Doctrine\Common\Collections\Collection;
@@ -21,7 +22,7 @@ class Objeto extends Root
     private ?Collection $reservas = null;
     private ?Intercambio $intercambio = null;
     private ?Intercambio $intercambiar = null;
-    private ?Usuario $usuarioReceptor = null;
+    private ?Reserva $reserva = null;
 
     public function __construct(
         private ?int $id,
@@ -100,9 +101,9 @@ class Objeto extends Root
         return $this->intercambiar;
     }
 
-    public function usuarioReceptor(): ?Usuario
+    public function reserva(): ?Reserva
     {
-        return $this->usuarioReceptor;
+        return $this->reserva;
     }
 
     public function update(

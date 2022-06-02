@@ -36,7 +36,7 @@
                     mapped-by="objetoIntercambio"/>
         <one-to-one field="intercambiar" target-entity="App\Intercambio\Domain\Intercambio"
                     mapped-by="objetoIntercambiar"/>
-        <many-to-one field="usuarioReceptor" target-entity="App\Usuario\Domain\Usuario"/>
+        <many-to-one field="reserva" target-entity="App\Reserva\Domain\Reserva"/>
     </entity>
 
 </doctrine-mapping>
