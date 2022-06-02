@@ -24,7 +24,7 @@ class ObjetoController extends AbstractController
         $objeto = $this->finder->__invoke($objetoId);
         return $this->render('objeto/objeto.html.twig', [
             'objeto' => $objeto,
-            'reservado' => $this->objetoReservadoUsuario->estaReservado($objeto, $this->getUser())
+            'reservado' => !$this->getUser() || $this->objetoReservadoUsuario->estaReservado($objeto, $this->getUser())
         ]);
     }
 }
