@@ -6,24 +6,23 @@
     <div class="row">
         {% if reservas is  not empty %}
             {% for reserva in reservas %}
-                {% set objeto = reserva.objeto %}
                 <!-- Earnings (Monthly) Card Example -->
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">{{ objeto.nombre }}</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">{{ reserva.objeto.nombre }}</h6>
                         </div>
                         <div class="card-body">
-                            {% if objeto.imagenes is not empty %}
+                            {% if reserva.objeto.imagenes is not empty %}
                                 <div class="text-center">
                                     <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 20rem;"
-                                         src="{{ asset((objeto.imagenes.get(0).ruta)) }}" alt="...">
+                                         src="{{ asset((reserva.objeto.imagenes.get(0).ruta)) }}" alt="...">
                                 </div>
                             {% endif %}
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 Descripción
                             </div>
-                            <p class="p-indent">{{ objeto.descripcion|u.truncate(100, '...') }}</p>
+                            <p class="p-indent">{{ reserva.objeto.descripcion|u.truncate(100, '...') }}</p>
                             <p>Reserva realizada: {{ reserva.fechaCreacion|date('d/m/Y H:i') }}
                                 ({{ reserva.estadoToString }})</p>
                         </div>
