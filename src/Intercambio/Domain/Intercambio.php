@@ -11,7 +11,7 @@ class Intercambio extends Root
 {
     public const ESTADO_PENDIENTE = 0;
     public const ESTADO_CANCELADO = -1;
-    public const ESTADO_ACEPTADO = -1;
+    public const ESTADO_ACEPTADO = 1;
     public const ESTADO_ENVIADO = 2;
     public const ESTADO_FINALIZADO = 3;
 
