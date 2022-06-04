@@ -106,6 +106,11 @@ class Intercambio extends Root
         $this->fechaActualizacion = $fechaActualizacion;
     }
 
+    public function enviadoIntercambio(): bool
+    {
+        return $this->estadoIntercambio == self::ESTADO_ENVIADO;
+    }
+
     public function estadoIntercambiar(): int
     {
         return $this->estadoIntercambiar;
@@ -141,5 +146,20 @@ class Intercambio extends Root
     {
         $this->estadoIntercambiar = $estado;
         $this->fechaActualizacion = $fechaActualizacion;
+    }
+
+    public function pendienteIntercambiar(): bool
+    {
+        return $this->estadoIntercambiar == self::ESTADO_PENDIENTE;
+    }
+
+    public function aceptadoIntercambiar(): bool
+    {
+        return $this->estadoIntercambiar == self::ESTADO_ACEPTADO;
+    }
+
+    public function enviadoIntercambiar(): bool
+    {
+        return $this->estadoIntercambiar == self::ESTADO_ENVIADO;
     }
 }

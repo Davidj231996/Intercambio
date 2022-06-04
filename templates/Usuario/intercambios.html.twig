@@ -25,7 +25,7 @@
                         <td class="clickable"
                             onclick="window.open('{{ path('objeto', {"objetoId": intercambio.objetoIntercambio.id}) }}', '_blank')">{{ intercambio.objetoIntercambio.nombre }}</td>
                         <td class="clickable"
-                            onclick="window.open('{{ path('usuario', {"usuarioId": intercambio.usuarioIntercambio.id}) }}', '_blank')">{{ intercambio.usuarioIntercambio.nombre }}</td>
+                            onclick="window.open('{{ path('usuario', {"usuarioId": intercambio.usuarioIntercambiar.id}) }}', '_blank')">{{ intercambio.usuarioIntercambiar.nombre }}</td>
                         <td class="clickable"
                             onclick="window.open('{{ path('objeto', {"objetoId": intercambio.objetoIntercambiar.id}) }}', '_blank')">{{ intercambio.objetoIntercambiar.nombre }}</td>
                         <td>{{ intercambio.fechaCreacion|date('d/m/Y H:i') }}</td>
@@ -33,14 +33,20 @@
                         <td class="{{ intercambio.estadoIntercambioClase }}">{{ intercambio.estadoIntercambioToString }}</td>
                         <td class="{{ intercambio.estadoIntercambiarClase }}">{{ intercambio.estadoIntercambiarToString }}</td>
                         <td>
-                            <a href="#"
-                               class="btn btn-info btn-sm">
-                                <i class="fa fa-paper-plane"></i>
-                            </a>
-                            <a href="#"
-                               class="btn btn-success btn-sm">
-                                <i class="fa fa-box"></i>
-                            </a>
+                            {% if intercambio.aceptadoIntercambiar %}
+                                {% if intercambio.enviadoIntercambiar %}
+                                    <a href="#"
+                                       class="btn btn-success btn-sm">
+                                        <i class="fa fa-box"></i>
+                                    </a>
+                                {% endif %}
+                                {% if not intercambio.enviadoIntercambio %}
+                                    <a href="#"
+                                       class="btn btn-info btn-sm">
+                                        <i class="fa fa-paper-plane"></i>
+                                    </a>
+                                {% endif %}
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
@@ -79,7 +85,7 @@
                         <td class="clickable"
                             onclick="window.open('{{ path('objeto', {"objetoId": intercambio.objetoIntercambiar.id}) }}', '_blank')">{{ intercambio.objetoIntercambiar.nombre }}</td>
                         <td class="clickable"
-                            onclick="window.open('{{ path('usuario', {"usuarioId": intercambio.usuarioIntercambiar.id}) }}', '_blank')">{{ intercambio.usuarioIntercambiar.nombre }}</td>
+                            onclick="window.open('{{ path('usuario', {"usuarioId": intercambio.usuarioIntercambio.id}) }}', '_blank')">{{ intercambio.usuarioIntercambio.nombre }}</td>
                         <td class="clickable"
                             onclick="window.open('{{ path('objeto', {"objetoId": intercambio.objetoIntercambio.id}) }}', '_blank')">{{ intercambio.objetoIntercambio.nombre }}</td>
                         <td>{{ intercambio.fechaCreacion|date('d/m/Y H:i') }}</td>
@@ -87,22 +93,29 @@
                         <td class="{{ intercambio.estadoIntercambioClase }}">{{ intercambio.estadoIntercambioToString }}</td>
                         <td class="{{ intercambio.estadoIntercambiarClase }}">{{ intercambio.estadoIntercambiarToString }}</td>
                         <td>
-                            <a href="#"
-                               class="btn btn-success btn-sm">
-                                <i class="fa fa-check"></i>
-                            </a>
-                            <a href="#"
-                               class="btn btn-danger btn-sm">
-                                <i class="fa fa-xmark"></i>
-                            </a>
-                            <a href="#"
-                               class="btn btn-info btn-sm">
-                                <i class="fa fa-paper-plane"></i>
-                            </a>
-                            <a href="#"
-                               class="btn btn-success btn-sm">
-                                <i class="fa fa-box"></i>
-                            </a>
+                            {% if intercambio.pendienteIntercambiar %}
+                                <a href="#"
+                                   class="btn btn-success btn-sm">
+                                    <i class="fa fa-check"></i>
+                                </a>
+                                <a href="#"
+                                   class="btn btn-danger btn-sm">
+                                    <i class="fa fa-xmark"></i>
+                                </a>
+                            {% elseif intercambio.aceptadoIntercambiar %}
+                                {% if not intercambio.enviadoIntercambiar %}
+                                    <a href="#"
+                                       class="btn btn-info btn-sm">
+                                        <i class="fa fa-paper-plane"></i>
+                                    </a>
+                                {% endif %}
+                                {% if intercambio.enviadoIntercambio %}
+                                    <a href="#"
+                                       class="btn btn-success btn-sm">
+                                        <i class="fa fa-box"></i>
+                                    </a>
+                                {% endif %}
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
