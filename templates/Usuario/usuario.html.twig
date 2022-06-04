@@ -6,12 +6,12 @@
         {% embed "usuario/datos.html.twig" %}
         {% endembed %}
     </div>
-    <div id="objetosUsuario">
-        {% embed "usuario/objetos.html.twig" with {'objetos': usuario.objetos} %}
-        {% endembed %}
-    </div>
     <div id="preferenciasUsuario">
         {% embed "usuario/preferencias.html.twig" with {'preferencias': usuario.preferencias} %}
+        {% endembed %}
+    </div>
+    <div id="objetosUsuario">
+        {% embed "usuario/objetos.html.twig" with {'objetos': usuario.objetos} %}
         {% endembed %}
     </div>
 {% endblock %}
