@@ -115,6 +115,11 @@ class Objeto extends Root
         $this->estado = $estado;
     }
 
+    public function reservar(): void
+    {
+        $this->estado = self::ESTADO_RESERVADO;
+    }
+
     public function reservado(): bool {
         return $this->estado() == self::ESTADO_RESERVADO || $this->estado() == self::ESTADO_TRANSFERIDO;
     }

@@ -19,6 +19,6 @@ class ReservaAceptarController extends AbstractController
      */
     public function aceptar(Request $request, $reservaId) {
         $this->reservaAceptar->update($reservaId);
-        return $this->redirectToRoute($request->request->get('referer'));
+        return $this->redirectToRoute('perfil');
     }
 }
