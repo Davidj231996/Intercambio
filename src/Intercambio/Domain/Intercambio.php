@@ -11,8 +11,9 @@ class Intercambio extends Root
 {
     public const ESTADO_PENDIENTE = 0;
     public const ESTADO_CANCELADO = -1;
-    public const ESTADO_ENVIADO = 1;
-    public const ESTADO_FINALIZADO = 2;
+    public const ESTADO_ACEPTADO = -1;
+    public const ESTADO_ENVIADO = 2;
+    public const ESTADO_FINALIZADO = 3;
 
     public function __construct(
         private ?int     $id,
@@ -76,10 +77,26 @@ class Intercambio extends Root
     {
         return match ($this->estado) {
             self::ESTADO_CANCELADO => 'Cancelado',
+            self::ESTADO_ACEPTADO => 'Aceptado',
             self::ESTADO_ENVIADO => 'Enviado',
             self::ESTADO_FINALIZADO => 'Finalizado',
             default => 'Pendiente',
         };
+    }
+
+    public function estadoClase(): string
+    {
+        switch ($this->estado) {
+            case self::ESTADO_ENVIADO:
+                return 'text-info';
+            case self::ESTADO_CANCELADO:
+                return 'text-danger';
+            case self::ESTADO_FINALIZADO:
+            case self::ESTADO_ACEPTADO:
+                return 'text-success';
+            default:
+                return '';
+        }
     }
 
     public function update(int $estado, DateTime $fechaActualizacion)
