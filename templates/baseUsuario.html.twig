@@ -182,21 +182,29 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                {% if usuario is defined and usuario.valoracion is not null %}
-                                    {{ usuario.valoracion.valor|round(2, 'floor') }}
-                                    {% set valor = usuario.valoracion.valor %}
-                                    {% for i in 1..valor %}
-                                        <i class="fa fa-star"></i>
-                                    {% endfor %}
-                                    {% if valor != 5 and (valor - valor|round(0, 'floor')) != 0 %}
-                                    <i class="fa fa-star-half"></i>
-                                {% endif %}
+                                {% if usuario is defined %}
+                                    {% if usuario.valoracion is not null %}
+                                        {{ usuario.valoracion.valor|round(2, 'floor') }}
+                                        {% set valor = usuario.valoracion.valor %}
+                                        {% for i in 1..valor %}
+                                            <i class="fa fa-star"></i>
+                                        {% endfor %}
+                                        {% if valor != 5 and (valor - valor|round(0, 'floor')) != 0 %}
+                                            <i class="fa fa-star-half"></i>
+                                        {% endif %}
+                                    {% else %}
+                                        <i class="fa-regular fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                    {% endif %}
                                 {% endif %}
                             </span>
                                 <img class="img-profile rounded-circle"
                                      src="{{ asset('images/profile_' ~ random(1, 4) ~ '.svg') }}">
                                 {% if usuario is defined %}
-                                    <span>David</span>
+                                    <span>{{ usuario.alias }}</span>
                                 {% endif %}
                             </a>
                             <!-- Dropdown - User Information -->
