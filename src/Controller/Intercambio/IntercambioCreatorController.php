@@ -26,9 +26,9 @@ class IntercambioCreatorController extends AbstractController
         $objetoIntercambiar = $this->objetoFinder->__invoke($objetoIntercambiarId);
 
         if ($this->getUser() != $objetoIntercambio->usuario() && $this->getUser() == $objetoIntercambiar->usuario()
-        && $objetoIntercambio->reservado() && $objetoIntercambio->reserva()->usuario() == $this->getUser()) {
+            && $objetoIntercambio->reservado() && $objetoIntercambio->reserva()->usuario() == $this->getUser()) {
             try {
-                $this->intercambioCreate->create($objetoIntercambio, $objetoIntercambiar);
+                $this->intercambioCreate->create($objetoIntercambio, $objetoIntercambiar, $objetoIntercambio->usuario(), $objetoIntercambiar->usuario());
             } catch (\Exception $exception) {
                 return $this->redirectToRoute('objeto', [
                     'objetoId' => $objetoIntercambioId
