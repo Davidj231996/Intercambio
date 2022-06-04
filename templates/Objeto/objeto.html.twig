@@ -14,14 +14,16 @@
                 <div class="card shadow mb-4">
                     <div class="card-header py-3 d-flex">
                         <h6 class="m-0 font-weight-bold text-primary">{{ objeto.nombre }}</h6>
-                        <h6 class="ml-2">
-                            <a class="normal-anchor" target="_blank"
-                               href="{{ path("usuario", {"usuarioId": objeto.usuario.id}) }}">
-                                <img class="img-profile rounded-circle"
-                                     src="{{ asset('images/profile_' ~ random(1, 4) ~ '.svg') }}">
-                                {{ objeto.usuario.nombre }}
-                            </a>
-                        </h6>
+                        {% if app.user and app.user != objeto.usuario %}
+                            <h6 class="ml-2">
+                                <a class="normal-anchor" target="_blank"
+                                   href="{{ path("usuario", {"usuarioId": objeto.usuario.id}) }}">
+                                    <img class="img-profile rounded-circle"
+                                         src="{{ asset('images/profile_' ~ random(1, 4) ~ '.svg') }}">
+                                    {{ objeto.usuario.nombre }}
+                                </a>
+                            </h6>
+                        {% endif %}
                         <div class="ml-auto">
                             {% if objeto.usuario == app.user %}
                                 <a href="{{ path('objeto_edit', {"objetoId": objeto.id}) }}"
