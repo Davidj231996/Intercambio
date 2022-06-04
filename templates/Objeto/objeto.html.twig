@@ -47,7 +47,7 @@
                                         <i class="fa fa-check-square"></i> Reservar
                                     </a>
                                 {% elseif objeto.reservado and objeto.reserva.usuario == app.user and not objeto.transferido %}
-                                    <a href="{{ path('reserva_create', {"objetoId": objeto.id}) }}"
+                                    <a href="{{ path('intercambio_create', {"objetoIntercambiarId": objeto.id}) }}"
                                        class="btn btn-primary btn-sm">
                                         <i class="fa fa-rotate"></i> Intercambiar
                                     </a>
