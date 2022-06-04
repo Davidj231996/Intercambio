@@ -18,7 +18,7 @@ class UsuarioPasswordUpdateController extends AbstractController
     }
 
     /**
-     * @Route("/updatePassword", name="updatePassword")
+     * @Route("/updatePassword", name="update_password")
      * @param Request $request
      * @return Response
      */
@@ -35,6 +35,6 @@ class UsuarioPasswordUpdateController extends AbstractController
                 $this->usuarioPasswordUpdate->updatePassword($usuario, $data['newPassword']);
             }
         }
-        return $this->redirectToRoute('usuario', ['usuarioId' => $usuario->id()]);
+        return $this->redirectToRoute('perfil');
     }
 }
