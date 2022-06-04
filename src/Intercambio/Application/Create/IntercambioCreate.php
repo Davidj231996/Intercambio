@@ -6,7 +6,6 @@ use App\Intercambio\Domain\Intercambio;
 use App\Intercambio\Domain\IntercambioRepository;
 use App\Objeto\Domain\Objeto;
 use App\Objeto\Domain\ObjetoRepository;
-use App\Usuario\Domain\Usuario;
 use DateTime;
 
 class IntercambioCreate
@@ -15,13 +14,13 @@ class IntercambioCreate
     {
     }
 
-    public function create(Objeto $objetoIntercambio, Objeto $objetoIntercambiar, Usuario $usuarioIntercambio, Usuario $usuarioIntercambiar): void
+    public function create(Objeto $objetoIntercambio, Objeto $objetoIntercambiar): void
     {
         $now = new DateTime();
-        $intercambio = Intercambio::create(null, $objetoIntercambio, $objetoIntercambiar, $usuarioIntercambio, $usuarioIntercambiar, $now, $now);
+        $intercambio = Intercambio::create(null, $objetoIntercambio, $objetoIntercambiar, $objetoIntercambio->usuario(), $objetoIntercambiar->usuario(), $now, $now);
         $this->repository->save($intercambio);
 
-        $intercambio->objetoIntercambio()->reservar($intercambio->objetoIntercambiar()->reserva());
-        $this->objetoRepository->save($intercambio->objetoIntercambio());
+        $objetoIntercambio->reservar($objetoIntercambiar->reserva());
+        $this->objetoRepository->save($objetoIntercambio);
     }
 }
