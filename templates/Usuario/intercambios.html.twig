@@ -33,15 +33,15 @@
                         <td class="{{ intercambio.estadoIntercambioClase }}">{{ intercambio.estadoIntercambioToString }}</td>
                         <td class="{{ intercambio.estadoIntercambiarClase }}">{{ intercambio.estadoIntercambiarToString }}</td>
                         <td>
-                            {% if intercambio.aceptadoIntercambiar %}
+                            {% if not intercambio.pendienteIntercambiar and not intercambio.canceladoIntercambiar %}
                                 {% if intercambio.enviadoIntercambiar %}
-                                    <a href="#"
+                                    <a href="{{ path("intercambio_finalizar_intercambiar", {"intercambioId": intercambio.id}) }}"
                                        class="btn btn-success btn-sm">
                                         <i class="fa fa-box"></i>
                                     </a>
                                 {% endif %}
-                                {% if not intercambio.enviadoIntercambio %}
-                                    <a href="#"
+                                {% if intercambio.aceptadoIntercambio %}
+                                    <a href="{{ path("intercambio_enviar_intercambio", {"intercambioId": intercambio.id}) }}"
                                        class="btn btn-info btn-sm">
                                         <i class="fa fa-paper-plane"></i>
                                     </a>
@@ -98,19 +98,19 @@
                                    class="btn btn-success btn-sm">
                                     <i class="fa fa-check"></i>
                                 </a>
-                                <a href="#"
+                                <a href="{{ path("intercambio_cancelar", {"intercambioId": intercambio.id}) }}"
                                    class="btn btn-danger btn-sm">
                                     <i class="fa fa-xmark"></i>
                                 </a>
-                            {% elseif intercambio.aceptadoIntercambiar %}
-                                {% if not intercambio.enviadoIntercambiar %}
-                                    <a href="#"
+                            {% elseif not intercambio.canceladoIntercambiar %}
+                                {% if intercambio.aceptadoIntercambiar %}
+                                    <a href="{{ path("intercambio_enviar_intercambiar", {"intercambioId": intercambio.id}) }}"
                                        class="btn btn-info btn-sm">
                                         <i class="fa fa-paper-plane"></i>
                                     </a>
                                 {% endif %}
                                 {% if intercambio.enviadoIntercambio %}
-                                    <a href="#"
+                                    <a href="{{ path("intercambio_finalizar_intercambio", {"intercambioId": intercambio.id}) }}"
                                        class="btn btn-success btn-sm">
                                         <i class="fa fa-box"></i>
                                     </a>
