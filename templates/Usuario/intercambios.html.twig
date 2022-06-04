@@ -94,7 +94,7 @@
                         <td class="{{ intercambio.estadoIntercambiarClase }}">{{ intercambio.estadoIntercambiarToString }}</td>
                         <td>
                             {% if intercambio.pendienteIntercambiar %}
-                                <a href="#"
+                                <a href="{{ path("intercambio_aceptar", {"intercambioId": intercambio.id}) }}"
                                    class="btn btn-success btn-sm">
                                     <i class="fa fa-check"></i>
                                 </a>
