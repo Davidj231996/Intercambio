@@ -11348,3 +11348,15 @@ body.sidebar-toggled footer.sticky-footer {
 #objetoCreate {
     margin-top: 12.5%;
 }
+
+#listadoPreferencias {
+    list-style: none;
+}
+
+#listadoPreferencias li:before {
+    content: "\f02b"; /* FontAwesome Unicode */
+    font-family: FontAwesome;
+    display: inline-block;
+    margin-left: -1.3em; /* same as padding-left set on li */
+    width: 1.3em; /* same as padding-left set on li */
+}
