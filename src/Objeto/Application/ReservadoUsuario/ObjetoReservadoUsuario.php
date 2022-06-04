@@ -14,7 +14,7 @@ class ObjetoReservadoUsuario
 
     public function estaReservado(Objeto $objeto, Usuario $usuario): bool
     {
-        if ($objeto->usuario() != $usuario && !$objeto->reservado() && !empty($objeto->reservas()) && !empty($usuario->reservas())) {
+        if ($objeto->usuario() != $usuario && !empty($objeto->reservas()) && !empty($usuario->reservas())) {
             /** @var Reserva $reservaObjeto */
             foreach ($objeto->reservas() as $reservaObjeto) {
                 if ($reservaObjeto->usuario() == $usuario) {
