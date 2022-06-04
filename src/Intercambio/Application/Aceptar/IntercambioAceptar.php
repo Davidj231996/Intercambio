@@ -13,7 +13,7 @@ class IntercambioAceptar
     {
     }
 
-    public function update(int $id):void
+    public function aceptar(int $id):void
     {
         $intercambio = $this->repository->search($id);
         $now = new DateTime();
