@@ -4,6 +4,7 @@ namespace App\Intercambio\Domain;
 
 use App\Objeto\Domain\Objeto;
 use App\Shared\Domain\Root\Root;
+use App\Usuario\Domain\Usuario;
 use DateTime;
 
 class Intercambio extends Root
@@ -14,9 +15,11 @@ class Intercambio extends Root
     public const ESTADO_FINALIZADO = 2;
 
     public function __construct(
-        private ?int      $id,
-        private Objeto      $objetoIntercambio,
-        private Objeto      $objetoIntercambiar,
+        private ?int     $id,
+        private Objeto   $objetoIntercambio,
+        private Objeto   $objetoIntercambiar,
+        private Usuario  $usuarioIntercambio,
+        private Usuario  $usuarioIntercambiar,
         private DateTime $fechaCreacion,
         private DateTime $fechaActualizacion,
         private int      $estado
@@ -24,9 +27,9 @@ class Intercambio extends Root
     {
     }
 
-    public static function create(?int $id, Objeto $objetoIntercambio, Objeto $objetoIntercambiar, DateTime $fechaCreacion, DateTime $fechaActualizacion): Intercambio
+    public static function create(?int $id, Objeto $objetoIntercambio, Objeto $objetoIntercambiar, Usuario $usuarioIntercambio, Usuario $usuarioIntercambiar, DateTime $fechaCreacion, DateTime $fechaActualizacion): Intercambio
     {
-        return new self($id, $objetoIntercambio, $objetoIntercambiar, $fechaCreacion, $fechaActualizacion, self::ESTADO_PENDIENTE);
+        return new self($id, $objetoIntercambio, $objetoIntercambiar, $usuarioIntercambio, $usuarioIntercambiar, $fechaCreacion, $fechaActualizacion, self::ESTADO_PENDIENTE);
     }
 
     public function id(): int
@@ -42,6 +45,16 @@ class Intercambio extends Root
     public function objetoIntercambiar(): Objeto
     {
         return $this->objetoIntercambiar;
+    }
+
+    public function usuarioIntercambio(): Usuario
+    {
+        return $this->usuarioIntercambio;
+    }
+
+    public function usuarioIntercambiar(): Usuario
+    {
+        return $this->usuarioIntercambiar;
     }
 
     public function fechaCreacion(): DateTime

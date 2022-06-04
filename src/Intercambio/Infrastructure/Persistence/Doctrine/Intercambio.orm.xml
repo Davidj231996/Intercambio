@@ -11,9 +11,12 @@
 
         <one-to-one field="objetoIntercambio" target-entity="App\Objeto\Domain\Objeto" inversed-by="intercambio"/>
         <one-to-one field="objetoIntercambiar" target-entity="App\Objeto\Domain\Objeto" inversed-by="intercambiar"/>
-        <field name="fechaCreacion" type="datetime" column="fechaCreacion" />
-        <field name="fechaActualizacion" type="datetime" column="fechaActualizacion" />
-        <field name="estado" type="smallint" column="estado" />
+        <many-to-one field="usuarioIntercambio" target-entity="App\Usuario\Domain\Usuario" inversed-by="intercambios"/>
+        <many-to-one field="usuarioIntercambiar" target-entity="App\Usuario\Domain\Usuario"
+                     inversed-by="intercambiosAMi"/>
+        <field name="fechaCreacion" type="datetime" column="fechaCreacion"/>
+        <field name="fechaActualizacion" type="datetime" column="fechaActualizacion"/>
+        <field name="estado" type="smallint" column="estado"/>
     </entity>
 
 </doctrine-mapping>
