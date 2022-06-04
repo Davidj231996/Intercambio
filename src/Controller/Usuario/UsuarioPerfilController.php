@@ -24,13 +24,17 @@ class UsuarioPerfilController extends AbstractController
     {
         /** @var Usuario $usuario */
         $usuario = $this->getUser();
-        $usuarioForm = $this->createForm(UsuarioUpdateType::class, $usuario);
+        $usuarioForm = $this->createForm(UsuarioUpdateType::class, $usuario, [
+            'action' => $this->generateUrl('usuario_update')
+        ]);
         $passwordForm = $this->createForm(UsuarioPasswordType::class, [
             'usuario' => $usuario
         ], [
-            'action' => $this->generateUrl('updatePassword')
+            'action' => $this->generateUrl('update_password')
         ]);
-        $direccionForm = $this->createForm(DireccionUpdateType::class, $usuario->direccion());
+        $direccionForm = $this->createForm(DireccionUpdateType::class, $usuario->direccion(), [
+            'action' => $this->generateUrl('direccion_update')
+        ]);
         return $this->render('usuario/perfil.html.twig', [
             'usuario' => $usuario,
             'usuarioForm' => $usuarioForm->createView(),
