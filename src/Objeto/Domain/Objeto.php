@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\Collection;
 
 class Objeto extends Root
 {
+    private const ESTADO_PENDIENTE = 0;
     private const ESTADO_RESERVADO = 1;
     private const ESTADO_TRANSFERIDO = 2;
 
@@ -35,10 +36,10 @@ class Objeto extends Root
     }
 
     public static function create(
-        ?int $id, string $nombre, string $descripcion, int $estado, Usuario $usuario
+        ?int $id, string $nombre, string $descripcion, Usuario $usuario
     ) : Objeto
     {
-        return new self($id, $nombre, $descripcion, $estado, $usuario);
+        return new self($id, $nombre, $descripcion, self::ESTADO_PENDIENTE, $usuario);
     }
 
     public function id(): int
@@ -124,6 +125,12 @@ class Objeto extends Root
     public function transferir(): void
     {
         $this->estado = self::ESTADO_TRANSFERIDO;
+    }
+
+    public function pendiente(): void
+    {
+        $this->estado = self::ESTADO_PENDIENTE;
+        $this->reserva = null;
     }
 
     public function reservado(): bool {
