@@ -20,7 +20,7 @@ class ReservaAceptar
         $reserva->update(Reserva::ESTADO_ACEPTADO, $now);
         $this->repository->save($reserva);
 
-        $reserva->objeto()->reservar();
+        $reserva->objeto()->reservar($reserva);
         $this->objetoRepository->save($reserva->objeto());
     }
 }
