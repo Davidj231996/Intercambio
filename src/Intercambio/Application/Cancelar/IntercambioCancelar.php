@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Intercambio\Application\Aceptar;
+namespace App\Intercambio\Application\Cancelar;
 
 use App\Intercambio\Domain\Intercambio;
 use App\Intercambio\Domain\IntercambioRepository;
 use DateTime;
 
-class IntercambioAceptarIntercambio
+class IntercambioCancelar
 {
     public function __construct(private IntercambioRepository $repository)
     {
@@ -16,6 +16,8 @@ class IntercambioAceptarIntercambio
     {
         $intercambio = $this->repository->search($id);
         $now = new DateTime();
-        $intercambio->updateIntercambio(Intercambio::ESTADO_ACEPTADO, $now);
+        $intercambio->updateIntercambio(Intercambio::ESTADO_CANCELADO, $now);
+        $intercambio->updateIntercambiar(Intercambio::ESTADO_CANCELADO, $now);
+        $this->repository->save($intercambio);
     }
 }
