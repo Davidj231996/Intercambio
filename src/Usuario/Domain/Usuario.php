@@ -136,14 +136,12 @@ class Usuario extends Root implements UserInterface, PasswordAuthenticatedUserIn
     }
 
     public function update(
-        string $alias,
         string $nombre,
         string $apellidos,
         string $telefono,
         string $email
     ): void
     {
-        $this->alias = $alias;
         $this->nombre = $nombre;
         $this->apellidos = $apellidos;
         $this->telefono = $telefono;
