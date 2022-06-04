@@ -26,14 +26,16 @@
                         {% endif %}
                         <div class="ml-auto">
                             {% if objeto.usuario == app.user %}
-                                <a href="{{ path('objeto_edit', {"objetoId": objeto.id}) }}"
-                                   class="btn btn-primary btn-sm">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <a href="{{ path('objeto_delete', {"objetoId": objeto.id}) }}"
-                                   class="btn btn-danger btn-sm">
-                                    <i class="fa fa-trash"></i>
-                                </a>
+                                {% if not objeto.reservado %}
+                                    <a href="{{ path('objeto_edit', {"objetoId": objeto.id}) }}"
+                                       class="btn btn-primary btn-sm">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a href="{{ path('objeto_delete', {"objetoId": objeto.id}) }}"
+                                       class="btn btn-danger btn-sm">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                {% endif %}
                             {% else %}
                                 {% if not favoritoCreado %}
                                     <a href="{{ path('favorito_create', {"objetoId": objeto.id}) }}"
