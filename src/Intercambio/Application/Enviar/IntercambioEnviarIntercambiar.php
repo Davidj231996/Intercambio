@@ -6,7 +6,7 @@ use App\Intercambio\Domain\Intercambio;
 use App\Intercambio\Domain\IntercambioRepository;
 use DateTime;
 
-class IntercambioEnviarIntercambio
+class IntercambioEnviarIntercambiar
 {
     public function __construct(private IntercambioRepository $repository)
     {
@@ -17,5 +17,6 @@ class IntercambioEnviarIntercambio
         $intercambio = $this->repository->search($id);
         $now = new DateTime();
         $intercambio->updateIntercambiar(Intercambio::ESTADO_ENVIADO, $now);
+        $this->repository->save($intercambio);
     }
 }

@@ -17,5 +17,6 @@ class IntercambioFinalizarIntercambiar
         $intercambio = $this->repository->search($id);
         $now = new DateTime();
         $intercambio->updateIntercambiar(Intercambio::ESTADO_FINALIZADO, $now);
+        $this->repository->save($intercambio);
     }
 }

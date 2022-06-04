@@ -17,5 +17,6 @@ class IntercambioEnviarIntercambio
         $intercambio = $this->repository->search($id);
         $now = new DateTime();
         $intercambio->updateIntercambio(Intercambio::ESTADO_ENVIADO, $now);
+        $this->repository->save($intercambio);
     }
 }
