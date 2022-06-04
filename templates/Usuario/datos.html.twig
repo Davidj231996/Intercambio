@@ -1,7 +1,28 @@
 <div class="container-fluid">
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <div class="d-sm-flex align-items-center mb-4">
         <h1 class="h3 mb-0 text-gray-800">Datos Personales</h1>
+        <span class="ml-2 d-none d-lg-inline text-gray-600 small">
+            {% if usuario.valoracion is not null %}
+                {{ usuario.valoracion.valor|round(2, 'floor') }}
+                {% set valor = usuario.valoracion.valor %}
+                {% for i in 1..valor %}
+                    <i class="fa fa-star"></i>
+                {% endfor %}
+                {% if valor != 5 and (valor - valor|round(0, 'floor')) != 0 %}
+                <i class="fa fa-star-half"></i>
+            {% endif %}
+            {% else %}
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+            {% endif %}
+        </span>
+        <a class="ml-2 btn btn-success btn-sm" href="{{ path("valoracion_add", {"usuarioId": usuario.id}) }}">
+            <i class="fa fa-plus"></i> Valorar
+        </a>
     </div>
     <div class="row">
         <div class="cardCompleta shadow mb-4">
