@@ -22,4 +22,8 @@
         {% embed "usuario/reservas.html.twig" with {'reservas': usuario.reservas} %}
         {% endembed %}
     </div>
+    <div id="intercambiosUsuario" style="display: none">
+        {% embed "usuario/intercambios.html.twig" with {'reservas': usuario.intercambios} %}
+        {% endembed %}
+    </div>
 {% endblock %}
