@@ -9,20 +9,24 @@
             <generator/>
         </id>
 
-        <field name="alias" length="50" column="alias" />
-        <field name="nombre" length="50" column="nombre" />
-        <field name="apellidos" length="255" column="apellidos" />
-        <field name="telefono" length="9" column="telefono" />
-        <field name="email" length="255" column="email" />
-        <field name="password" length="255" column="password" />
+        <field name="alias" length="50" column="alias"/>
+        <field name="nombre" length="50" column="nombre"/>
+        <field name="apellidos" length="255" column="apellidos"/>
+        <field name="telefono" length="9" column="telefono"/>
+        <field name="email" length="255" column="email"/>
+        <field name="password" length="255" column="password"/>
         <one-to-one field="valoracion" target-entity="App\Valoracion\Domain\Valoracion" mapped-by="usuario"/>
         <one-to-one field="direccion" target-entity="App\Direccion\Domain\Direccion" mapped-by="usuario"/>
         <one-to-one field="imagen" target-entity="App\Imagen\Domain\Imagen" mapped-by="usuario"/>
-        <one-to-many field="objetos" target-entity="App\Objeto\Domain\Objeto" mapped-by="usuario" />
-        <one-to-many field="preferencias" target-entity="App\Preferencia\Domain\Preferencia" mapped-by="usuario" />
-        <one-to-many field="favoritos" target-entity="App\Favorito\Domain\Favorito" mapped-by="usuario" />
-        <one-to-many field="reservas" target-entity="App\Reserva\Domain\Reserva" mapped-by="usuario" />
-        <one-to-many field="reservasAMi" target-entity="App\Reserva\Domain\Reserva" mapped-by="usuarioObjeto" />
+        <one-to-many field="objetos" target-entity="App\Objeto\Domain\Objeto" mapped-by="usuario"/>
+        <one-to-many field="preferencias" target-entity="App\Preferencia\Domain\Preferencia" mapped-by="usuario"/>
+        <one-to-many field="favoritos" target-entity="App\Favorito\Domain\Favorito" mapped-by="usuario"/>
+        <one-to-many field="reservas" target-entity="App\Reserva\Domain\Reserva" mapped-by="usuario"/>
+        <one-to-many field="reservasAMi" target-entity="App\Reserva\Domain\Reserva" mapped-by="usuarioObjeto"/>
+        <one-to-many field="intercambios" target-entity="App\Intercambio\Domain\Intercambio"
+                     mapped-by="usuarioIntercambio"/>
+        <one-to-many field="intercambiosAMi" target-entity="App\Intercambio\Domain\Intercambio"
+                     mapped-by="usuarioIntercambiar"/>
     </entity>
 
 </doctrine-mapping>

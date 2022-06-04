@@ -22,6 +22,8 @@ class Usuario extends Root implements UserInterface, PasswordAuthenticatedUserIn
     private ?Collection $favoritos = null;
     private ?Collection $reservas = null;
     private ?Collection $reservasAMi = null;
+    private ?Collection $intercambios = null;
+    private ?Collection $intercambiosAMi = null;
 
     public function __construct(
         private ?int    $id,
@@ -123,6 +125,15 @@ class Usuario extends Root implements UserInterface, PasswordAuthenticatedUserIn
         return $this->reservasAMi;
     }
 
+    public function intercambios(): Collection
+    {
+        return $this->intercambios;
+    }
+
+    public function intercambiosAMi(): Collection
+    {
+        return $this->intercambiosAMi;
+    }
 
     public function update(
         string $alias,
