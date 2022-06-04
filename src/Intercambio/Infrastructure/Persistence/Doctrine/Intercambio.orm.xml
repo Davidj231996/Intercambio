@@ -16,7 +16,8 @@
                      inversed-by="intercambiosAMi"/>
         <field name="fechaCreacion" type="datetime" column="fechaCreacion"/>
         <field name="fechaActualizacion" type="datetime" column="fechaActualizacion"/>
-        <field name="estado" type="smallint" column="estado"/>
+        <field name="estadoIntercambio" type="smallint" column="estadoIntercambio"/>
+        <field name="estadoIntercambiar" type="smallint" column="estadoIntercambiar"/>
     </entity>
 
 </doctrine-mapping>

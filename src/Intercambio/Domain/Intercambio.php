@@ -23,14 +23,15 @@ class Intercambio extends Root
         private Usuario  $usuarioIntercambiar,
         private DateTime $fechaCreacion,
         private DateTime $fechaActualizacion,
-        private int      $estado
+        private int      $estadoIntercambio,
+        private int      $estadoIntercambiar
     )
     {
     }
 
     public static function create(?int $id, Objeto $objetoIntercambio, Objeto $objetoIntercambiar, Usuario $usuarioIntercambio, Usuario $usuarioIntercambiar, DateTime $fechaCreacion, DateTime $fechaActualizacion): Intercambio
     {
-        return new self($id, $objetoIntercambio, $objetoIntercambiar, $usuarioIntercambio, $usuarioIntercambiar, $fechaCreacion, $fechaActualizacion, self::ESTADO_PENDIENTE);
+        return new self($id, $objetoIntercambio, $objetoIntercambiar, $usuarioIntercambio, $usuarioIntercambiar, $fechaCreacion, $fechaActualizacion, self::ESTADO_PENDIENTE, self::ESTADO_PENDIENTE);
     }
 
     public function id(): int
@@ -68,14 +69,14 @@ class Intercambio extends Root
         return $this->fechaActualizacion;
     }
 
-    public function estado(): int
+    public function estadoIntercambio(): int
     {
-        return $this->estado;
+        return $this->estadoIntercambio;
     }
 
-    public function estadoToString(): string
+    public function estadoIntercambioToString(): string
     {
-        return match ($this->estado) {
+        return match ($this->estadoIntercambio) {
             self::ESTADO_CANCELADO => 'Cancelado',
             self::ESTADO_ACEPTADO => 'Aceptado',
             self::ESTADO_ENVIADO => 'Enviado',
@@ -84,9 +85,9 @@ class Intercambio extends Root
         };
     }
 
-    public function estadoClase(): string
+    public function estadoIntercambioClase(): string
     {
-        switch ($this->estado) {
+        switch ($this->estadoIntercambio) {
             case self::ESTADO_ENVIADO:
                 return 'text-info';
             case self::ESTADO_CANCELADO:
@@ -99,9 +100,46 @@ class Intercambio extends Root
         }
     }
 
-    public function update(int $estado, DateTime $fechaActualizacion)
+    public function updateIntercambio(int $estado, DateTime $fechaActualizacion)
     {
-        $this->estado = $estado;
+        $this->estadoIntercambio = $estado;
+        $this->fechaActualizacion = $fechaActualizacion;
+    }
+
+    public function estadoIntercambiar(): int
+    {
+        return $this->estadoIntercambiar;
+    }
+
+    public function estadoIntercambiarToString(): string
+    {
+        return match ($this->estadoIntercambiar) {
+            self::ESTADO_CANCELADO => 'Cancelado',
+            self::ESTADO_ACEPTADO => 'Aceptado',
+            self::ESTADO_ENVIADO => 'Enviado',
+            self::ESTADO_FINALIZADO => 'Finalizado',
+            default => 'Pendiente',
+        };
+    }
+
+    public function estadoIntercambiarClase(): string
+    {
+        switch ($this->estadoIntercambiar) {
+            case self::ESTADO_ENVIADO:
+                return 'text-info';
+            case self::ESTADO_CANCELADO:
+                return 'text-danger';
+            case self::ESTADO_FINALIZADO:
+            case self::ESTADO_ACEPTADO:
+                return 'text-success';
+            default:
+                return '';
+        }
+    }
+
+    public function updateIntercambiar(int $estado, DateTime $fechaActualizacion)
+    {
+        $this->estadoIntercambiar = $estado;
         $this->fechaActualizacion = $fechaActualizacion;
     }
 }
