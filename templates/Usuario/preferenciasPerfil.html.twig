@@ -16,9 +16,15 @@
             </div>
             <div class="card-body">
                 {% if preferencias is  not empty %}
-                    <ul class="list-columns">
+                    <ul id="listadoPreferencias" class="list-columns">
                     {% for preferencia in preferencias %}
-                        <li>{{ preferencia.categoria.nombre }}</li>
+                        <li>
+                            {{ preferencia.categoria.nombre }}
+                            <a href="{{ path('preferencia_delete', {"preferenciaId": preferencia.id}) }}"
+                               class="ml-2">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </li>
                     {% endfor %}
                     </ul>
                 {% else %}
