@@ -35,15 +35,21 @@
                                     <i class="fa fa-trash"></i>
                                 </a>
                             {% else %}
+                                {% if not favoritoCreado %}
+                                    <a href="{{ path('favorito_create', {"objetoId": objeto.id}) }}"
+                                       class="btn btn-primary btn-sm">
+                                        <i class="fa fa-bookmark"></i> Favorito
+                                    </a>
+                                {% endif %}
                                 {% if not reservado %}
                                     <a href="{{ path('reserva_create', {"objetoId": objeto.id}) }}"
                                        class="btn btn-primary btn-sm">
-                                        <i class="fa fa-check-square"></i>
+                                        <i class="fa fa-check-square"></i> Reservar
                                     </a>
                                 {% elseif objeto.reservado and objeto.reserva.usuario == app.user and not objeto.transferido %}
                                     <a href="{{ path('reserva_create', {"objetoId": objeto.id}) }}"
                                        class="btn btn-primary btn-sm">
-                                        <i class="fa fa-exchange"></i>
+                                        <i class="fa fa-exchange"></i> Intercambiar
                                     </a>
                                 {% endif %}
                             {% endif %}
