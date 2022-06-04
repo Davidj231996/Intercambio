@@ -93,6 +93,11 @@ class Reserva extends Root
         return $this->estado == self::ESTADO_PENDIENTE;
     }
 
+    public function cancelar(): void
+    {
+        $this->estado = self::ESTADO_CANCELADO;
+    }
+
     public function update(int $estado, DateTime $fechaActualizacion)
     {
         $this->estado = $estado;
