@@ -12,7 +12,7 @@ class IntercambioCancelar
     {
     }
 
-    public function update(int $id):void
+    public function cancelar(int $id):void
     {
         $intercambio = $this->repository->search($id);
         $now = new DateTime();
