@@ -158,6 +158,15 @@ sup {
     top: -.5em;
 }
 
+a.normal-anchor {
+    color: #858796;
+}
+
+a.normal-anchor:hover {
+    text-decoration: none;
+    color: #5a5c69;
+}
+
 a {
     color: #4e73df;
     text-decoration: none;
@@ -10181,6 +10190,11 @@ a:focus {
 .topbar .nav-item .nav-link .img-profile {
     height: 2rem;
     width: 2rem;
+}
+
+.card-header .img-profile {
+    height: 1.5rem;
+    width: 1.5rem;
 }
 
 .topbar {
