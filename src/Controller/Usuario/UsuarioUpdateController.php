@@ -2,8 +2,10 @@
 
 namespace App\Controller\Usuario;
 
+use App\Form\Usuario\UsuarioUpdateType;
 use App\Usuario\Application\Update\UsuarioUpdate;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,19 +15,19 @@ class UsuarioUpdateController extends AbstractController
     {}
 
     /**
-     * @Route("/usuarioUpdate/{id}/{alias}/{nombre}/{apellidos}/{telefono}/{email}/{password}")
-     * @param int $id
-     * @param string $alias
-     * @param string $nombre
-     * @param string $apellidos
-     * @param string $telefono
-     * @param string $email
-     * @param string $password
+     * @Route("/usuarioUpdate", name="usuario_update")
+     * @param Request $request
      * @return Response
      */
-    public function usuarioUpdate(int $id, string $alias, string $nombre, string $apellidos, string $telefono, string $email, string $password): Response
+    public function usuarioUpdate(Request $request): Response
     {
-        $this->update->update($id, $alias, $nombre, $apellidos, $telefono, $email);
-        return $this->redirectToRoute('usuario', ['usuarioId' => $id]);
+        $form = $this->createForm(UsuarioUpdateType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $this->update->update($this->getUser(), $data['nombre'], $data['apellidos'], $data['telefono'], $data['email']);
+        }
+        return $this->redirectToRoute('perfil');
     }
 }
