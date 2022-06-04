@@ -5,12 +5,13 @@ namespace App\Intercambio\Application\Create;
 use App\Intercambio\Domain\Intercambio;
 use App\Intercambio\Domain\IntercambioRepository;
 use App\Objeto\Domain\Objeto;
+use App\Objeto\Domain\ObjetoRepository;
 use App\Usuario\Domain\Usuario;
 use DateTime;
 
 class IntercambioCreate
 {
-    public function __construct(private IntercambioRepository $repository)
+    public function __construct(private IntercambioRepository $repository, private ObjetoRepository $objetoRepository)
     {
     }
 
@@ -19,5 +20,8 @@ class IntercambioCreate
         $now = new DateTime();
         $intercambio = Intercambio::create(null, $objetoIntercambio, $objetoIntercambiar, $usuarioIntercambio, $usuarioIntercambiar, $now, $now);
         $this->repository->save($intercambio);
+
+        $intercambio->objetoIntercambio()->reservar($intercambio->objetoIntercambiar()->reserva());
+        $this->objetoRepository->save($intercambio->objetoIntercambio());
     }
 }
