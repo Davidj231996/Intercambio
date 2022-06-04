@@ -87,7 +87,7 @@
                                 {% if objeto.reservado %}
                                     <p>Objeto reservado por: {{ objeto.reserva.usuario.nombre }}
                                         ({{ objeto.reserva.fechaCreacion|date('d/m/Y H:i') }})
-                                        ({{ objeto.reserva.estadoToString }})
+                                        <span class="{{ objeto.reserva.estadoClase }}">({{ objeto.reserva.estadoToString }})</span>
                                     </p>
                                 {% else %}
                                     <p>Tiene reservas: </p>
@@ -95,7 +95,7 @@
                                         {% for reserva in objeto.reservas %}
                                             <li>Reserva realizada por: {{ reserva.usuario.nombre }}
                                                 ({{ reserva.fechaCreacion|date('d/m/Y H:i') }})
-                                                ({{ reserva.estadoToString }})
+                                                <span class="{{ reserva.estadoClase }}">({{ reserva.estadoToString }})</span>
                                             </li>
                                         {% endfor %}
                                     </ul>
