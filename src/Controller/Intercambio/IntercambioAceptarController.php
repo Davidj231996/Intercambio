@@ -3,6 +3,7 @@
 namespace App\Controller\Intercambio;
 
 use App\Intercambio\Application\Aceptar\IntercambioAceptar;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +20,18 @@ class IntercambioAceptarController extends AbstractController
      */
     public function aceptar($intercambioId)
     {
-        $this->intercambioAceptar->aceptar($intercambioId);
+        try {
+            $this->intercambioAceptar->aceptar($intercambioId);
+            $this->addFlash(
+                'success',
+                'Intercambio aceptado'
+            );
+        } catch (Exception) {
+            $this->addFlash(
+                'warning',
+                'Error al aceptar el intercambio'
+            );
+        }
         return $this->redirectToRoute('perfil');
     }
 }

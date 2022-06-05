@@ -3,6 +3,7 @@
 namespace App\Controller\Intercambio;
 
 use App\Intercambio\Application\Enviar\IntercambioEnviarIntercambio;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +20,18 @@ class IntercambioEnviarIntercambioController extends AbstractController
      */
     public function enviarIntercambio($intercambioId)
     {
-        $this->intercambioEnviarIntercambio->update($intercambioId);
+        try {
+            $this->intercambioEnviarIntercambio->update($intercambioId);
+            $this->addFlash(
+                'success',
+                'Intercambio marcado como enviado'
+            );
+        } catch (Exception) {
+            $this->addFlash(
+                'warning',
+                'Error al marcar como enviado'
+            );
+        }
         return $this->redirectToRoute('perfil');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Controller\Reserva;
 
 use App\Objeto\Domain\ObjetoFinder;
 use App\Reserva\Application\Create\ReservaCreate;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +26,23 @@ class ReservaCreatorController extends AbstractController
     {
         $objeto = $this->objetoFinder->__invoke($objetoId);
         if ($this->getUser() != $objeto->usuario()) {
-            $this->reservaCreate->create($this->getUser(), $objeto);
+            try {
+                $this->reservaCreate->create($this->getUser(), $objeto);
+                $this->addFlash(
+                    'success',
+                    'Reserva creada'
+                );
+            } catch (Exception) {
+                $this->addFlash(
+                    'warning',
+                    'Error al crear la reserva'
+                );
+            }
+        } else {
+            $this->addFlash(
+                'warning',
+                'No puedes reservar tu objeto'
+            );
         }
 
         return $this->redirectToRoute('objeto', [

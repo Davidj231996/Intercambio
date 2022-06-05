@@ -28,6 +28,10 @@ class IntercambioCreatorController extends AbstractController
         $objetoIntercambiar = $this->objetoFinder->__invoke($objetoIntercambiarId);
 
         if (!$objetoIntercambiar->reservado() || $objetoIntercambiar->reserva()->usuario() != $this->getUser()) {
+            $this->addFlash(
+                'warning',
+                'Este objeto no está reservado o lo ha reservado otro usuario'
+            );
             return $this->redirectToRoute('objeto', [
                 'objetoId' => $objetoIntercambiarId
             ]);
@@ -43,15 +47,19 @@ class IntercambioCreatorController extends AbstractController
             $data = $form->getData();
             try {
                 $this->intercambioCreate->create($data['objeto'], $objetoIntercambiar);
-            } catch (Exception $exception) {
-                return $this->renderForm('intercambio/create.html.twig', [
-                    'form' => $form,
-                    'error' => $exception->getMessage()
+                $this->addFlash(
+                    'success',
+                    'Intercambio pedido'
+                );
+                return $this->redirectToRoute('objeto', [
+                    'objetoId' => $objetoIntercambiarId
                 ]);
+            } catch (Exception) {
+                $this->addFlash(
+                    'warning',
+                    'Error al pedir el intercambio'
+                );
             }
-            return $this->redirectToRoute('objeto', [
-                'objetoId' => $objetoIntercambiarId
-            ]);
         }
 
         return $this->renderForm('intercambio/create.html.twig', [

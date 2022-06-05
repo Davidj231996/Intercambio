@@ -6,6 +6,7 @@ use App\Form\Usuario\UsuarioPasswordType;
 use App\Usuario\Application\Check\UsuarioCheck;
 use App\Usuario\Application\PasswordUpdate\UsuarioPasswordUpdate;
 use App\Usuario\Domain\Usuario;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +33,23 @@ class UsuarioPasswordUpdateController extends AbstractController
             $usuario = $this->getUser();
             $data = $form->getData();
             if ($this->usuarioCheck->check($usuario, $data['currentPassword'])) {
-                $this->usuarioPasswordUpdate->updatePassword($usuario, $data['newPassword']);
+                try {
+                    $this->usuarioPasswordUpdate->updatePassword($usuario, $data['newPassword']);
+                    $this->addFlash(
+                        'success',
+                        'Contraseña actualizada'
+                    );
+                } catch (Exception) {
+                    $this->addFlash(
+                        'warning',
+                        'Error al actualizar la contraseña'
+                    );
+                }
+            } else {
+                $this->addFlash(
+                    'warning',
+                    'La contraseña actual no es la correcta'
+                );
             }
         }
         return $this->redirectToRoute('perfil');

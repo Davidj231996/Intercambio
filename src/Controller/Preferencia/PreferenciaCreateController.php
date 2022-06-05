@@ -5,6 +5,7 @@ namespace App\Controller\Preferencia;
 use App\Form\Preferencia\PreferenciaCreateType;
 use App\Preferencia\Application\Create\PreferenciaCreate;
 use App\Preferencia\Domain\Preferencia;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,8 +37,19 @@ class PreferenciaCreateController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $this->preferenciaCreate->create($this->getUser(), $data['categorias']);
-            return $this->redirectToRoute('perfil');
+            try {
+                $this->preferenciaCreate->create($this->getUser(), $data['categorias']);
+                $this->addFlash(
+                    'success',
+                    'Preferencias añadidas'
+                );
+                return $this->redirectToRoute('perfil');
+            } catch (Exception) {
+                $this->addFlash(
+                    'warning',
+                    'Error al añadir preferencias'
+                );
+            }
         }
         return $this->renderForm('preferencia/create.html.twig', [
             'form' => $form

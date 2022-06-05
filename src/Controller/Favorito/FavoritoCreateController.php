@@ -4,6 +4,7 @@ namespace App\Controller\Favorito;
 
 use App\Favorito\Application\Create\FavoritoCreate;
 use App\Objeto\Domain\ObjetoFinder;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,9 +22,19 @@ class FavoritoCreateController extends AbstractController
      */
     public function create($objetoId): RedirectResponse
     {
-        $objeto = $this->objetoFinder->__invoke($objetoId);
-
-        $this->favoritoCreate->create($this->getUser(), $objeto);
+        try {
+            $objeto = $this->objetoFinder->__invoke($objetoId);
+            $this->favoritoCreate->create($this->getUser(), $objeto);
+            $this->addFlash(
+                'success',
+                'Favorito añadido'
+            );
+        } catch (Exception) {
+            $this->addFlash(
+                'warning',
+                'Error al añadir favorito'
+            );
+        }
 
         return $this->redirectToRoute('objeto', [
             'objetoId' => $objetoId

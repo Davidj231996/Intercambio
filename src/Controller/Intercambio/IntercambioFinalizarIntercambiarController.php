@@ -3,6 +3,7 @@
 namespace App\Controller\Intercambio;
 
 use App\Intercambio\Application\Finalizar\IntercambioFinalizarIntercambiar;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +20,18 @@ class IntercambioFinalizarIntercambiarController extends AbstractController
      */
     public function finalizarIntercambiar($intercambioId)
     {
-        $this->intercambioFinalizarIntercambiar->update($intercambioId);
+        try {
+            $this->intercambioFinalizarIntercambiar->update($intercambioId);
+            $this->addFlash(
+                'success',
+                'Intercambio marcado como finalizado'
+            );
+        } catch (Exception) {
+            $this->addFlash(
+                'warning',
+                'Error al marcar como finalizado el intercambio'
+            );
+        }
         return $this->redirectToRoute('perfil');
     }
 }

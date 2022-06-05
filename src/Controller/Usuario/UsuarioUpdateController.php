@@ -4,6 +4,7 @@ namespace App\Controller\Usuario;
 
 use App\Form\Usuario\UsuarioUpdateType;
 use App\Usuario\Application\Update\UsuarioUpdate;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +27,18 @@ class UsuarioUpdateController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $this->update->update($this->getUser(), $data['nombre'], $data['apellidos'], $data['telefono'], $data['email']);
+            try {
+                $this->update->update($this->getUser(), $data['nombre'], $data['apellidos'], $data['telefono'], $data['email']);
+                $this->addFlash(
+                    'success',
+                    'Usuario modificado'
+                );
+            } catch (Exception) {
+                $this->addFlash(
+                    'warning',
+                    'Error al actualizar el usuario'
+                );
+            }
         }
         return $this->redirectToRoute('perfil');
     }

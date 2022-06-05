@@ -2,13 +2,13 @@
 
 namespace App\Controller\Objeto;
 
-use App\CategoriaObjeto\Application\AddCategorias\AddCategoriasObjeto;
 use App\CategoriaObjeto\Application\UpdateCategorias\UpdateCategoriasObjeto;
 use App\CategoriaObjeto\Domain\CategoriaObjeto;
 use App\Form\Objeto\ObjetoUpdateType;
-use App\Imagen\Application\ObjetoCreate\ImagenObjetoCreate;
+
 use App\Objeto\Application\Update\ObjetoUpdate;
 use App\Objeto\Domain\ObjetoFinder;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +30,7 @@ class ObjetoUpdateController extends AbstractController
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function create(Request $request, int $objetoId): RedirectResponse|Response
+    public function update(Request $request, int $objetoId): RedirectResponse|Response
     {
         $objeto = $this->objetoFinder->__invoke($objetoId);
         $categorias = [];
@@ -47,9 +47,20 @@ class ObjetoUpdateController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $this->objetoUpdate->update($objetoId, $data['nombre'], $data['descripcion'], 0);
-            $this->updateCategoriasObjeto->updateCategoriasObjeto($data['categorias'], $objeto);
-            return $this->redirectToRoute('objeto', ['objetoId' => $objeto->id()]);
+            try {
+                $this->objetoUpdate->update($objetoId, $data['nombre'], $data['descripcion'], 0);
+                $this->updateCategoriasObjeto->updateCategoriasObjeto($data['categorias'], $objeto);
+                $this->addFlash(
+                    'success',
+                    'Objeto modificado'
+                );
+                return $this->redirectToRoute('objeto', ['objetoId' => $objeto->id()]);
+            } catch (Exception) {
+                $this->addFlash(
+                    'warning',
+                    'Error al modificar el objeto'
+                );
+            }
         }
         return $this->renderForm('objeto/create.html.twig', [
             'form' => $form

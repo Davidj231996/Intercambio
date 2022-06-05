@@ -3,6 +3,7 @@
 namespace App\Controller\Reserva;
 
 use App\Reserva\Application\Aceptar\ReservaAceptar;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +19,18 @@ class ReservaAceptarController extends AbstractController
      * @return mixed
      */
     public function aceptar(Request $request, $reservaId) {
-        $this->reservaAceptar->update($reservaId);
+        try {
+            $this->reservaAceptar->update($reservaId);
+            $this->addFlash(
+                'success',
+                'Reserva aceptada'
+            );
+        } catch (Exception) {
+            $this->addFlash(
+                'warning',
+                'Error al aceptar la reserva'
+            );
+        }
         return $this->redirectToRoute('perfil');
     }
 }

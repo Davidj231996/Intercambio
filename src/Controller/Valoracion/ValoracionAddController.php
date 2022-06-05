@@ -5,6 +5,7 @@ namespace App\Controller\Valoracion;
 use App\Form\Valoracion\ValoracionCreateType;
 use App\Usuario\Domain\UsuarioFinder;
 use App\Valoracion\Application\Add\ValoracionAdd;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,10 +30,21 @@ class ValoracionAddController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $this->valoracionAdd->add($this->usuarioFinder->__invoke($usuarioId), $data['valor']);
-            return $this->redirectToRoute('usuario', [
-                'usuarioId' => $usuarioId
-            ]);
+            try {
+                $this->valoracionAdd->add($this->usuarioFinder->__invoke($usuarioId), $data['valor']);
+                $this->addFlash(
+                    'success',
+                    'Valoración añadida'
+                );
+                return $this->redirectToRoute('usuario', [
+                    'usuarioId' => $usuarioId
+                ]);
+            } catch (Exception) {
+                $this->addFlash(
+                    'success',
+                    'Error al añadir la valoración'
+                );
+            }
         }
         return $this->renderForm('valoracion/add.html.twig', [
             'form' => $form

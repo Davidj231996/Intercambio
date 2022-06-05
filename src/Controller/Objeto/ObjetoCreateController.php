@@ -6,6 +6,7 @@ use App\CategoriaObjeto\Application\AddCategorias\AddCategoriasObjeto;
 use App\Form\Objeto\ObjetoCreateType;
 use App\Imagen\Application\ObjetoCreate\ImagenObjetoCreate;
 use App\Objeto\Application\Create\ObjetoCreate;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,12 +35,23 @@ class ObjetoCreateController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $objeto = $this->objetoCreate->create($data['nombre'], $data['descripcion'], $this->getUser());
-            if (isset($data['imagen'])) {
-                $this->imagenObjetoCreate->create($data['imagen'], $objeto);
+            try {
+                $objeto = $this->objetoCreate->create($data['nombre'], $data['descripcion'], $this->getUser());
+                if (isset($data['imagen'])) {
+                    $this->imagenObjetoCreate->create($data['imagen'], $objeto);
+                }
+                $this->addCategoriasObjeto->addCategoriasObjeto($data['categorias'], $objeto);
+                $this->addFlash(
+                    'success',
+                    'Objeto creado'
+                );
+                return $this->redirectToRoute('objeto', ['objetoId' => $objeto->id()]);
+            } catch (Exception) {
+                $this->addFlash(
+                    'warning',
+                    'Error al crear el objeto'
+                );
             }
-            $this->addCategoriasObjeto->addCategoriasObjeto($data['categorias'], $objeto);
-            return $this->redirectToRoute('objeto', ['objetoId' => $objeto->id()]);
         }
         return $this->renderForm('objeto/create.html.twig', [
             'form' => $form
