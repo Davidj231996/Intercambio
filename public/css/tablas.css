@@ -1,11 +1,10 @@
 table {
     width: 100%;
     text-align: center;
-    border-radius: 10px;
 }
 
-table, th, td {
-    border: 1px solid black;
+.dataTables_wrapper {
+    width: 100%;
 }
 
 table thead tr {
