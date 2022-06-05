@@ -27,3 +27,30 @@
         {% endembed %}
     </div>
 {% endblock %}
+
+{% block js %}
+    <script>
+        $(document).ready( function () {
+            $("#misReservas").DataTable({
+                language: {
+                    url: "{{ asset('dataTables/i18n/dataTables.spanish.json') }}"
+                }
+            });
+            $("#reservas").DataTable({
+                language: {
+                    url: "{{ asset('dataTables/i18n/dataTables.spanish.json') }}"
+                }
+            });
+            $("#misIntercambios").DataTable({
+                language: {
+                    url: "{{ asset('dataTables/i18n/dataTables.spanish.json') }}"
+                }
+            });
+            $("#intercambios").DataTable({
+                language: {
+                    url: "{{ asset('dataTables/i18n/dataTables.spanish.json') }}"
+                }
+            });
+        } );
+    </script>
+{% endblock %}

@@ -6,7 +6,7 @@
     <h4>Reservas hechas por mi</h4>
     <div class="row mb-4">
         {% if reservas is  not empty %}
-            <table>
+            <table id="misReservas" class="cell-border hover">
                 <thead>
                 <tr>
                     <th>Objeto</th>
@@ -41,7 +41,7 @@
     <h4>Reservas hechas a mis objetos</h4>
     <div class="row">
         {% if usuario.reservasAMi is  not empty %}
-            <table>
+            <table id="reservas" class="cell-border hover">
                 <thead>
                 <tr>
                     <th>Objeto</th>

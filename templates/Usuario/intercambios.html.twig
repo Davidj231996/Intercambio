@@ -6,7 +6,7 @@
     <h4>Intercambios hechos por mi</h4>
     <div class="row mb-4">
         {% if intercambios is  not empty %}
-            <table>
+            <table id="misIntercambios" class="cell-border hover">
                 <thead>
                 <tr>
                     <th>Mi Objeto</th>
@@ -66,7 +66,7 @@
     <h4>Intercambios hechos a mis objetos</h4>
     <div class="row">
         {% if usuario.intercambiosAMi is  not empty %}
-            <table>
+            <table id="intercambios" class="cell-border hover">
                 <thead>
                 <tr>
                     <th>Mi Objeto</th>
