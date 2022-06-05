@@ -216,7 +216,11 @@
     <script src="{{ asset('js/alertas.js') }}"></script>
     <script>
         var alerta = "{{ alerta }}";
-        alertbox.show(alerta);
+        {% if alertaSucces is defined %}
+        alertboxSucces.show(alerta);
+        {% else %}
+        alertboxError.show(alerta);
+        {% endif %}
     </script>
 {% endif %}
 

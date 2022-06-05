@@ -19,6 +19,14 @@
     transition: opacity 0.5s ease-in;
 }
 
+.alert-success {
+    background: #4e73df;
+}
+
+.alert-error {
+    background: #d52a1a;
+}
+
 .alert-box.hide {
     opacity: 0;
 }

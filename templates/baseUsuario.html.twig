@@ -206,8 +206,8 @@
                                             <i class="fa fa-star"></i>
                                         {% endfor %}
                                         {% if valor != 5 and (valor - valor|round(0, 'floor')) != 0 %}
-                                            <i class="fa fa-star-half"></i>
-                                        {% endif %}
+                                        <i class="fa fa-star-half"></i>
+                                    {% endif %}
                                     {% else %}
                                         <i class="fa-regular fa-star"></i>
                                         <i class="fa-regular fa-star"></i>
@@ -287,7 +287,11 @@
     <script src="{{ asset('js/alertas.js') }}"></script>
     <script>
         var alerta = "{{ alerta }}";
-        alertbox.show(alerta);
+        {% if alertaSucces is defined %}
+        alertboxSucces.show(alerta);
+        {% else %}
+        alertboxError.show(alerta);
+        {% endif %}
     </script>
 {% endif %}
 
