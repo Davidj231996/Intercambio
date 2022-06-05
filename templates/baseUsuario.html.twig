@@ -17,6 +17,7 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/base.css') }}" rel="stylesheet">
     <link href="{{ asset('css/tablas.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/alertas.css') }}" rel="stylesheet">
 </head>
 <body id="page-top">
 <!-- Page Wrapper -->
@@ -247,6 +248,10 @@
                 {% endblock %}
                 <!-- /.container-fluid -->
 
+                {% if alerta is defined %}
+                    <div id="alert-area" class="alert-area"></div>
+                {% endif %}
+
             </div>
             <!-- End of Main Content -->
 
@@ -278,7 +283,13 @@
 <!-- Custom javascrypt for this template-->
 <script src="{{ asset('js/baseUsuario.js') }}"></script>
 
-<!-- Custom scripts for all pages-->
-{# <script src="js/sb-admin-2.min.js"></script> #}
+{% if alerta is defined %}
+    <script src="{{ asset('js/alertas.js') }}"></script>
+    <script>
+        var alerta = "{{ alerta }}";
+        alertbox.show(alerta);
+    </script>
+{% endif %}
+
 </body>
 </html>
