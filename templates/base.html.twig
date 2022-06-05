@@ -180,9 +180,7 @@
             {% endblock %}
             <!-- /.container-fluid -->
 
-            {% if alerta is defined %}
-                <div id="alert-area" class="alert-area"></div>
-            {% endif %}
+            <div id="alert-area" class="alert-area"></div>
 
         </div>
         <!-- End of Main Content -->
@@ -212,17 +210,19 @@
 <script src="{{ asset('jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-{% if alerta is defined %}
-    <script src="{{ asset('js/alertas.js') }}"></script>
-    <script>
-        var alerta = "{{ alerta }}";
-        {% if alertaSucces is defined %}
-        alertboxSucces.show(alerta);
-        {% else %}
-        alertboxError.show(alerta);
-        {% endif %}
-    </script>
-{% endif %}
+<script src="{{ asset('js/alertas.js') }}"></script>
+<script>
+    {% for label, alertas in app.flashes %}
+    {% for alerta in alertas %}
+    var alerta = "{{ alerta }}";
+    {% if label == 'success' %}
+    alertboxSucces.show(alerta);
+    {% else %}
+    alertboxError.show(alerta);
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+</script>
 
 {% block js %}
 {% endblock %}
