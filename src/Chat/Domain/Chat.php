@@ -12,14 +12,16 @@ class Chat extends Root
     private ?Collection $mensajes;
 
     public function __construct(
-        private ?int $id,
-        private Usuario $usuario1,
-        private Usuario $usuario2,
+        private ?int     $id,
+        private Usuario  $usuario1,
+        private Usuario  $usuario2,
         private DateTime $fechaCreacion,
         private DateTime $fechaActualizacion
-    ) {}
+    )
+    {
+    }
 
-    public function create(?int $id, Usuario $usuario1, Usuario $usuario2, DateTime $fechaCreacion): Chat
+    public static function create(?int $id, Usuario $usuario1, Usuario $usuario2, DateTime $fechaCreacion): Chat
     {
         return new self($id, $usuario1, $usuario2, $fechaCreacion, $fechaCreacion);
     }
