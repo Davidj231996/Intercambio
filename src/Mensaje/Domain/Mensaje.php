@@ -17,7 +17,7 @@ class Mensaje extends Root
         private DateTime $fecha
     ) {}
 
-    public function create(?int $id, Chat $chat, Usuario $usuario, string $mensaje, DateTime $fecha) {
+    public static function create(?int $id, Chat $chat, Usuario $usuario, string $mensaje, DateTime $fecha) {
         return new self($id, $chat, $usuario, $mensaje, $fecha);
     }
 
