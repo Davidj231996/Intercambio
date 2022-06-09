@@ -22,8 +22,10 @@ class ChatRepositoryDoctrine extends DoctrineRepository implements ChatRepositor
 
     public function searchByUsuario(Usuario $usuario): ?Chats
     {
-        return $this->repository(Chat::class)->createQueryBuilder('chat')
-            ->where('chat.usuario1 = usuario OR chat.usuario2 = usuario')->setParameter('usuario', $usuario)
+        $chats = $this->repository(Chat::class)->createQueryBuilder('chat')
+            ->where('chat.usuario1 = :usuario OR chat.usuario2 = :usuario')->setParameter('usuario', $usuario)
+            ->orderBy('chat.fechaActualizacion')
             ->getQuery()->execute();
+        return new Chats($chats);
     }
 }
