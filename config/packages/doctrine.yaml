@@ -25,6 +25,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/CategoriaIntercambio/Infrastructure/Persistence/Doctrine'
                 prefix: 'App\CategoriaIntercambio\Domain'
                 alias: CategoriaIntercambio
+            Chat:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Chat/Infrastructure/Persistence/Doctrine'
+                prefix: 'App\Chat\Domain'
+                alias: Chat
             Direccion:
                 is_bundle: false
                 type: xml
@@ -43,6 +49,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Imagen/Infrastructure/Persistence/Doctrine'
                 prefix: 'App\Imagen\Domain'
                 alias: Imagen
+            Mensaje:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Mensaje/Infrastructure/Persistence/Doctrine'
+                prefix: 'App\Mensaje\Domain'
+                alias: Mensaje
             Intercambio:
                 is_bundle: false
                 type: xml

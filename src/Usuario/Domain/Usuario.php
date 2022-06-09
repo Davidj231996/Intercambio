@@ -24,6 +24,8 @@ class Usuario extends Root implements UserInterface, PasswordAuthenticatedUserIn
     private ?Collection $reservasAMi = null;
     private ?Collection $intercambios = null;
     private ?Collection $intercambiosAMi = null;
+    private ?Collection $misChats = null;
+    private ?Collection $chats = null;
 
     public function __construct(
         private ?int    $id,
@@ -133,6 +135,16 @@ class Usuario extends Root implements UserInterface, PasswordAuthenticatedUserIn
     public function intercambiosAMi(): Collection
     {
         return $this->intercambiosAMi;
+    }
+
+    public function misChats(): Collection
+    {
+        return $this->misChats;
+    }
+
+    public function chats(): Collection
+    {
+        return $this->chats;
     }
 
     public function update(

@@ -27,6 +27,8 @@
                      mapped-by="usuarioIntercambio"/>
         <one-to-many field="intercambiosAMi" target-entity="App\Intercambio\Domain\Intercambio"
                      mapped-by="usuarioIntercambiar"/>
+        <one-to-many field="misChats" target-entity="App\Chat\Domain\Chat" mapped-by="usuario1"/>
+        <one-to-many field="chats" target-entity="App\Chat\Domain\Chat" mapped-by="usuario2"/>
     </entity>
 
 </doctrine-mapping>
