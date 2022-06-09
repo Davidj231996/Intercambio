@@ -2,6 +2,7 @@
 
 namespace App\Chat\Application\Update;
 
+use App\Chat\Domain\Chat;
 use App\Chat\Domain\ChatRepository;
 use DateTime;
 
@@ -11,9 +12,8 @@ class ChatUpdate
     {
     }
 
-    public function update(int $id): void
+    public function update(Chat $chat): void
     {
-        $chat = $this->chatRepository->search($id);
         $chat->actualizar(new DateTime());
         $this->chatRepository->save($chat);
     }
