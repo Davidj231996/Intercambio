@@ -1,6 +1,23 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseBusqueda.html.twig' %}
 
 {% block title %}Búsqueda{% endblock %}
+
+{% block categoriasFiltro %}
+    {% if objetos.categorias is not empty %}
+        <form method="post" action="{{ path('busqueda') }}">
+            {% for categoria in objetos.categorias %}
+                <li class="nav-item p-3">
+                    <input {% if categoria.id in categoriasFiltro %}checked{% endif %}
+                           type="checkbox" value="{{ categoria.id }}" name="categoriasFiltro[]">
+                    <label class="text-white">{{ categoria.nombre }}</label>
+                </li>
+            {% endfor %}
+            <input type="hidden" name="busqueda" value="{{ busqueda }}">
+            <input type="hidden" id="pagina" name="pagina" value="{{ pagina }}">
+            <input type="submit" id="filtrar" class="btn btn-info m-3" value="Filtrar">
+        </form>
+    {% endif %}
+{% endblock %}
 
 {% block content %}
     <div class="container-fluid">
@@ -9,8 +26,8 @@
             <h1 class="h3 mb-0 text-gray-800">Búsqueda</h1>
         </div>
         <div class="row">
-            {% if objetos is  not empty %}
-                {% for objeto in objetos %}
+            {% if objetos.objetos is  not empty %}
+                {% for objeto in objetos.objetos %}
                     <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card shadow mb-4">
@@ -56,5 +73,9 @@
                 </div>
             {% endif %}
         </div>
+        {% for p in 1..paginas %}
+            <a class="btn btn-sm {% if pagina == p %}btn-primary{% else %}btn-info{% endif %}" onclick="$('#pagina').val({{ p }}); $('#filtrar').click();">{{ p }}</a>
+        {% endfor %}
+        <p class="text-right">Mostrando página {{ pagina }} de {{ paginas }}. Mostrando {{ total }} objetos</p>
     </div>
 {% endblock %}

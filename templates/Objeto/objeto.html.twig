@@ -60,10 +60,23 @@
                     <div class="card-body">
                         {% if objeto.imagenes is not empty %}
                             <div class="text-center">
-                                <img title="{{ objeto.imagenes.get(0).descripcion }}"
-                                     alt="{{ objeto.imagenes.get(0).descripcion }}"
-                                     class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 20rem;"
-                                     src="{{ asset((objeto.imagenes.get(0).ruta)) }}" alt="...">
+                                <div id="carouselExampleControls" class="carousel slide offset-4 col-4" data-ride="carousel">
+                                    <div class="carousel-inner">
+                                        {% for imagen in objeto.imagenes %}
+                                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                            <img class="d-block w-100 h-auto" src="{{ asset((imagen.ruta)) }}">
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
                             </div>
                         {% endif %}
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
@@ -81,6 +94,18 @@
                             </ul>
                         {% else %}
                             <p class="p-indent">Sin categorias</p>
+                        {% endif %}
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Categorias Intercambio
+                        </div>
+                        {% if objeto.categoriasIntercambio is not empty %}
+                            <ul>
+                                {% for categoria in objeto.categoriasIntercambio %}
+                                    <li>{{ categoria.categoria.nombre }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p class="p-indent">Sin categorias de intercambio</p>
                         {% endif %}
                         {% if objeto.usuario == app.user %}
                             {% if objeto.reservas is not empty %}
