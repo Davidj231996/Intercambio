@@ -20,6 +20,7 @@ class IntercambioEnviarIntercambioController extends AbstractController
      */
     public function enviarIntercambio($intercambioId)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         try {
             $this->intercambioEnviarIntercambio->update($intercambioId);
             $this->addFlash(

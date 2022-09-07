@@ -20,6 +20,7 @@ class IntercambioCancelarController extends AbstractController
      */
     public function cancelar($intercambioId)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         try {
             $this->intercambioCancelar->cancelar($intercambioId);
             $this->addFlash(

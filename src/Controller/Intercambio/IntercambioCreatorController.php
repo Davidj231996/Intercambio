@@ -4,6 +4,7 @@ namespace App\Controller\Intercambio;
 
 use App\Form\Intercambio\IntercambioCreateType;
 use App\Intercambio\Application\Create\IntercambioCreate;
+use App\Objeto\Application\ObjetosHabilitadosUsuarioFinder\ObjetosHabilitadosUsuarioFinder;
 use App\Objeto\Domain\ObjetoFinder;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class IntercambioCreatorController extends AbstractController
 {
-    public function __construct(private IntercambioCreate $intercambioCreate, private ObjetoFinder $objetoFinder)
+    public function __construct(private IntercambioCreate $intercambioCreate, private ObjetoFinder $objetoFinder, private ObjetosHabilitadosUsuarioFinder $objetosHabilitadosUsuarioFinder)
     {
     }
 
@@ -25,6 +26,16 @@ class IntercambioCreatorController extends AbstractController
      */
     public function create(Request $request, $objetoIntercambiarId): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        if ($this->objetosHabilitadosUsuarioFinder->finder($this->getUser())->count() == 0) {
+            $this->addFlash(
+                'warning',
+                'No tienes objetos para intercambiar'
+            );
+            return $this->redirect($request->headers->get('referer'));
+        }
+
         $objetoIntercambiar = $this->objetoFinder->__invoke($objetoIntercambiarId);
 
         if (!$objetoIntercambiar->reservado() || $objetoIntercambiar->reserva()->usuario() != $this->getUser()) {
@@ -32,9 +43,15 @@ class IntercambioCreatorController extends AbstractController
                 'warning',
                 'Este objeto no está reservado o lo ha reservado otro usuario'
             );
-            return $this->redirectToRoute('objeto', [
-                'objetoId' => $objetoIntercambiarId
-            ]);
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        if ($objetoIntercambiar->intercambio()) {
+            $this->addFlash(
+                'warning',
+                'Este objeto ya tiene una petición realizada'
+            );
+            return $this->redirect($request->headers->get('referer'));
         }
 
         $form = $this->createForm(IntercambioCreateType::class, [

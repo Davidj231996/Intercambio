@@ -20,6 +20,7 @@ class IntercambioFinalizarIntercambiarController extends AbstractController
      */
     public function finalizarIntercambiar($intercambioId)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         try {
             $this->intercambioFinalizarIntercambiar->update($intercambioId);
             $this->addFlash(

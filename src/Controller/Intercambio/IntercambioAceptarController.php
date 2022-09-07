@@ -20,6 +20,7 @@ class IntercambioAceptarController extends AbstractController
      */
     public function aceptar($intercambioId)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         try {
             $this->intercambioAceptar->aceptar($intercambioId);
             $this->addFlash(
