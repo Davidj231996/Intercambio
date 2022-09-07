@@ -9,8 +9,16 @@
             <generator/>
         </id>
 
-        <many-to-one field="categoria" target-entity="App\Categoria\Domain\Categoria" inversed-by="objetos"/>
-        <many-to-one field="objeto" target-entity="App\Objeto\Domain\Objeto" inversed-by="categorias"/>
+        <many-to-one field="categoria" target-entity="App\Categoria\Domain\Categoria" inversed-by="objetos">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-one>
+        <many-to-one field="objeto" target-entity="App\Objeto\Domain\Objeto" inversed-by="categorias">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-one>
     </entity>
 
 </doctrine-mapping>
