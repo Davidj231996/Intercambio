@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+    php:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+        container_name: application
+        networks:
+            - truequeweb
+        depends_on:
+            - mysql
+        ports:
+            - 8000:80
+        volumes:
+            - php:/var/www/html:cached
+            - ~/.composer:/home/user/.composer
+    mysql:
+        image: mysql:latest
+        container_name: mysql
+        ports:
+            - 3306:3306
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+            MYSQL_DATABASE: truequeweb
+        volumes:
+            - mysql_data:/var/lib/mysql
+        networks:
+            - truequeweb
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        networks:
+            - truequeweb
+        ports:
+          - 8080:80
+        environment:
+          - PMA_HOST=mysql
+        depends_on:
+          - mysql
+networks:
+    truequeweb:
+
+volumes:
+  mysql_data:
+  php:
+      name: php
+      external: true
