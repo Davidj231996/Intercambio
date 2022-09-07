@@ -14,7 +14,5 @@ interface FavoritoRepository
 
     public function searchByUsuarioObjeto(Usuario $usuario, Objeto $objeto): ?Favorito;
 
-    public function searchByCriteria(Criteria $criteria): Favoritos;
-
     public function delete(Favorito $favorito): void;
 }

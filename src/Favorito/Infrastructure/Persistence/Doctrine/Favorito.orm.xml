@@ -9,9 +9,18 @@
             <generator/>
         </id>
 
-        <many-to-one field="usuario" target-entity="App\Usuario\Domain\Usuario" inversed-by="favoritos"/>
-        <many-to-one field="objeto" target-entity="App\Objeto\Domain\Objeto" inversed-by="favoritos"/>
-        <field name="fecha" type="datetime" column="fecha" />
+        <many-to-one field="usuario" target-entity="App\Usuario\Domain\Usuario" inversed-by="favoritos">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-one>
+        <many-to-one field="objeto" target-entity="App\Objeto\Domain\Objeto" inversed-by="favoritos">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-one>
+
+        <field name="fecha" type="datetime" column="fecha"/>
     </entity>
 
 </doctrine-mapping>

@@ -25,7 +25,7 @@ class FavoritoRepositoryDoctrine extends DoctrineRepository implements FavoritoR
         $this->persist($favorito);
     }
 
-    public function search(int $id): Favorito
+    public function search(int $id): ?Favorito
     {
         return $this->repository(Favorito::class)->find($id);
     }
@@ -33,14 +33,6 @@ class FavoritoRepositoryDoctrine extends DoctrineRepository implements FavoritoR
     public function searchByUsuarioObjeto(Usuario $usuario, Objeto $objeto): ?Favorito
     {
         return $this->repository(Favorito::class)->findOneBy(['usuario' => $usuario, 'objeto' => $objeto]);
-    }
-
-    public function searchByCriteria(Criteria $criteria): Favoritos
-    {
-        $doctrineCriteria = DoctrineCriteriaConverter::convert($criteria, self::$criteriaToDoctrineFields);
-        $favoritos = $this->repository(Favorito::class)->matching($doctrineCriteria)->toArray();
-
-        return new Favoritos($favoritos);
     }
 
     public function delete(Favorito $favorito): void
