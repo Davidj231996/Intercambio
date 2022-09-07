@@ -9,9 +9,18 @@
             <generator/>
         </id>
 
-        <one-to-many field="chat" target-entity="App\Chat\Domain\Chat" mapped-by="mensajes"/>
-        <many-to-one field="usuario" target-entity="App\Usuario\Domain\Usuario"/>
-        <field name="mensaje" type="string" column="mensaje"/>
+        <many-to-one field="chat" target-entity="App\Chat\Domain\Chat" inversed-by="mensajes">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-one>
+        <many-to-one field="usuario" target-entity="App\Usuario\Domain\Usuario">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-one>
+
+        <field name="mensaje" column="mensaje"/>
         <field name="fecha" type="datetime" column="fecha"/>
     </entity>
 

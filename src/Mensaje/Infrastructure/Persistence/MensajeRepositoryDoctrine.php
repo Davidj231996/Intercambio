@@ -2,8 +2,10 @@
 
 namespace App\Mensaje\Infrastructure\Persistence;
 
+use App\Chat\Domain\Chat;
 use App\Mensaje\Domain\Mensaje;
 use App\Mensaje\Domain\MensajeRepository;
+use App\Mensaje\Domain\Mensajes;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 
 class MensajeRepositoryDoctrine extends DoctrineRepository implements MensajeRepository
@@ -16,5 +18,12 @@ class MensajeRepositoryDoctrine extends DoctrineRepository implements MensajeRep
     public function search(int $id): ?Mensaje
     {
         return $this->repository(Mensaje::class)->find($id);
+    }
+
+    public function searchByChat(Chat $chat): ?Mensajes
+    {
+        $mensajes = $this->repository(Mensaje::class)->findBy(['chat' => $chat]);
+
+        return new Mensajes($mensajes);
     }
 }
