@@ -19,6 +19,7 @@ class PreferenciaDeleteController extends AbstractController
      */
     public function delete($preferenciaId): RedirectResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         try {
             $this->preferenciaDelete->delete($preferenciaId);
             $this->addFlash(

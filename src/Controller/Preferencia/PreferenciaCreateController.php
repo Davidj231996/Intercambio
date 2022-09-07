@@ -25,6 +25,7 @@ class PreferenciaCreateController extends AbstractController
      */
     public function create(Request $request): RedirectResponse|Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $categorias = [];
         /** @var Preferencia $preferencia */
         foreach ($this->getUser()->preferencias() as $preferencia) {
