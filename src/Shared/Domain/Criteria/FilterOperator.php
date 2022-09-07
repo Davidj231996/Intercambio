@@ -13,7 +13,7 @@ use InvalidArgumentException;
 final class FilterOperator extends Enum
 {
     public const EQUAL        = '=';
-    public const NOT_EQUAL    = '!=';
+    public const NOT_EQUAL    = '<>';
     public const GT           = '>';
     public const LT           = '<';
     public const CONTAINS     = 'CONTAINS';
