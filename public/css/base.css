@@ -10187,6 +10187,7 @@ a:focus {
 }
 
 .sidebar .nav-item .nav-link .img-profile,
+.chats .img-profile,
 .topbar .nav-item .nav-link .img-profile {
     height: 2rem;
     width: 2rem;
@@ -11359,4 +11360,46 @@ body.sidebar-toggled footer.sticky-footer {
     display: inline-block;
     margin-left: -1.3em; /* same as padding-left set on li */
     width: 1.3em; /* same as padding-left set on li */
+}
+
+div.chats {
+    background-color: #4e73df;
+    color: white;
+    min-height: 65vh !important;
+}
+
+div.chats li {
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+p.mensaje {
+    background-color: lightgrey;
+    border-radius: 10px;
+}
+
+p.mensaje-usuario {
+    background-color: antiquewhite !important;
+    text-align: right !important;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+a.perfil {
+    color: #d1d3e2
+}
+
+a.perfil:visited {
+    color: #d1d3e2
+}
+
+a.perfil:hover {
+    text-decoration: none;
+    color: #d1d3e2;
+}
+
+.red-icon {
+    font-size: 10px;
 }
