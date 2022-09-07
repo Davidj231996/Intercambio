@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Preguntas Frecuentes{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Preguntas Frecuentes - FAQ</h1>
+        </div>
+        <div class="row">
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-12 col-md-12 mb-4">
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            <h5>¿Que es TruequeWeb?</h5>
+                        </div>
+                        <p class="p-indent">
+                            TruequeWeb es un portal en el que los usuarios pueden publicar los objetos que ya necesiten,
+                            ver los objetos que han publicado otros usuarios y, en el caso de encontrar un objeto por el
+                            que desean, pueden realizar una petición de intercambio al otro usuario por un objeto que el
+                            usuario tenga publicado.
+                        </p>
+
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1 mt-5">
+                            <h5>¿Cómo publico un objeto?</h5>
+                        </div>
+                        <p class="p-indent">
+                            Los objetos solo pueden ser publicados por los usuarios registrados del portal. Una vez iniciada
+                            sesión en el portal, a los usuarios les aparecerá un botón en la barra de navegación, desde donde
+                            podrán acceder al formulario donde se rellenan los datos necesarios para publicar su objeto.
+                            Cuando esté creado el objeto, los administradores del portal se encargarán de revisar el objeto
+                            y activarlo, en el caso de que el objeto sea correcto. Cuando esté activo, este objeto podrá
+                            ser visualizado por otros usuarios del portal.
+                        </p>
+
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1 mt-5">
+                            <h5>¿Cómo intercambio un objeto?</h5>
+                        </div>
+                        <p class="p-indent">
+                            Los intercambios solo podrán ser realizados por usuarios del portal. Para poder realizar un
+                            intercambio, cuando a un usuario le guste un objeto que haya publicado en el portal, este podrá
+                            realizar una petición de reserva para que el usuario del objeto pueda ver si le interesa realizar
+                            un intercambio con el usuario que le ha realizado la petición. Cuando la petición de reserva
+                            sea aceptada por el otro usuario, entonces el anterior usuario podrá realizar una petición
+                            de intercambio, en la que elige uno de sus objetos que desea intercambiar. Para facilitar
+                            toda la posible comunicación entre usuarios como por ejemplo para elegir objetos de intercambio,
+                            el portal ofrece un chat.
+                        </p>
+
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1 mt-5">
+                            <h5>¿Cómo reservo un objeto?</h5>
+                        </div>
+                        <p class="p-indent">
+                            Cuando un usuario que haya iniciado sesión en el portal, encuentre un objeto por el que quiera
+                            realizar un intercambio, encontrará un botón con el que podrá realizar una petición de reserva.
+                            Esta reserva podrá ser aceptada o rechazada por el usuario del objeto.
+                        </p>
+
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1 mt-5">
+                            <h5>¿Cómo comienzo un chat con otro usuario?</h5>
+                        </div>
+                        <p class="p-indent">
+                            Cuando un usuario que haya iniciado sesión en el portal, acceda al perfil de otro usuario del
+                            portal, en él podrá ver un botón con el que podrá iniciar la conversación de chat con el otro
+                            usuario.
+                        </p>
+
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1 mt-5">
+                            <h5>¿Qué objetos puede ver en el portal?</h5>
+                        </div>
+                        <p class="p-indent">
+                            En el portal, los usuarios podrán ver los objetos de otros usuarios del sistema que estén
+                            activos y que no hayan sido reservados o transferidos. Además, si eres un usuario que ha
+                            iniciado sesión en el portal, podrás ver todos tus objetos desde tu perfil.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
