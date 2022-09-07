@@ -14,11 +14,10 @@ class ChatCreate
     {
     }
 
-    public function create(Usuario $usuario1, int $idUsuario2): Chat
+    public function create(Usuario $usuario1, int $idUsuario2): void
     {
         $now = new DateTime();
         $chat = Chat::create(null, $usuario1, $this->usuarioFinder->__invoke($idUsuario2), $now);
         $this->chatRepository->save($chat);
-        return $chat;
     }
 }

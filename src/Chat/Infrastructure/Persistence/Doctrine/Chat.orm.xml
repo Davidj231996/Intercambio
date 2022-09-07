@@ -9,11 +9,26 @@
             <generator/>
         </id>
 
-        <many-to-one field="usuario1" target-entity="App\Usuario\Domain\Usuario" inversed-by="misChats"/>
-        <many-to-one field="usuario2" target-entity="App\Usuario\Domain\Usuario" inversed-by="chats"/>
-        <many-to-one field="mensajes" target-entity="App\Mensaje\Domain\Mensaje" inversed-by="chat"/>
+        <many-to-one field="usuario1" target-entity="App\Usuario\Domain\Usuario" inversed-by="misChats">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-one>
+        <many-to-one field="usuario2" target-entity="App\Usuario\Domain\Usuario" inversed-by="chats">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-one>
+        <one-to-many field="mensajes" target-entity="App\Mensaje\Domain\Mensaje" mapped-by="chat">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+
         <field name="fechaCreacion" type="datetime" column="fechaCreacion"/>
         <field name="fechaActualizacion" type="datetime" column="fechaActualizacion"/>
+        <field name="leidoUsuario1" type="smallint" column="leidoUsuario1"/>
+        <field name="leidoUsuario2" type="smallint" column="leidoUsuario2"/>
     </entity>
 
 </doctrine-mapping>
