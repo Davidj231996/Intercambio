@@ -2,7 +2,7 @@
 
 namespace App\Tests\Usuario;
 
-use App\Tests\intercambio\Shared\Infrastructure\PhpUnit\IntercambioContextInfrastructureTestCase;
+use App\Tests\src\Shared\Infrastructure\PhpUnit\IntercambioContextInfrastructureTestCase;
 use App\Usuario\Domain\UsuarioRepository;
 
 class UsuarioModuleInfraestructureTestCase extends IntercambioContextInfrastructureTestCase

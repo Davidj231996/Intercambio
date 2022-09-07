@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Tests\intercambio\Shared\Infrastructure\PhpUnit;
+namespace App\Tests\src\Shared\Infrastructure\PhpUnit;
 
 use App\Kernel;
 use App\Tests\Shared\Infrastructure\PhpUnit\InfrastructureTestCase;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 
 class IntercambioContextInfrastructureTestCase extends InfrastructureTestCase

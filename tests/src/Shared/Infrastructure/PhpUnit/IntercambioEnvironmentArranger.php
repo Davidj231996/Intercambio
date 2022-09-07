@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\intercambio\Shared\Infrastructure\PhpUnit;
+namespace App\Tests\src\Shared\Infrastructure\PhpUnit;
 
 use App\Tests\Shared\Infrastructure\Arranger\EnvironmentArranger;
 use App\Tests\Shared\Infrastructure\Doctrine\MySqlDatabaseCleaner;

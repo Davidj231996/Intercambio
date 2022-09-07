@@ -3,7 +3,7 @@
 namespace App\Tests\Preferencia;
 
 use App\Preferencia\Domain\PreferenciaRepository;
-use App\Tests\intercambio\Shared\Infrastructure\PhpUnit\IntercambioContextInfrastructureTestCase;
+use App\Tests\src\Shared\Infrastructure\PhpUnit\IntercambioContextInfrastructureTestCase;
 
 class PreferenciaModuleInfraestructureTestCase extends IntercambioContextInfrastructureTestCase
 {

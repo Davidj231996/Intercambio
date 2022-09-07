@@ -2,7 +2,10 @@
 
 namespace App\Tests\Usuario\Domain;
 
+use App\Tests\Shared\Domain\EmailMother;
+use App\Tests\Shared\Domain\EstadoUsuarioMother;
 use App\Tests\Shared\Domain\IdMother;
+use App\Tests\Shared\Domain\TelefonoMother;
 use App\Tests\Shared\Domain\WordMother;
 use App\Usuario\Domain\Usuario;
 
@@ -15,7 +18,8 @@ class UsuarioMother
         ?string $apellidos = null,
         ?string $telefono = null,
         ?string $email = null,
-        ?string $password = null
+        ?string $password = null,
+        ?int    $estado = null
     ): Usuario
     {
         return new Usuario(
@@ -23,9 +27,10 @@ class UsuarioMother
             $alias ?? WordMother::create(),
             $nombre ?? WordMother::create(),
             $apellidos ?? WordMother::create(),
-            $telefono ?? WordMother::create(),
-            $email ?? WordMother::create(),
-            $password ?? WordMother::create()
+            $telefono ?? TelefonoMother::create(),
+            $email ?? EmailMother::create(),
+            $password ?? WordMother::create(),
+            $estado ?? EstadoUsuarioMother::create()
         );
     }
 
@@ -43,9 +48,10 @@ class UsuarioMother
             $alias ?? WordMother::create(),
             $nombre ?? WordMother::create(),
             $apellidos ?? WordMother::create(),
-            $telefono ?? WordMother::create(),
-            $email ?? WordMother::create(),
-            $password ?? WordMother::create()
+            $telefono ?? TelefonoMother::create(),
+            $email ?? EmailMother::create(),
+            $password ?? WordMother::create(),
+            Usuario::USUARIO_INACTIVO
         );
     }
 }

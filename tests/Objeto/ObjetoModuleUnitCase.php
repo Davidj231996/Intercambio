@@ -9,6 +9,7 @@ use App\Objeto\Domain\ObjetoRepository;
 use App\Objeto\Domain\Objetos;
 use App\Shared\Domain\Criteria\Criteria;
 use App\Tests\Shared\Infrastructure\PhpUnit\UnitTestCase;
+use App\Usuario\Domain\Usuario;
 use Mockery\MockInterface;
 
 abstract class ObjetoModuleUnitCase extends UnitTestCase
@@ -29,6 +30,32 @@ abstract class ObjetoModuleUnitCase extends UnitTestCase
             ->with($this->similarTo($id))
             ->once()
             ->andReturn($objeto);
+    }
+
+    protected function shouldSearchRecent(?Objetos $objetos): void
+    {
+        $this->repository()
+            ->shouldReceive('searchRecent')
+            ->once()
+            ->andReturn($objetos);
+    }
+
+    protected function shouldSearchByUsuario(Usuario $usuario, ?Objetos $objetos): void
+    {
+        $this->repository()
+            ->shouldReceive('searchByUsuario')
+            ->with($this->similarTo($usuario))
+            ->once()
+            ->andReturn($objetos);
+    }
+
+    protected function shouldSearchHabilitadosByUsuario(Usuario $usuario, ?Objetos $objetos): void
+    {
+        $this->repository()
+            ->shouldReceive('searchHabilitadosByUsuario')
+            ->with($this->similarTo($usuario))
+            ->once()
+            ->andReturn($objetos);
     }
 
     protected function shouldSearchByCriteria(Criteria $criteria, Objetos $objetos): void

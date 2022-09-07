@@ -3,7 +3,7 @@
 namespace App\Tests\Objeto;
 
 use App\Objeto\Domain\ObjetoRepository;
-use App\Tests\intercambio\Shared\Infrastructure\PhpUnit\IntercambioContextInfrastructureTestCase;
+use App\Tests\src\Shared\Infrastructure\PhpUnit\IntercambioContextInfrastructureTestCase;
 
 class ObjetoModuleInfraestructureTestCase extends IntercambioContextInfrastructureTestCase
 {

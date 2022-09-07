@@ -15,11 +15,25 @@ abstract class CategoriaModuleUnitCase extends UnitTestCase
 {
     private CategoriaRepository|MockInterface|null $repository;
 
-    protected function shouldSearchAll(): void
+    protected function shouldSave(Categoria $categoria): void
+    {
+        $this->repository()->shouldReceive('save')
+            ->with($this->similarTo($categoria))
+            ->once()->andReturnNull();
+    }
+
+    protected function shouldDelete(Categoria $categoria): void
+    {
+        $this->repository()->shouldReceive('delete')
+            ->with($this->similarTo($categoria))
+            ->once()->andReturnNull();
+    }
+
+    protected function shouldSearchAll(?Categorias $categorias): void
     {
         $this->repository()->shouldReceive('searchAll')
             ->with()
-            ->once()->andReturns();
+            ->once()->andReturn($categorias);
     }
 
     protected function shouldSearch(int $id, ?Categoria $categoria): void
@@ -31,7 +45,7 @@ abstract class CategoriaModuleUnitCase extends UnitTestCase
             ->andReturn($categoria);
     }
 
-    protected function shouldSearchByCriteria(Criteria $criteria, Categorias $categorias): void
+    protected function shouldSearchByCriteria(Criteria $criteria, ?Categorias $categorias): void
     {
         $this->repository()->shouldReceive('searchByCriteria')
             ->with($this->similarTo($criteria))

@@ -3,7 +3,7 @@
 namespace App\Tests\Direccion;
 
 use App\Direccion\Domain\DireccionRepository;
-use App\Tests\intercambio\Shared\Infrastructure\PhpUnit\IntercambioContextInfrastructureTestCase;
+use App\Tests\src\Shared\Infrastructure\PhpUnit\IntercambioContextInfrastructureTestCase;
 
 class DireccionModuleInfraestructureTestCase extends IntercambioContextInfrastructureTestCase
 {

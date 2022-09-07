@@ -7,8 +7,10 @@ namespace App\Tests\Favorito;
 use App\Favorito\Domain\Favorito;
 use App\Favorito\Domain\FavoritoRepository;
 use App\Favorito\Domain\Favoritos;
+use App\Objeto\Domain\Objeto;
 use App\Shared\Domain\Criteria\Criteria;
 use App\Tests\Shared\Infrastructure\PhpUnit\UnitTestCase;
+use App\Usuario\Domain\Usuario;
 use Mockery\MockInterface;
 
 abstract class FavoritoModuleUnitCase extends UnitTestCase
@@ -27,6 +29,15 @@ abstract class FavoritoModuleUnitCase extends UnitTestCase
         $this->repository()
             ->shouldReceive('search')
             ->with($this->similarTo($id))
+            ->once()
+            ->andReturn($favorito);
+    }
+
+    protected function shouldSearchByUsuarioObjeto(Usuario $usuario, Objeto $objeto, ?Favorito $favorito): void
+    {
+        $this->repository()
+            ->shouldReceive('searchByUsuarioObjeto')
+            ->with($this->similarTo($usuario), $this->similarTo($objeto))
             ->once()
             ->andReturn($favorito);
     }
