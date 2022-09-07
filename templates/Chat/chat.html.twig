@@ -1,0 +1,20 @@
+<div class="col-12">
+    {% for mensaje in mensajes %}
+        <p class="mensaje {% if mensaje.usuario == app.user %}offset-1 mensaje-usuario{% endif %} col-11">{{ mensaje.mensaje }}</p>
+    {% endfor %}
+</div>
+<div class="row align-items-end col-12">
+    <form id="mensajeForm" method="post" action="{{ path('mensaje', {'chatId': chatId}) }}" onsubmit="enviarMensaje(); return false;"
+          class="col-12 d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+        <div class="input-group">
+            <input type="text" name="mensaje" required class="form-control bg-light border-0 small"
+                   placeholder="Mensaje..."
+                   aria-label="Mensaje" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-primary" name="Enviar" type="submit">
+                    <i class="fas fa-paper-plane fa-sm"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,97 @@
+{% extends "base.html.twig" %}
+{% block title %}Chats{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            {% if chats is not empty %}
+                <div class="col-10 mb-4">
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-4 chats">
+                                    <ul class="list-unstyled">
+                                        {% for chat in chats %}
+                                            <li class="mt-2 p-2 rounded {% if loop.first %}active{% endif %}"
+                                                onclick="cargarChat(this, {{ chat.id }})">
+                                                {% if chat.usuario1 == app.user %}
+                                                    {% if chat.usuario2.imagen is not null %}
+                                                        <img class="img-profile rounded-circle"
+                                                             src="{{ asset(chat.usuario2.imagen.ruta) }}">
+                                                    {% else %}
+                                                        <img class="img-profile rounded-circle"
+                                                             src="{{ asset('images/profile_' ~ random(1, 4) ~ '.svg') }}">
+                                                    {% endif %}
+                                                    {{ chat.usuario2.alias }}
+                                                {% else %}
+                                                    {% if chat.usuario1.imagen is not null %}
+                                                        <img class="img-profile rounded-circle"
+                                                             src="{{ asset(chat.usuario1.imagen.ruta) }}">
+                                                    {% else %}
+                                                        <img class="img-profile rounded-circle"
+                                                             src="{{ asset('images/profile_' ~ random(1, 4) ~ '.svg') }}">
+                                                    {% endif %}
+                                                    {{ chat.usuario1.alias }}
+                                                {% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="col-8 row" id="chat">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p>No hay chats aún creados</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        function cargarChat(element, chatId) {
+            $('.active').removeClass('active');
+            $(element).addClass('active');
+
+            var ruta = '{{ path("chat", {'chatId': 'chatId'}) }}';
+            ruta = ruta.replace("chatId", chatId);
+            jQuery.ajax({
+                url: ruta,
+                success: function (result) {
+                    $("#chat").html(result);
+                }
+            });
+        }
+
+        function enviarMensaje() {
+            jQuery.ajax({
+                url: $("#mensajeForm").attr('action'),
+                method: $("#mensajeForm").attr('method'),
+                dataType: 'json',
+                data: $("#mensajeForm").serialize(),
+                success: function (data) {
+                    if (data.success) {
+                        alertboxSucces.show("Mensaje Enviado");
+                        console.log("HOLA");
+                        $('.active').click();
+                    } else {
+                        console.log("HOLA2");
+                        alertboxError.show("Error al enviar el mensaje");
+                    }
+                }
+            })
+        }
+
+        $(document).ready(function () {
+            $('.active').click();
+            setInterval(function () {
+                if ($('input[name="mensaje"]').length == 0 || $('input[name="mensaje"]').val() == "") {
+                    $('.active').click();
+                }
+            }, 30000);
+        });
+    </script>
+{% endblock %}
