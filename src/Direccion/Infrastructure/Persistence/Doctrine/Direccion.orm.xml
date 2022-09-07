@@ -14,7 +14,12 @@
         <field name="provincia" length="100" column="provincia"/>
         <field name="comunidadAutonoma" length="100" column="comunidadAutonoma"/>
         <field name="codigoPostal" length="5" column="codigoPostal"/>
-        <one-to-one field="usuario" target-entity="App\Usuario\Domain\Usuario" inversed-by="direccion"/>
+
+        <one-to-one field="usuario" target-entity="App\Usuario\Domain\Usuario" inversed-by="direccion">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-one>
     </entity>
 
 </doctrine-mapping>
