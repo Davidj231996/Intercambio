@@ -13,6 +13,7 @@
                     <th>Fecha Reserva</th>
                     <th>Fecha Actualización</th>
                     <th>Estado</th>
+                    <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -23,6 +24,14 @@
                         <td>{{ reserva.fechaCreacion|date('d/m/Y H:i') }}</td>
                         <td>{{ reserva.fechaActualizacion|date('d/m/Y H:i') }}</td>
                         <td class="{{ reserva.estadoClase }}">{{ reserva.estadoToString }}</td>
+                        <td>
+                            {% if reserva.aceptada %}
+                                <a href="{{ path('intercambio_create', {"objetoIntercambiarId": reserva.objeto.id}) }}"
+                                   class="btn btn-primary btn-sm">
+                                    <i class="fa fa-rotate"></i>
+                                </a>
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>

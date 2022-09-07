@@ -6,26 +6,28 @@
     <div class="row">
         {% if objetos is  not empty %}
             {% for objeto in objetos %}
-                <!-- Earnings (Monthly) Card Example -->
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">{{ objeto.nombre }}</h6>
-                        </div>
-                        <div class="card-body">
-                            {% if objeto.imagenes is not empty %}
-                                <div class="text-center">
-                                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 20rem;"
-                                         src="{{ asset((objeto.imagenes.get(0).ruta)) }}" alt="...">
-                                </div>
-                            {% endif %}
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Descripción
+                {% if objeto.habilitado and not objeto.reservado %}
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">{{ objeto.nombre }}</h6>
                             </div>
-                            <p class="p-indent">{{ objeto.descripcion|u.truncate(100, '...') }}</p>
+                            <div class="card-body">
+                                {% if objeto.imagenes is not empty %}
+                                    <div class="text-center">
+                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 20rem;"
+                                             src="{{ asset((objeto.imagenes.get(0).ruta)) }}" alt="...">
+                                    </div>
+                                {% endif %}
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    Descripción
+                                </div>
+                                <p class="p-indent">{{ objeto.descripcion|u.truncate(100, '...') }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endif %}
             {% endfor %}
         {% else %}
             <div class="cardCompleta shadow mb-4">
@@ -38,4 +40,8 @@
             </div>
         {% endif %}
     </div>
+    {% for p in 1..paginas %}
+        <a class="btn btn-sm {% if pagina == p %}btn-primary{% else %}btn-info{% endif %}" href="{{ path('usuario', {usuarioId: usuario.id, pagina: p}) }}">{{ p }}</a>
+    {% endfor %}
+    <p class="text-right">Mostrando página {{ pagina }} de {{ paginas }}. Mostrando {{ total }} objetos</p>
 </div>

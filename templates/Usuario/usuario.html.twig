@@ -11,7 +11,7 @@
         {% endembed %}
     </div>
     <div id="objetosUsuario">
-        {% embed "usuario/objetos.html.twig" with {'objetos': usuario.objetos} %}
+        {% embed "usuario/objetos.html.twig" with {'usuario': usuario, 'objetos': objetos, 'paginas': paginas, 'total': totalItems, 'pagina': pagina} %}
         {% endembed %}
     </div>
 {% endblock %}

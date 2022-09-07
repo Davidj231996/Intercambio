@@ -1,0 +1,60 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Categorias</h1>
+    </div>
+    <div class="row">
+        <div class="cardCompleta shadow mb-4">
+            <div class="card-header py-3 d-flex">
+                <h6 class="m-0 font-weight-bold text-primary">Categorías</h6>
+                <div class="ml-auto">
+                    <a href="{{ path('categoria_create') }}"
+                       class="btn btn-success btn-sm">
+                        <i class="fas fa-plus fa-fw"></i> Añadir Categoria
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                {% if categorias is  not empty %}
+                    <table id="categoriasTabla" class="cell-border hover">
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Categoría Padre</th>
+                            <th>Acción</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for categoria in categorias %}
+                            <tr>
+                                <td>{{ categoria.nombre }}</td>
+                                <td>{{ categoria.descripcion }}</td>
+                                <td>
+                                    {% if categoria.categoria is not null %}
+                                        {{ categoria.descripcion }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{{ path('categoria_update', {"categoriaId": categoria.id}) }}"
+                                       class="btn btn-success btn-sm">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a href="{{ path('categoria_delete', {"categoriaId": categoria.id}) }}"
+                                       class="btn btn-danger btn-sm">
+                                        <i class="fa fa-xmark"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No hay categorias actualmente.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

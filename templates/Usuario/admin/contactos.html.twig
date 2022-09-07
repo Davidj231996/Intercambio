@@ -1,0 +1,73 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Contactos</h1>
+    </div>
+    <div class="row">
+        <div class="cardCompleta shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Contactos No Respondidos</h6>
+            </div>
+            <div class="card-body">
+                {% if contactosSinResponder is  not empty %}
+                    <table id="contactosSinResponder" class="cell-border hover">
+                        <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Mensaje</th>
+                            <th>Fecha</th>
+                            <th>Acción</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for contacto in contactosSinResponder %}
+                            <tr>
+                                <td>{{ contacto.email }}</td>
+                                <td>{{ contacto.mensaje }}</td>
+                                <td>{{ contacto.fecha|date('d/m/Y H:i') }}</td>
+                                <td>
+                                    <a href="{{ path('responder', {"contactoId": contacto.id}) }}"
+                                       class="btn btn-info btn-sm">
+                                        <i class="fa fa-paper-plane"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No hay contactos sin responder actualmente.</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="cardCompleta shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Contactos Respondidos</h6>
+            </div>
+            <div class="card-body">
+                {% if contactosRespondidos is  not empty %}
+                    <table id="contactosRespondidos" class="cell-border hover">
+                        <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Mensaje</th>
+                            <th>Fecha</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for contacto in contactosRespondidos %}
+                            <tr>
+                                <td>{{ contacto.email }}</td>
+                                <td>{{ contacto.mensaje }}</td>
+                                <td>{{ contacto.fecha|date('d/m/Y H:i') }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No hay contactos respondidos actualmente.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

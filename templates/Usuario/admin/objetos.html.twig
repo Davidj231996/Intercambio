@@ -1,0 +1,76 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Objetos</h1>
+    </div>
+    <div class="row">
+        <div class="cardCompleta shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Objetos Habilitados</h6>
+            </div>
+            <div class="card-body">
+                {% if objetosHabilitados is  not empty %}
+                    <table id="objetosHabilitados" class="cell-border hover">
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Usuario</th>
+                            <th>Acción</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for objeto in objetosHabilitados %}
+                            <tr class="clickable">
+                                <td onclick="window.open('{{ path('objeto', {"objetoId": objeto.id}) }}', '_blank')">{{ objeto.nombre }}</td>
+                                <td>{{ objeto.usuario.nombre }}</td>
+                                <td>
+                                    <a href="{{ path('objeto_deshabilitar', {"objetoId": objeto.id}) }}"
+                                       class="btn btn-danger btn-sm">
+                                        <i class="fa fa-xmark"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No hay objetos habilitados actualmente.</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="cardCompleta shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Objetos Deshabilitados</h6>
+            </div>
+            <div class="card-body">
+                {% if objetosDeshabilitados is  not empty %}
+                    <table id="objetosDeshabilitados" class="cell-border hover">
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Usuario</th>
+                            <th>Acción</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for objeto in objetosDeshabilitados %}
+                            <tr class="clickable">
+                                <td onclick="window.open('{{ path('objeto', {"objetoId": objeto.id}) }}', '_blank')">{{ objeto.nombre }}</td>
+                                <td>{{ objeto.usuario.nombre }}</td>
+                                <td>
+                                    <a href="{{ path('objeto_habilitar', {"objetoId": objeto.id}) }}"
+                                       class="btn btn-success btn-sm">
+                                        <i class="fa fa-check"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No hay objetos deshabilitados actualmente.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

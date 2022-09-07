@@ -1,0 +1,84 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Usuarios</h1>
+    </div>
+    <div class="row">
+        <div class="cardCompleta shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Usuarios Habilitados</h6>
+            </div>
+            <div class="card-body">
+                {% if usuariosHabilitados is  not empty %}
+                    <table id="usuariosHabilitados" class="cell-border hover">
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Correo</th>
+                            <th>Alias</th>
+                            <th>Acción</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for usuario in usuariosHabilitados %}
+                            <tr>
+                                <td class="clickable" onclick="window.open('{{ path('usuario', {"usuarioId": usuario.id}) }}', '_blank')">{{ usuario.nombre }}</td>
+                                <td class="clickable" onclick="window.open('{{ path('usuario', {"usuarioId": usuario.id}) }}', '_blank')">{{ usuario.apellidos }}</td>
+                                <td class="clickable" onclick="window.open('{{ path('usuario', {"usuarioId": usuario.id}) }}', '_blank')">{{ usuario.email }}</td>
+                                <td class="clickable" onclick="window.open('{{ path('usuario', {"usuarioId": usuario.id}) }}', '_blank')">{{ usuario.alias }}</td>
+                                <td>
+                                    <a href="{{ path('usuario_deshabilitar', {"usuarioId": usuario.id}) }}"
+                                       class="btn btn-danger btn-sm">
+                                        <i class="fa fa-xmark"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No hay usuarios habilitados actualmente.</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="cardCompleta shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Usuarios Deshabilitados</h6>
+            </div>
+            <div class="card-body">
+                {% if usuariosDeshabilitados is  not empty %}
+                    <table id="usuariosDeshabilitados" class="cell-border hover">
+                        <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Correo</th>
+                            <th>Alias</th>
+                            <th>Acción</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for usuario in usuariosDeshabilitados %}
+                            <tr>
+                                <td class="clickable" onclick="window.open('{{ path('usuario', {"usuarioId": usuario.id}) }}', '_blank')">{{ usuario.nombre }}</td>
+                                <td class="clickable" onclick="window.open('{{ path('usuario', {"usuarioId": usuario.id}) }}', '_blank')">{{ usuario.apellidos }}</td>
+                                <td class="clickable" onclick="window.open('{{ path('usuario', {"usuarioId": usuario.id}) }}', '_blank')">{{ usuario.email }}</td>
+                                <td class="clickable" onclick="window.open('{{ path('usuario', {"usuarioId": usuario.id}) }}', '_blank')">{{ usuario.alias }}</td>
+                                <td>
+                                    <a href="{{ path('usuario_habilitar', {"usuarioId": usuario.id}) }}"
+                                       class="btn btn-success btn-sm">
+                                        <i class="fa fa-check"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No hay usuarios deshabilitados actualmente.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

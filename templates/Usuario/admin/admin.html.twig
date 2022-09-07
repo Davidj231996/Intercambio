@@ -1,0 +1,335 @@
+{% extends "baseUsuarioAdmin.html.twig" %}
+{% block title %}{{ usuario.nombre }} {{ usuario.apellidos }}{% endblock %}
+
+{% block content %}
+    <div id="estadisticas" class="active">
+        {% embed "usuario/admin/estadisticas.html.twig" %}
+        {% endembed %}
+    </div>
+    <div id="objetos" style="display: none">
+        {% embed "usuario/admin/objetos.html.twig" %}
+        {% endembed %}
+    </div>
+    <div id="usuarios" style="display: none">
+        {% embed "usuario/admin/usuarios.html.twig" %}
+        {% endembed %}
+    </div>
+    <div id="categorias" style="display: none">
+        {% embed "usuario/admin/categorias.html.twig" %}
+        {% endembed %}
+    </div>
+    <div id="contactos" style="display: none">
+        {% embed "usuario/admin/contactos.html.twig" %}
+        {% endembed %}
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        $(document).ready(function () {
+            $("#usuariosHabilitados").DataTable({
+                language: {
+                    url: "{{ asset('dataTables/i18n/dataTables.spanish.json') }}"
+                }
+            });
+            $("#usuariosDeshabilitados").DataTable({
+                language: {
+                    url: "{{ asset('dataTables/i18n/dataTables.spanish.json') }}"
+                }
+            });
+            $("#objetosHabilitados").DataTable({
+                language: {
+                    url: "{{ asset('dataTables/i18n/dataTables.spanish.json') }}"
+                }
+            });
+            $("#objetosDeshabilitados").DataTable({
+                language: {
+                    url: "{{ asset('dataTables/i18n/dataTables.spanish.json') }}"
+                }
+            });
+            $("#categoriasTabla").DataTable({
+                language: {
+                    url: "{{ asset('dataTables/i18n/dataTables.spanish.json') }}"
+                }
+            });
+        });
+    </script>
+
+    <script>
+        // Log Objetos
+        var xValues = [];
+        var date = new Date();
+        for (let i = 0; i < 7; i++) {
+            var dd = String(date.getDate()).padStart(2, '0');
+            var mm = String(date.getMonth() + 1).padStart(2, '0');
+            xValues[i] = dd + '/' + mm;
+            date.setDate(date.getDate() - 1);
+        }
+
+        var indice = 0;
+        var yValuesCreados = [0, 0, 0, 0, 0, 0, 0];
+        var yValuesModificados = [0, 0, 0, 0, 0, 0, 0];
+        var yValuesEliminados = [0, 0, 0, 0, 0, 0, 0];
+        var yValuesHabilitados = [0, 0, 0, 0, 0, 0, 0];
+        var yValuesDeshabilitados = [0, 0, 0, 0, 0, 0, 0];
+        {% for logDiario in logObjetoWeek %}
+        {% for tipo, cantidad in logDiario %}
+        {% if tipo == constant('App\\LogObjeto\\Domain\\LogObjeto::TIPO_CREAR') %}
+        yValuesCreados[indice] = {{ cantidad }};
+        {% elseif tipo == constant('App\\LogObjeto\\Domain\\LogObjeto::TIPO_EDITAR') %}
+        yValuesModificados[indice] = {{ cantidad }};
+        {% elseif tipo == constant('App\\LogObjeto\\Domain\\LogObjeto::TIPO_ELIMINAR') %}
+        yValuesEliminados[indice] = {{ cantidad }};
+        {% elseif tipo == constant('App\\LogObjeto\\Domain\\LogObjeto::TIPO_HABILITAR') %}
+        yValuesHabilitados[indice] = {{ cantidad }};
+        {% elseif tipo == constant('App\\LogObjeto\\Domain\\LogObjeto::TIPO_DESHABILITAR') %}
+        yValuesDeshabilitados[indice] = {{ cantidad }};
+        {% endif %}
+        {% endfor %}
+        indice = indice + 1;
+        {% endfor %}
+
+        new Chart("myChartObjetosSemana", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    data: yValuesCreados,
+                    borderColor: "green",
+                    fill: false,
+                    label: "Creados"
+                }, {
+                    data: yValuesModificados,
+                    borderColor: "blue",
+                    fill: false,
+                    label: "Modificados"
+                }, {
+                    data: yValuesEliminados,
+                    borderColor: "red",
+                    fill: false,
+                    label: "Eliminados"
+                }, {
+                    data: yValuesHabilitados,
+                    borderColor: "yellow",
+                    fill: false,
+                    label: "Habilitados"
+                }, {
+                    data: yValuesDeshabilitados,
+                    borderColor: "black",
+                    fill: false,
+                    label: "Deshabilitados"
+                }]
+            }
+        });
+
+        var xValues = ["Creados", "Modificados", "Eliminados", "Habilitados", "Deshabilitados"];
+        var yValues = [0, 0, 0, 0, 0];
+        {% for tipo, cantidad in logObjetoToday %}
+        yValues[{{ tipo - 1 }}] = {{ cantidad }};
+        {% endfor %}
+        var barColors = ["green", "blue", "red", "yellow", "black"];
+
+        new Chart("myChartObjetosDia", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: {display: false},
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+
+        // Log Reservas
+        var xValues = [];
+        var date = new Date();
+        for (let i = 0; i < 7; i++) {
+            var dd = String(date.getDate()).padStart(2, '0');
+            var mm = String(date.getMonth() + 1).padStart(2, '0');
+            xValues[i] = dd + '/' + mm;
+            date.setDate(date.getDate() - 1);
+        }
+
+        var indice = 0;
+        var yValuesCreados = [0, 0, 0, 0, 0, 0, 0];
+        var yValuesAceptados = [0, 0, 0, 0, 0, 0, 0];
+        var yValuesCancelados = [0, 0, 0, 0, 0, 0, 0];
+        var yValuesEliminados = [0, 0, 0, 0, 0, 0, 0];
+        {% for logDiario in logReservaWeek %}
+        {% for tipo, cantidad in logDiario %}
+        {% if tipo == constant('App\\LogReserva\\Domain\\LogReserva::TIPO_CREAR') %}
+        yValuesCreados[indice] = {{ cantidad }};
+        {% elseif tipo == constant('App\\LogReserva\\Domain\\LogReserva::TIPO_ACEPTAR') %}
+        yValuesAceptados[indice] = {{ cantidad }};
+        {% elseif tipo == constant('App\\LogReserva\\Domain\\LogReserva::TIPO_CANCELAR') %}
+        yValuesCancelados[indice] = {{ cantidad }};
+        {% elseif tipo == constant('App\\LogReserva\\Domain\\LogReserva::TIPO_ELIMINAR') %}
+        yValuesEliminados[indice] = {{ cantidad }};
+        {% endif %}
+        {% endfor %}
+        indice = indice + 1;
+        {% endfor %}
+
+        new Chart("myChartReservasSemana", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    data: yValuesCreados,
+                    borderColor: "green",
+                    fill: false,
+                    label: "Creados"
+                }, {
+                    data: yValuesAceptados,
+                    borderColor: "blue",
+                    fill: false,
+                    label: "Aceptados"
+                }, {
+                    data: yValuesCancelados,
+                    borderColor: "black",
+                    fill: false,
+                    label: "Cancelados"
+                }, {
+                    data: yValuesEliminados,
+                    borderColor: "red",
+                    fill: false,
+                    label: "Eliminados"
+                }]
+            }
+        });
+
+        var xValues = ["Creados", "Aceptados", "Cancelados", "Eliminados"];
+        var yValues = [0, 0, 0, 0];
+        {% for tipo, cantidad in logReservaToday %}
+        yValues[{{ tipo - 1 }}] = {{ cantidad }};
+        {% endfor %}
+        var barColors = ["green", "blue", "black", "red"];
+
+        new Chart("myChartReservasDia", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: {display: false},
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+
+        // Log Intercambios
+        var xValues = [];
+        var date = new Date();
+        for (let i = 0; i < 7; i++) {
+            var dd = String(date.getDate()).padStart(2, '0');
+            var mm = String(date.getMonth() + 1).padStart(2, '0');
+            xValues[i] = dd + '/' + mm;
+            date.setDate(date.getDate() - 1);
+        }
+
+        var indice = 0;
+        var intercambiosCreados = [0, 0, 0, 0, 0, 0, 0];
+        var intercambiosAceptados = [0, 0, 0, 0, 0, 0, 0];
+        var intercambiosCancelados = [0, 0, 0, 0, 0, 0, 0];
+        var intercambiosEnviados = [0, 0, 0, 0, 0, 0, 0];
+        var intercambiosFinalizados = [0, 0, 0, 0, 0, 0, 0];
+        {% for logDiario in logIntercambioWeek %}
+        {% for tipo, cantidad in logDiario %}
+        {% if tipo == constant("App\\LogIntercambio\\Domain\\LogIntercambio::TIPO_CREACION") %}
+        intercambiosCreados[indice] = {{ cantidad }};
+        {% elseif tipo == constant("App\\LogIntercambio\\Domain\\LogIntercambio::TIPO_ACEPTAR") %}
+        intercambiosAceptados[indice] = {{ cantidad }};
+        {% elseif tipo == constant("App\\LogIntercambio\\Domain\\LogIntercambio::TIPO_CANCELAR") %}
+        intercambiosCancelados[indice] = {{ cantidad }};
+        {% elseif tipo == constant("App\\LogIntercambio\\Domain\\LogIntercambio::TIPO_ENVIAR") %}
+        intercambiosEnviados[indice] = {{ cantidad }};
+        {% elseif tipo == constant("App\\LogIntercambio\\Domain\\LogIntercambio::TIPO_FINALIZAR") %}
+        intercambiosFinalizados[indice] = {{ cantidad }};
+        {% endif %}
+        {% endfor %}
+        indice = indice + 1;
+        {% endfor %}
+
+        new Chart("myChartIntercambiosSemana", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    data: intercambiosCreados,
+                    borderColor: "green",
+                    fill: false,
+                    label: "Creados"
+                }, {
+                    data: intercambiosAceptados,
+                    borderColor: "blue",
+                    fill: false,
+                    label: "Aceptados"
+                }, {
+                    data: intercambiosCancelados,
+                    borderColor: "black",
+                    fill: false,
+                    label: "Cancelados"
+                }, {
+                    data: intercambiosEnviados,
+                    borderColor: "yellow",
+                    fill: false,
+                    label: "Enviados"
+                }, {
+                    data: intercambiosFinalizados,
+                    borderColor: "orange",
+                    fill: false,
+                    label: "Finalizados"
+                }]
+            }
+        });
+
+        var xValues = ["Creados", "Modificados", "Eliminados"];
+        var yValues = [0, 0, 0];
+        {% for tipo, cantidad in logIntercambioToday %}
+        yValues[{{ tipo - 1 }}] = {{ cantidad }};
+        {% endfor %}
+        var barColors = ["green", "blue", "red"];
+
+        new Chart("myChartIntercambiosDia", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: {display: false},
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+{% endblock %}
