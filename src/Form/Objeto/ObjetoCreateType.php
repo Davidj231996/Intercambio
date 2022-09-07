@@ -29,8 +29,20 @@ class ObjetoCreateType extends AbstractType
                     'class' => 'selectpicker pl-4',
                 ]
             ])
+            ->add('categoriasIntercambio', EntityType::class, [
+                'class' => Categoria::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('categoria');
+                },
+                'choice_label' => 'nombre',
+                'multiple' => true,
+                'attr' => [
+                    'class' => 'selectpicker pl-4',
+                ]
+            ])
             ->add('imagen', FileType::class, [
-                'required' => false
+                'required' => false,
+                'multiple' => true
             ])
             ->add('save', SubmitType::class);
     }
