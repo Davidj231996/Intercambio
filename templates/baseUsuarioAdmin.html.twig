@@ -21,6 +21,9 @@
 
     <!-- DataTables-->
     <link href="{{ asset('DataTables/datatables.min.css') }}" rel="stylesheet">
+
+    <!-- Chart-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 <body id="page-top">
 <!-- Page Wrapper -->
@@ -41,14 +44,14 @@
 
         <!-- Heading -->
         <div class="sidebar-heading mt-2">
-            Datos Personales
+            Estadísticas
         </div>
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" content="datosUsuario">
-                <i class="fas fa-user fa-fw"></i>
-                <span>Datos Personales</span></a>
+            <a class="nav-link" content="estadisticas">
+                <i class="fas fa-chart-line fa-fw"></i>
+                <span>Estadísticas</span></a>
         </li>
 
         <!-- Divider -->
@@ -60,15 +63,9 @@
         </div>
 
         <li class="nav-item">
-            <a class="nav-link" content="objetosUsuario">
+            <a class="nav-link" content="objetos">
                 <i class="fas fa-suitcase fa-fw"></i>
-                <span>Mis Objetos</span></a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" content="favoritosUsuario">
-                <i class="fas fa-bookmark fa-fw"></i>
-                <span>Mis Favoritos</span></a>
+                <span>Objetos</span></a>
         </li>
 
         <!-- Divider -->
@@ -76,44 +73,44 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            Preferencias
+            Usuarios
         </div>
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" content="preferenciasUsuario">
+            <a class="nav-link" content="usuarios">
+                <i class="fas fa-fw fa-user"></i>
+                <span>Usuarios</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Categorías
+        </div>
+
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+            <a class="nav-link" content="categorias">
                 <i class="fas fa-fw fa-tag"></i>
-                <span>Mis Preferencias</span></a>
+                <span>Categorías</span></a>
         </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider">
 
         <!-- Heading -->
-        <div class="sidebar-heading">
-            Reservas
+        <div class="sidebar-heading mt-2">
+            Contactos
         </div>
 
-        <!-- Nav Item - Tables -->
+        <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" content="reservasUsuario">
-                <i class="fas fa-fw fa-check-square"></i>
-                <span>Mis Reservas</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Intercambios
-        </div>
-
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" content="intercambiosUsuario">
-                <i class="fas fa-fw fa-rotate"></i>
-                <span>Mis Intercambios</span></a>
+            <a class="nav-link" content="contactos">
+                <i class="fas fa-paper-plane fa-fw"></i>
+                <span>Contactos</span></a>
         </li>
 
         <!-- Divider -->
@@ -183,75 +180,30 @@
                             </div>
                         </li>
 
-                        <!-- Botón crear objetos -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link btn btn-success h-50 text-white"
-                               href="{{ path('objeto_create') }}" id="objetoCreate" role="button">
-                                <i class="fas fa-plus fa-fw"></i>
-                                <span>Crear Objeto</span>
-                            </a>
-                        </li>
-
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <div class="nav-link">
-                                <span class="mr-2">
-                                <a class="nav-link btn btn-info h-50 text-white" href="{{ path('chats') }}">
-                                    <i class="fa fa-paper-plane"></i>
-                                    <span>Chats</span>
-                                    {% if app.user.chatsSinLeer > 0 %}
-                                        <span class="red-icon">&#128308;</span>
-                                    {% endif %}
-                                </a>
-                            </span>
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img class="img-profile rounded-circle"
+                                     src="{{ asset('images/profile_' ~ random(1, 4) ~ '.svg') }}">
                                 {% if usuario is defined %}
-                                    {% if usuario.valoracion is not null %}
-                                        {{ usuario.valoracion.valor|round(2, 'floor') }}
-                                        {% set valor = usuario.valoracion.valor %}
-                                        {% for i in 1..valor %}
-                                            <i class="fa fa-star"></i>
-                                        {% endfor %}
-                                        {% if valor != 5 and (valor - valor|round(0, 'floor')) != 0 %}
-                                        <i class="fa fa-star-half"></i>
-                                    {% endif %}
-                                    {% else %}
-                                        <i class="fa-regular fa-star"></i>
-                                        <i class="fa-regular fa-star"></i>
-                                        <i class="fa-regular fa-star"></i>
-                                        <i class="fa-regular fa-star"></i>
-                                        <i class="fa-regular fa-star"></i>
-                                    {% endif %}
+                                    <span>{{ usuario.alias }}</span>
                                 {% endif %}
-                            </span>
-                                <a class="dropdown-toggle perfil" href="#" id="userDropdown" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {% if usuario.imagen is not null %}
-                                        <img class="img-profile rounded-circle"
-                                             src="{{ asset(usuario.imagen.ruta) }}">
-                                    {% else %}
-                                        <img class="img-profile rounded-circle"
-                                             src="{{ asset('images/profile_' ~ random(1, 4) ~ '.svg') }}">
-                                    {% endif %}
-                                    {% if usuario is defined %}
-                                        <span>{{ usuario.alias }}</span>
-                                    {% endif %}
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{{ path('perfil_admin') }}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
                                 </a>
-                                <!-- Dropdown - User Information -->
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                     aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="{{ path('perfil') }}">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Profile
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="{{ path('logout') }}">
-                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Logout
-                                    </a>
-                                </div>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path('logout') }}">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
                             </div>
                         </li>
 

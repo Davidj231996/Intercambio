@@ -97,6 +97,7 @@
                         </div>
                     </li>
                     {% if app.user %}
+
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link btn btn-success h-50 text-white" href="{{ path('objeto_create') }}"
                                id="objetoCreate" role="button">
@@ -109,11 +110,42 @@
                     <div class="topbar-divider d-none d-sm-block"></div>
 
                     {% if app.user %}
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                        {% if 'ROLE_ADMIN' in app.user.roles %}
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img class="img-profile rounded-circle"
+                                         src="{{ asset('images/profile_' ~ random(1, 4) ~ '.svg') }}">
+                                    <span>{{ app.user.alias }}</span>
+                                </a>
+                                <!-- Dropdown - User Information -->
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                     aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="{{ path('perfil_admin') }}">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Profile
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ path('logout') }}">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Logout
+                                    </a>
+                                </div>
+                            </li>
+                        {% else %}
+                            <!-- Nav Item - User Information -->
+                            <li class="nav-item dropdown no-arrow">
+                                <div class="nav-link">
+                            <span class="mr-2">
+                                <a class="nav-link btn btn-info h-50 text-white" href="{{ path('chats') }}">
+                                    <i class="fa fa-paper-plane"></i>
+                                    <span>Chats</span>
+                                    {% if app.user.chatsSinLeer > 0 %}
+                                        <span class="red-icon">&#128308;</span>
+                                    {% endif %}
+                                </a>
+                            </span>
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                                 {% if app.user.valoracion is not null %}
                                     {{ app.user.valoracion.valor|round(2, 'floor') }}
                                     {% set valor = app.user.valoracion.valor %}
@@ -131,24 +163,33 @@
                                     <i class="fa-regular fa-star"></i>
                                 {% endif %}
                             </span>
-                                <img class="img-profile rounded-circle"
-                                     src="{{ asset('images/profile_' ~ random(1, 4) ~ '.svg') }}">
-                                <span>{{ app.user.alias }}</span>
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{{ path('perfil') }}">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ path('logout') }}">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
+                                    <a class="perfil dropdown-toggle" href="#" id="userDropdown" role="button"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {% if app.user.imagen is not null %}
+                                            <img class="img-profile rounded-circle"
+                                                 src="{{ asset(app.user.imagen.ruta) }}">
+                                        {% else %}
+                                            <img class="img-profile rounded-circle"
+                                                 src="{{ asset('images/profile_' ~ random(1, 4) ~ '.svg') }}">
+                                        {% endif %}
+                                        <span>{{ app.user.alias }}</span>
+                                    </a>
+                                    <!-- Dropdown - User Information -->
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                         aria-labelledby="userDropdown">
+                                        <a class="dropdown-item" href="{{ path('perfil') }}">
+                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Profile
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('logout') }}">
+                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Logout
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endif %}
                     {% else %}
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
@@ -186,10 +227,18 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <footer class="mt-auto sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2021</span>
+        <footer class="mt-auto sticky-footer bg-white shadow">
+            <div class="container my-auto d-flex">
+                <div class="copyright text-left my-auto col-2">
+                    <span>
+                        <a href="{{ path('faq') }}" target="_blank">FAQ</a>
+                    </span>
+                    <span>
+                        <a href="{{ path('contacto') }}" target="_blank">Contacto</a>
+                    </span>
+                </div>
+                <div class="copyright text-center my-auto offset-2 col-8">
+                    <span>Copyright &copy; TruequeWeb 2022</span>
                 </div>
             </div>
         </footer>
