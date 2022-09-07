@@ -23,6 +23,7 @@ class DireccionUpdateController extends AbstractController
      */
     public function direccionUpdate(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $form = $this->createForm(DireccionUpdateType::class);
         $form->handleRequest($request);
 
