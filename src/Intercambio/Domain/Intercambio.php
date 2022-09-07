@@ -87,17 +87,12 @@ class Intercambio extends Root
 
     public function estadoIntercambioClase(): string
     {
-        switch ($this->estadoIntercambio) {
-            case self::ESTADO_ENVIADO:
-                return 'text-info';
-            case self::ESTADO_CANCELADO:
-                return 'text-danger';
-            case self::ESTADO_FINALIZADO:
-            case self::ESTADO_ACEPTADO:
-                return 'text-success';
-            default:
-                return '';
-        }
+        return match ($this->estadoIntercambio) {
+            self::ESTADO_ENVIADO => 'text-info',
+            self::ESTADO_CANCELADO => 'text-danger',
+            self::ESTADO_FINALIZADO, self::ESTADO_ACEPTADO => 'text-success',
+            default => '',
+        };
     }
 
     public function updateIntercambio(int $estado, DateTime $fechaActualizacion)
@@ -134,17 +129,12 @@ class Intercambio extends Root
 
     public function estadoIntercambiarClase(): string
     {
-        switch ($this->estadoIntercambiar) {
-            case self::ESTADO_ENVIADO:
-                return 'text-info';
-            case self::ESTADO_CANCELADO:
-                return 'text-danger';
-            case self::ESTADO_FINALIZADO:
-            case self::ESTADO_ACEPTADO:
-                return 'text-success';
-            default:
-                return '';
-        }
+        return match ($this->estadoIntercambiar) {
+            self::ESTADO_ENVIADO => 'text-info',
+            self::ESTADO_CANCELADO => 'text-danger',
+            self::ESTADO_FINALIZADO, self::ESTADO_ACEPTADO => 'text-success',
+            default => '',
+        };
     }
 
     public function updateIntercambiar(int $estado, DateTime $fechaActualizacion)

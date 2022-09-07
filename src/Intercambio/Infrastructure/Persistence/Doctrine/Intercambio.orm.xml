@@ -9,11 +9,28 @@
             <generator/>
         </id>
 
-        <one-to-one field="objetoIntercambio" target-entity="App\Objeto\Domain\Objeto" inversed-by="intercambio"/>
-        <one-to-one field="objetoIntercambiar" target-entity="App\Objeto\Domain\Objeto" inversed-by="intercambiar"/>
-        <many-to-one field="usuarioIntercambio" target-entity="App\Usuario\Domain\Usuario" inversed-by="intercambios"/>
+        <one-to-one field="objetoIntercambio" target-entity="App\Objeto\Domain\Objeto" inversed-by="intercambio">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-one>
+        <one-to-one field="objetoIntercambiar" target-entity="App\Objeto\Domain\Objeto" inversed-by="intercambiar">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-one>
+        <many-to-one field="usuarioIntercambio" target-entity="App\Usuario\Domain\Usuario" inversed-by="intercambios">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-one>
         <many-to-one field="usuarioIntercambiar" target-entity="App\Usuario\Domain\Usuario"
-                     inversed-by="intercambiosAMi"/>
+                     inversed-by="intercambiosAMi">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-one>
+
         <field name="fechaCreacion" type="datetime" column="fechaCreacion"/>
         <field name="fechaActualizacion" type="datetime" column="fechaActualizacion"/>
         <field name="estadoIntercambio" type="smallint" column="estadoIntercambio"/>
