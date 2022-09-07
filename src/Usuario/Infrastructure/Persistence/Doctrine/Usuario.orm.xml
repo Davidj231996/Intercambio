@@ -15,6 +15,9 @@
         <field name="telefono" length="9" column="telefono"/>
         <field name="email" length="255" column="email"/>
         <field name="password" length="255" column="password"/>
+        <field name="estado" type="smallint" column="estado"/>
+        <field name="roles" type="json" column="roles"/>
+
         <one-to-one field="valoracion" target-entity="App\Valoracion\Domain\Valoracion" mapped-by="usuario"/>
         <one-to-one field="direccion" target-entity="App\Direccion\Domain\Direccion" mapped-by="usuario"/>
         <one-to-one field="imagen" target-entity="App\Imagen\Domain\Imagen" mapped-by="usuario"/>
@@ -29,6 +32,7 @@
                      mapped-by="usuarioIntercambiar"/>
         <one-to-many field="misChats" target-entity="App\Chat\Domain\Chat" mapped-by="usuario1"/>
         <one-to-many field="chats" target-entity="App\Chat\Domain\Chat" mapped-by="usuario2"/>
+        <field name="chatsSinLeer" type="integer" column="chatsSinLeer"/>
     </entity>
 
 </doctrine-mapping>

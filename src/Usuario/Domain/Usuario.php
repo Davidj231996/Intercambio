@@ -14,6 +14,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class Usuario extends Root implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    public const USUARIO_ACTIVO = 1;
+    public const USUARIO_INACTIVO = 0;
+
+    public const USUARIO_ADMIN = 'admin';
+
     private ?Valoracion $valoracion = null;
     private ?Direccion $direccion = null;
     private ?Imagen $imagen = null;
@@ -26,21 +31,25 @@ class Usuario extends Root implements UserInterface, PasswordAuthenticatedUserIn
     private ?Collection $intercambiosAMi = null;
     private ?Collection $misChats = null;
     private ?Collection $chats = null;
+    private int $chatsSinLeer = 0;
+
+    private $roles = [];
 
     public function __construct(
-        private ?int    $id,
+        private ?int   $id,
         private string $alias,
         private string $nombre,
         private string $apellidos,
         private string $telefono,
         private string $email,
-        private string $password
+        private string $password,
+        private int    $estado
     )
     {
     }
 
     public static function create(
-        ?int    $id,
+        ?int   $id,
         string $alias,
         string $nombre,
         string $apellidos,
@@ -49,7 +58,7 @@ class Usuario extends Root implements UserInterface, PasswordAuthenticatedUserIn
         string $password
     ): Usuario
     {
-        return new self($id, $alias, $nombre, $apellidos, $telefono, $email, $password);
+        return new self($id, $alias, $nombre, $apellidos, $telefono, $email, $password, self::USUARIO_INACTIVO);
     }
 
     public function id(): int
@@ -85,6 +94,11 @@ class Usuario extends Root implements UserInterface, PasswordAuthenticatedUserIn
     public function password(): string
     {
         return $this->password;
+    }
+
+    public function estado(): int
+    {
+        return $this->estado;
     }
 
     public function objetos(): ?Collection
@@ -147,6 +161,11 @@ class Usuario extends Root implements UserInterface, PasswordAuthenticatedUserIn
         return $this->chats;
     }
 
+    public function chatsSinLeer(): int
+    {
+        return $this->chatsSinLeer;
+    }
+
     public function update(
         string $nombre,
         string $apellidos,
@@ -158,6 +177,21 @@ class Usuario extends Root implements UserInterface, PasswordAuthenticatedUserIn
         $this->apellidos = $apellidos;
         $this->telefono = $telefono;
         $this->email = $email;
+    }
+
+    public function habilitar(): void
+    {
+        $this->estado = self::USUARIO_ACTIVO;
+    }
+
+    public function deshabilitar(): void
+    {
+        $this->estado = self::USUARIO_INACTIVO;
+    }
+
+    public function deshabilitado(): bool
+    {
+        return $this->estado() == self::USUARIO_INACTIVO;
     }
 
     /**
@@ -175,9 +209,13 @@ class Usuario extends Root implements UserInterface, PasswordAuthenticatedUserIn
 
     public function getRoles(): array
     {
-        return [
-            'ROLE_USER'
-        ];
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        if (empty($roles)) {
+            $roles[] = 'ROLE_USER';
+        }
+
+        return array_unique($roles);
     }
 
     public function eraseCredentials()
@@ -188,5 +226,15 @@ class Usuario extends Root implements UserInterface, PasswordAuthenticatedUserIn
     public function getUserIdentifier(): string
     {
         return $this->alias;
+    }
+
+    public function updateLeido(): void
+    {
+        $this->chatsSinLeer = $this->chatsSinLeer - 1;
+    }
+
+    public function updateNoLeido(): void
+    {
+        $this->chatsSinLeer = $this->chatsSinLeer + 1;
     }
 }
