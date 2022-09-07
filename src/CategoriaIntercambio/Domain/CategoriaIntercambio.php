@@ -4,15 +4,17 @@ namespace App\CategoriaIntercambio\Domain;
 
 use App\Categoria\Domain\Categoria;
 use App\Objeto\Domain\Objeto;
+use App\Shared\Domain\Root\Root;
 
-class CategoriaIntercambio
+class CategoriaIntercambio extends Root
 {
     public function __construct(
-        private ?int $id,
-        private Objeto $objeto,
+        private ?int      $id,
+        private Objeto    $objeto,
         private Categoria $categoria
     )
-    {}
+    {
+    }
 
     public static function create(?int $id, Objeto $objeto, Categoria $categoria): CategoriaIntercambio
     {
