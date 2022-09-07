@@ -24,6 +24,7 @@ class ReservaCreatorController extends AbstractController
      */
     public function create(Request $request, $objetoId)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $objeto = $this->objetoFinder->__invoke($objetoId);
         if ($this->getUser() != $objeto->usuario()) {
             try {

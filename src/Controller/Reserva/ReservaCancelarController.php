@@ -20,6 +20,7 @@ class ReservaCancelarController extends AbstractController
      */
     public function cancelar(Request $request, $reservaId)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         try {
             $this->reservaCancelar->update($reservaId);
             $this->addFlash(

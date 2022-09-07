@@ -10,7 +10,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ReservaAceptarController extends AbstractController
 {
-    public function __construct(private ReservaAceptar $reservaAceptar) {}
+    public function __construct(private ReservaAceptar $reservaAceptar)
+    {
+    }
 
     /**
      * @Route("reservaaceptar/{reservaId}", name="reserva_aceptar")
@@ -18,7 +20,9 @@ class ReservaAceptarController extends AbstractController
      * @param $reservaId
      * @return mixed
      */
-    public function aceptar(Request $request, $reservaId) {
+    public function aceptar(Request $request, $reservaId)
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         try {
             $this->reservaAceptar->update($reservaId);
             $this->addFlash(
