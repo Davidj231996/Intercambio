@@ -3,7 +3,48 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    {% if app.user %}
-        <p>Bienvenido de nuevo {{ app.user.nombre }}</p>
-    {% endif %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        {% if app.user %}
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Bienvenido {{ app.user.nombre }}</h1>
+            </div>
+        {% endif %}
+        <div class="row">
+            {% if objetos is  not empty %}
+                {% for objeto in objetos %}
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4 clickable"
+                         onclick="window.location.href ='{{ path('objeto', {"objetoId": objeto.id}) }}'">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex">
+                                <h6 class="m-0 font-weight-bold text-primary">{{ objeto.nombre }}</h6>
+                            </div>
+                            <div class="card-body">
+                                {% if objeto.imagenes is not empty %}
+                                    <div class="text-center">
+                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 20rem;"
+                                             src="{{ asset((objeto.imagenes.get(0).ruta)) }}" alt="...">
+                                    </div>
+                                {% endif %}
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    Descripción
+                                </div>
+                                <p class="p-indent">{{ objeto.descripcion|u.truncate(100, '...') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="cardCompleta shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Sin objetos</h6>
+                    </div>
+                    <div class="card-body">
+                        <p>No hay objetos disponibles</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
