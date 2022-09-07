@@ -25,6 +25,7 @@ class UsuarioPasswordUpdateController extends AbstractController
      */
     public function usuario(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $form = $this->createForm(UsuarioPasswordType::class);
         $form->handleRequest($request);
 

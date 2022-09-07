@@ -3,6 +3,7 @@
 namespace App\Controller\Usuario;
 
 use App\Form\Direccion\DireccionUpdateType;
+use App\Form\Usuario\UsuarioImagenType;
 use App\Form\Usuario\UsuarioPasswordType;
 use App\Form\Usuario\UsuarioUpdateType;
 use App\Usuario\Domain\Usuario;
@@ -22,6 +23,7 @@ class UsuarioPerfilController extends AbstractController
      */
     public function usuario(): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         /** @var Usuario $usuario */
         $usuario = $this->getUser();
         $usuarioForm = $this->createForm(UsuarioUpdateType::class, $usuario, [
@@ -35,11 +37,15 @@ class UsuarioPerfilController extends AbstractController
         $direccionForm = $this->createForm(DireccionUpdateType::class, $usuario->direccion(), [
             'action' => $this->generateUrl('direccion_update')
         ]);
+        $imagenUsuarioForm = $this->createForm(UsuarioImagenType::class, [], [
+            'action' => $this->generateUrl('imagenUsuario')
+        ]);
         return $this->render('usuario/perfil.html.twig', [
             'usuario' => $usuario,
             'usuarioForm' => $usuarioForm->createView(),
             'passwordForm' => $passwordForm->createView(),
-            'direccionForm' => $direccionForm->createView()
+            'direccionForm' => $direccionForm->createView(),
+            'imagenUsuarioForm' => $imagenUsuarioForm->createView()
         ]);
     }
 }

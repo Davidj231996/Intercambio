@@ -22,6 +22,7 @@ class UsuarioUpdateController extends AbstractController
      */
     public function usuarioUpdate(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $form = $this->createForm(UsuarioUpdateType::class);
         $form->handleRequest($request);
 
