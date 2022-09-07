@@ -13,12 +13,17 @@ class Categoria extends Root
     private ?Collection $objetosIntercambio = null;
 
     public function __construct(
-        private int        $id,
+        private ?int       $id,
         private string     $nombre,
         private string     $descripcion,
         private ?Categoria $categoria
     )
     {
+    }
+
+    public static function create(string $nombre, string $descripcion, ?Categoria $categoria)
+    {
+        return new self(null, $nombre, $descripcion, $categoria);
     }
 
     public function id(): int
@@ -36,12 +41,12 @@ class Categoria extends Root
         return $this->descripcion;
     }
 
-    public function categoria(): Categoria
+    public function categoria(): ?Categoria
     {
         return $this->categoria;
     }
 
-    public function subcategorias(): Collection
+    public function subcategorias(): ?Collection
     {
         return $this->subcategorias;
     }
@@ -59,5 +64,12 @@ class Categoria extends Root
     public function objetosIntercambio(): Collection
     {
         return $this->objetosIntercambio;
+    }
+
+    public function update(string $nombre, string $descripcion, ?Categoria $categoria)
+    {
+        $this->nombre = $nombre;
+        $this->descripcion = $descripcion;
+        $this->categoria = $categoria;
     }
 }

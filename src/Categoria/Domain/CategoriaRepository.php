@@ -2,13 +2,15 @@
 
 namespace App\Categoria\Domain;
 
-use App\Shared\Domain\Criteria\Criteria;
-
 interface CategoriaRepository
 {
+    public function save(Categoria $categoria): void;
+
     public function search(int $id): ?Categoria;
 
     public function searchAll(): Categorias;
 
-    public function searchByCriteria(Criteria $criteria): Categorias;
+    public function searchForFilter(string $busqueda): ?Categorias;
+
+    public function delete(Categoria $categoria): void;
 }
