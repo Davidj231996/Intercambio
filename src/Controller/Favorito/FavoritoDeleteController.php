@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FavoritoDeleteController extends AbstractController
 {
-    public function __construct(private FavoritoDelete $favoritoDelete, private ObjetoFinder $objetoFinder)
+    public function __construct(private FavoritoDelete $favoritoDelete)
     {
     }
 
@@ -22,6 +22,7 @@ class FavoritoDeleteController extends AbstractController
      */
     public function create($favoritoId): RedirectResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         try {
             $this->favoritoDelete->delete($favoritoId);
             $this->addFlash(

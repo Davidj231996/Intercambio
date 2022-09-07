@@ -22,6 +22,7 @@ class FavoritoCreateController extends AbstractController
      */
     public function create($objetoId): RedirectResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         try {
             $objeto = $this->objetoFinder->__invoke($objetoId);
             $this->favoritoCreate->create($this->getUser(), $objeto);
