@@ -8,13 +8,15 @@ use App\Intercambio\Domain\Intercambio;
 use App\Reserva\Domain\Reserva;
 use App\Shared\Domain\Root\Root;
 use App\Usuario\Domain\Usuario;
+use DateTime;
 use Doctrine\Common\Collections\Collection;
 
 class Objeto extends Root
 {
-    private const ESTADO_PENDIENTE = 0;
-    private const ESTADO_RESERVADO = 1;
-    private const ESTADO_TRANSFERIDO = 2;
+    public const ESTADO_DESHABILITADO = -1;
+    public const ESTADO_PENDIENTE = 0;
+    public const ESTADO_RESERVADO = 1;
+    public const ESTADO_TRANSFERIDO = 2;
 
     private ?Collection $imagenes = null;
     private ?Collection $favoritos = null;
@@ -26,20 +28,21 @@ class Objeto extends Root
     private ?Reserva $reserva = null;
 
     public function __construct(
-        private ?int $id,
-        private string $nombre,
-        private string $descripcion,
-        private int $estado,
-        private Usuario $usuario
+        private ?int     $id,
+        private string   $nombre,
+        private string   $descripcion,
+        private int      $estado,
+        private Usuario  $usuario,
+        private DateTime $fecha
     )
     {
     }
 
     public static function create(
-        ?int $id, string $nombre, string $descripcion, Usuario $usuario
-    ) : Objeto
+        ?int $id, string $nombre, string $descripcion, Usuario $usuario, DateTime $fecha
+    ): Objeto
     {
-        return new self($id, $nombre, $descripcion, self::ESTADO_PENDIENTE, $usuario);
+        return new self($id, $nombre, $descripcion, self::ESTADO_DESHABILITADO, $usuario, $fecha);
     }
 
     public function id(): int
@@ -65,6 +68,11 @@ class Objeto extends Root
     public function usuario(): Usuario
     {
         return $this->usuario;
+    }
+
+    public function fecha(): DateTime
+    {
+        return $this->fecha;
     }
 
     public function imagenes(): ?Collection
@@ -133,11 +141,23 @@ class Objeto extends Root
         $this->reserva = null;
     }
 
-    public function reservado(): bool {
+    public function deshabilitar(): void
+    {
+        $this->estado = self::ESTADO_DESHABILITADO;
+    }
+
+    public function reservado(): bool
+    {
         return $this->estado() == self::ESTADO_RESERVADO || $this->estado() == self::ESTADO_TRANSFERIDO;
     }
 
-    public function transferido(): bool {
+    public function transferido(): bool
+    {
         return $this->estado() == self::ESTADO_TRANSFERIDO;
+    }
+
+    public function habilitado(): bool
+    {
+        return $this->estado() != self::ESTADO_DESHABILITADO;
     }
 }

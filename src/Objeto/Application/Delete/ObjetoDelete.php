@@ -2,12 +2,16 @@
 
 namespace App\Objeto\Application\Delete;
 
+use App\LogObjeto\Application\Create\LogObjetoCreateEliminar;
 use App\Objeto\Domain\ObjetoNotFound;
 use App\Objeto\Domain\ObjetoRepository;
 
 class ObjetoDelete
 {
-    public function __construct(private ObjetoRepository $repository)
+    public function __construct(
+        private ObjetoRepository        $repository,
+        private LogObjetoCreateEliminar $logObjetoCreateEliminar
+    )
     {
     }
 
@@ -20,5 +24,7 @@ class ObjetoDelete
         }
 
         $this->repository->delete($objeto);
+
+        $this->logObjetoCreateEliminar->create($objeto);
     }
 }

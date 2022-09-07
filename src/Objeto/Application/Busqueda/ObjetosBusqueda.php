@@ -2,34 +2,28 @@
 
 namespace App\Objeto\Application\Busqueda;
 
+use App\Categoria\Domain\CategoriaRepository;
 use App\Objeto\Domain\ObjetoRepository;
-use App\Objeto\Domain\Objetos;
-use App\Shared\Domain\Criteria\Criteria;
-use App\Shared\Domain\Criteria\Filter;
-use App\Shared\Domain\Criteria\FilterOperator;
-use App\Shared\Domain\Criteria\Filters;
-use App\Shared\Domain\Criteria\Order;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class ObjetosBusqueda
 {
-    public function __construct(private ObjetoRepository $repository)
-    {}
-
-    public function busqueda(String $busqueda): ?Objetos
+    public function __construct(private ObjetoRepository $repository, private CategoriaRepository $categoriaRepository)
     {
-        $filterNombre = Filter::fromValues([
-            'field' => 'nombre',
-            'operator' => FilterOperator::CONTAINS,
-            'value' => $busqueda
-        ]);
-        $filterDescripcion = Filter::fromValues([
-            'field' => 'descripcion',
-            'operator' => FilterOperator::CONTAINS,
-            'value' => $busqueda
-        ]);
+    }
 
-        $criteria = new Criteria(new Filters([$filterNombre, $filterDescripcion]), Order::none(), null, null);
+    public function busqueda(string $busqueda, ?array $categorias): array
+    {
+        if (!empty($categorias)) {
+            $categoriasBusqueda = implode(",", $categorias);
+            $query = $this->repository->searchByBusquedaCategorias($busqueda, $categoriasBusqueda);
+        } else {
+            $query = $this->repository->searchByBusqueda($busqueda);
+        }
 
-        return $this->repository->searchByCriteria($criteria);
+        return [
+            'paginator' => new Paginator($query),
+            'categorias' => $this->categoriaRepository->searchForFilter($busqueda)
+        ];
     }
 }

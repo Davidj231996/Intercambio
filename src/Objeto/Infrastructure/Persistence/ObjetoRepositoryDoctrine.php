@@ -9,6 +9,8 @@ use App\Shared\Domain\Criteria\Criteria;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 use App\Usuario\Domain\Usuario;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\Expr\Join;
 
 final class ObjetoRepositoryDoctrine extends DoctrineRepository implements ObjetoRepository
 {
@@ -27,9 +29,23 @@ final class ObjetoRepositoryDoctrine extends DoctrineRepository implements Objet
         return $this->repository(Objeto::class)->find($id);
     }
 
-    public function searchByUsuario(Usuario $usuario): ?Objetos
+    public function searchByUsuario(Usuario $usuario): Query
     {
-        $objetos = $this->repository(Objeto::class)->findBy(['usuario' => $usuario]);
+        return $this->repository(Objeto::class)->createQueryBuilder('objeto')
+            ->where('objeto.usuario = :usuario')
+            ->andWhere('objeto.estado = :estado')
+            ->setParameter('usuario', $usuario)
+            ->setParameter('estado', Objeto::ESTADO_PENDIENTE)
+            ->getQuery();
+    }
+
+    public function searchHabilitadosByUsuario(Usuario $usuario): ?Objetos
+    {
+        $objetos = $this->repository(Objeto::class)->createQueryBuilder('objeto')
+            ->where('objeto.estado = :estado AND objeto.usuario = :usuario')
+            ->setParameter('usuario', $usuario)
+            ->setParameter('estado', Objeto::ESTADO_PENDIENTE)
+            ->getQuery()->execute();
         return new Objetos($objetos);
     }
 
@@ -37,6 +53,41 @@ final class ObjetoRepositoryDoctrine extends DoctrineRepository implements Objet
     {
         $doctrineCriteria = DoctrineCriteriaConverter::convert($criteria, self::$criteriaToDoctrineFields);
         $objetos = $this->repository(Objeto::class)->matching($doctrineCriteria)->toArray();
+
+        return new Objetos($objetos);
+    }
+
+    public function searchByBusqueda(string $busqueda): ?Query
+    {
+        return $this->repository(Objeto::class)->createQueryBuilder('objeto')
+            ->where('objeto.nombre LIKE :busqueda OR objeto.descripcion LIKE :busqueda')
+            ->andWhere('objeto.estado <> :estado')
+            ->setParameter('busqueda', '%' . $busqueda . '%')
+            ->setParameter('estado', Objeto::ESTADO_DESHABILITADO)
+            ->getQuery();
+    }
+
+    public function searchByBusquedaCategorias(string $busqueda, string $categorias): ?Query
+    {
+        return $this->repository(Objeto::class)->createQueryBuilder('objeto')
+            ->innerJoin('objeto.categorias', 'categoriasObjeto', Join::WITH, 'categoriasObjeto.objeto = objeto.id')
+            ->where('objeto.nombre LIKE :busqueda OR objeto.descripcion LIKE :busqueda')
+            ->andWhere('objeto.estado <> :estado')
+            ->andWhere('categoriasObjeto.categoria IN (:categorias)')
+            ->setParameter('busqueda', '%' . $busqueda . '%')
+            ->setParameter('estado', Objeto::ESTADO_DESHABILITADO)
+            ->setParameter('categorias', $categorias)
+            ->getQuery();
+    }
+
+    public function searchRecent(): ?Objetos
+    {
+        $objetos = $this->repository(Objeto::class)->createQueryBuilder('objeto')
+            ->where('objeto.estado = :estado')
+            ->setParameter('estado', Objeto::ESTADO_PENDIENTE)
+            ->orderBy('objeto.fecha', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()->execute();
 
         return new Objetos($objetos);
     }

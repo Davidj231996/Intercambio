@@ -5,6 +5,7 @@ namespace App\Objeto\Application\UsuarioFinder;
 use App\Objeto\Domain\ObjetoRepository;
 use App\Objeto\Domain\Objetos;
 use App\Usuario\Domain\Usuario;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class ObjetosUsuarioFinder
 {
@@ -12,8 +13,8 @@ class ObjetosUsuarioFinder
     {
     }
 
-    public function __invoke(Usuario $usuario): Objetos
+    public function __invoke(Usuario $usuario)
     {
-        return $this->repository->searchByUsuario($usuario);
+        return new Paginator($this->repository->searchByUsuario($usuario));
     }
 }
