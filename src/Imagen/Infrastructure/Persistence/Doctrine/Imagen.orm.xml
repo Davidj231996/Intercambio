@@ -9,13 +9,20 @@
             <generator/>
         </id>
 
-        <field name="descripcion" nullable="true" length="255" column="descripcion" />
-        <field name="ruta" length="255" column="ruta" />
+        <field name="descripcion" nullable="true" length="255" column="descripcion"/>
+        <field name="ruta" length="255" column="ruta"/>
+
         <many-to-one field="objeto" target-entity="App\Objeto\Domain\Objeto" inversed-by="imagenes">
             <join-column name="objeto_id"/>
+            <cascade>
+                <cascade-persist/>
+            </cascade>
         </many-to-one>
         <one-to-one field="usuario" target-entity="App\Usuario\Domain\Usuario" inversed-by="imagen">
             <join-column name="usuario_id"/>
+            <cascade>
+                <cascade-persist/>
+            </cascade>
         </one-to-one>
     </entity>
 

@@ -59,4 +59,9 @@ class Imagen extends Root
     {
         $this->descripcion = $descripcion;
     }
+
+    public function cambiarRuta(string $ruta): void
+    {
+        $this->ruta = $ruta;
+    }
 }

@@ -15,9 +15,11 @@ class ImagenObjetoCreate
 
     public function create(UploadedFile $imagen, Objeto $objeto): Imagen
     {
-        $imagen->move('images/objetos', $objeto->id() . '.' . $imagen->getClientOriginalExtension());
         $imagenObjeto = Imagen::create(null, 'images/objetos/' . $objeto->id() . '.' . $imagen->getClientOriginalExtension(), $objeto, null, $imagen->getClientOriginalName());
         $this->repository->save($imagenObjeto);
+
+        $imagen->move('images/objetos', $imagenObjeto->id() . '.' . $imagen->getClientOriginalExtension());
+        $imagenObjeto->cambiarRuta('images/objetos/' . $imagenObjeto->id() . '.' . $imagen->getClientOriginalExtension());
         return $imagenObjeto;
     }
 }

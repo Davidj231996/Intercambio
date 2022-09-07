@@ -5,6 +5,8 @@ namespace App\Imagen\Application\UsuarioCreate;
 use App\Imagen\Domain\Imagen;
 use App\Imagen\Domain\ImagenRepository;
 use App\Usuario\Domain\Usuario;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImagenUsuarioCreate
 {
@@ -12,10 +14,20 @@ class ImagenUsuarioCreate
     {
     }
 
-    public function create(string $ruta, Usuario $usuario, ?string $descripcion): Imagen
+    public function create(Usuario $usuario, UploadedFile $imagen): void
     {
-        $imagen = Imagen::create(null, $ruta, null, $usuario, $descripcion);
-        $this->repository->save($imagen);
-        return $imagen;
+        if ($usuario->imagen()) {
+            $filesystem = new Filesystem();
+            $filesystem->remove($usuario->imagen()->ruta());
+            $usuario->imagen()->update($imagen->getClientOriginalName());
+            $usuario->imagen()->cambiarRuta('/images/usuarios/' . $usuario->id() . '.' . $imagen->getClientOriginalExtension());
+            $this->repository->save($usuario->imagen());
+        } else {
+            $imagenUsuario = Imagen::create(null, "images/usuarios/" . $usuario->id() . '.' . $imagen->getClientOriginalExtension(),
+                null, $usuario, $imagen->getClientOriginalName());
+            $this->repository->save($imagenUsuario);
+        }
+
+        $imagen->move('images/usuarios', $usuario->id() . '.' . $imagen->getClientOriginalExtension());
     }
 }

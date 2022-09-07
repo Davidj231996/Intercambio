@@ -27,14 +27,6 @@ class ImagenRepositoryDoctrine extends DoctrineRepository implements ImagenRepos
         return $this->repository(Imagen::class)->find($id);
     }
 
-    public function searchByCriteria(Criteria $criteria): Imagenes
-    {
-        $doctrineCriteria = DoctrineCriteriaConverter::convert($criteria, self::$criteriaToDoctrineFields);
-        $imagenes = $this->repository(Imagen::class)->matching($doctrineCriteria)->toArray();
-
-        return new Imagenes($imagenes);
-    }
-
     public function delete(Imagen $imagen): void
     {
         $this->remove($imagen);
