@@ -21,6 +21,7 @@ class ObjetoDeleteController extends AbstractController
      */
     public function delete(int $objetoId): RedirectResponse
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         try {
             $this->objetoDelete->delete($objetoId);
             $this->addFlash(

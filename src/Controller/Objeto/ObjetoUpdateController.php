@@ -2,6 +2,7 @@
 
 namespace App\Controller\Objeto;
 
+use App\CategoriaIntercambio\Application\UpdateCategorias\UpdateCategoriasObjetoIntercambio;
 use App\CategoriaObjeto\Application\UpdateCategorias\UpdateCategoriasObjeto;
 use App\CategoriaObjeto\Domain\CategoriaObjeto;
 use App\Form\Objeto\ObjetoUpdateType;
@@ -20,7 +21,8 @@ class ObjetoUpdateController extends AbstractController
     public function __construct(
         private ObjetoFinder        $objetoFinder,
         private ObjetoUpdate        $objetoUpdate,
-        private UpdateCategoriasObjeto $updateCategoriasObjeto
+        private UpdateCategoriasObjeto $updateCategoriasObjeto,
+        private UpdateCategoriasObjetoIntercambio $updateCategoriasObjetoIntercambio
     )
     {
     }
@@ -32,6 +34,7 @@ class ObjetoUpdateController extends AbstractController
      */
     public function update(Request $request, int $objetoId): RedirectResponse|Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $objeto = $this->objetoFinder->__invoke($objetoId);
         $categorias = [];
         /** @var CategoriaObjeto $categoriaObjeto */
@@ -50,6 +53,7 @@ class ObjetoUpdateController extends AbstractController
             try {
                 $this->objetoUpdate->update($objetoId, $data['nombre'], $data['descripcion'], 0);
                 $this->updateCategoriasObjeto->updateCategoriasObjeto($data['categorias'], $objeto);
+                $this->updateCategoriasObjetoIntercambio->updateCategoriasObjetoIntercambio($data['categoriasIntercambio'], $objeto);
                 $this->addFlash(
                     'success',
                     'Objeto modificado'

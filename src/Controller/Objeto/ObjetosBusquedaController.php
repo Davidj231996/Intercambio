@@ -11,7 +11,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class ObjetosBusquedaController extends AbstractController
 {
     public function __construct(private ObjetosBusqueda $objetosBusqueda)
-    {}
+    {
+    }
 
     /**
      * @Route("/busqueda", name="busqueda")
@@ -20,10 +21,34 @@ class ObjetosBusquedaController extends AbstractController
      */
     public function busqueda(Request $request)
     {
-        $objetos = $this->objetosBusqueda->busqueda($request->get('busqueda'));
+        $busqueda = $request->get('busqueda');
+        $pagina = $request->get('pagina') ?? 1;
+        $categoriasFiltro = $request->get('categoriasFiltro');
+
+        $objetos = $this->objetosBusqueda->busqueda($busqueda, $request->get('categoriasFiltro'));
+        $paginator = $objetos['paginator'];
+
+        // Establecemos el máximo por página
+        $pageSize = 8;
+        // Objetos totales
+        $totalItems = $paginator->count();
+        // Páginas totales
+        $pagesCount = ceil($totalItems / $pageSize);
+
+        // Obtenemos la pagina
+        $paginator->getQuery()
+            ->setFirstResult($pageSize * ($pagina - 1))
+            ->setMaxResults($pageSize);
+
+        $objetos['objetos'] = $paginator;
 
         return $this->render('objeto/objetos.html.twig', [
-            'objetos' => $objetos
+            'objetos' => $objetos,
+            'total' => $totalItems,
+            'paginas' => $pagesCount,
+            'pagina' => $pagina,
+            'busqueda' => $busqueda,
+            'categoriasFiltro' => $categoriasFiltro
         ]);
     }
 }

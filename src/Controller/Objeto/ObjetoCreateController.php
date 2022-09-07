@@ -2,6 +2,7 @@
 
 namespace App\Controller\Objeto;
 
+use App\CategoriaIntercambio\Application\AddCategorias\AddCategoriasObjetoIntercambio;
 use App\CategoriaObjeto\Application\AddCategorias\AddCategoriasObjeto;
 use App\Form\Objeto\ObjetoCreateType;
 use App\Imagen\Application\ObjetoCreate\ImagenObjetoCreate;
@@ -16,9 +17,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class ObjetoCreateController extends AbstractController
 {
     public function __construct(
-        private ObjetoCreate $objetoCreate,
+        private ObjetoCreate        $objetoCreate,
         private AddCategoriasObjeto $addCategoriasObjeto,
-        private ImagenObjetoCreate $imagenObjetoCreate
+        private ImagenObjetoCreate  $imagenObjetoCreate,
+        private AddCategoriasObjetoIntercambio $addCategoriasObjetoIntercambio
     )
     {
     }
@@ -30,7 +32,8 @@ class ObjetoCreateController extends AbstractController
      */
     public function create(Request $request): RedirectResponse|Response
     {
-        $form = $this->createForm(ObjetoCreateType::class, null);
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        $form = $this->createForm(ObjetoCreateType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -38,9 +41,13 @@ class ObjetoCreateController extends AbstractController
             try {
                 $objeto = $this->objetoCreate->create($data['nombre'], $data['descripcion'], $this->getUser());
                 if (isset($data['imagen'])) {
-                    $this->imagenObjetoCreate->create($data['imagen'], $objeto);
+                    foreach ($data['imagen'] as $imagen) {
+                        $this->imagenObjetoCreate->create($imagen, $objeto);
+                    }
                 }
                 $this->addCategoriasObjeto->addCategoriasObjeto($data['categorias'], $objeto);
+
+                $this->addCategoriasObjetoIntercambio->addCategoriasObjetoIntercambio($data['categoriasIntercambio'], $objeto);
                 $this->addFlash(
                     'success',
                     'Objeto creado'
