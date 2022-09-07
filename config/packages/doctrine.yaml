@@ -31,6 +31,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Chat/Infrastructure/Persistence/Doctrine'
                 prefix: 'App\Chat\Domain'
                 alias: Chat
+            Contacto:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Contacto/Infrastructure/Persistence/Doctrine'
+                prefix: 'App\Contacto\Domain'
+                alias: Contacto
             Direccion:
                 is_bundle: false
                 type: xml
@@ -61,6 +67,24 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Intercambio/Infrastructure/Persistence/Doctrine'
                 prefix: 'App\Intercambio\Domain'
                 alias: Intercambio
+            LogIntercambio:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/LogIntercambio/Infrastructure/Persistence/Doctrine'
+                prefix: 'App\LogIntercambio\Domain'
+                alias: LogIntercambio
+            LogObjeto:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/LogObjeto/Infrastructure/Persistence/Doctrine'
+                prefix: 'App\LogObjeto\Domain'
+                alias: LogObjeto
+            LogReserva:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/LogReserva/Infrastructure/Persistence/Doctrine'
+                prefix: 'App\LogReserva\Domain'
+                alias: LogReserva
             Objeto:
                 is_bundle: false
                 type: xml
