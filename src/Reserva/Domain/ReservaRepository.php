@@ -10,7 +10,7 @@ interface ReservaRepository
 
     public function search(int $id): ?Reserva;
 
-    public function searchByUsuario(int $usuarioId): Reservas;
+    public function searchByUsuario(int $usuarioId): ?Reservas;
 
-    public function searchByObjeto(int $objetoId): Reservas;
+    public function searchByObjeto(int $objetoId): ?Reservas;
 }

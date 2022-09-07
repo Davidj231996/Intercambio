@@ -88,6 +88,11 @@ class Reserva extends Root
         }
     }
 
+    public function aceptada(): bool
+    {
+        return $this->estado == self::ESTADO_ACEPTADO;
+    }
+
     public function pendiente(): bool
     {
         return $this->estado == self::ESTADO_PENDIENTE;
