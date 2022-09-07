@@ -25,6 +25,7 @@ class ValoracionAddController extends AbstractController
      */
     public function add(Request $request, $usuarioId): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $form = $this->createForm(ValoracionCreateType::class);
 
         $form->handleRequest($request);
