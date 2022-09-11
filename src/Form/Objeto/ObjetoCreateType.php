@@ -36,6 +36,7 @@ class ObjetoCreateType extends AbstractType
                 },
                 'choice_label' => 'nombre',
                 'multiple' => true,
+                'required' => false,
                 'attr' => [
                     'class' => 'selectpicker pl-4',
                 ]
