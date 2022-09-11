@@ -19,10 +19,10 @@ class ObjetoUpdate
         $this->finder = new ObjetoFinder($repository);
     }
 
-    public function update(int $id, string $nombre, string $descripcion, int $estado): void
+    public function update(int $id, string $nombre, string $descripcion): void
     {
         $objeto = $this->finder->__invoke($id);
-        $objeto->update($nombre, $descripcion, $estado);
+        $objeto->update($nombre, $descripcion);
         $this->repository->save($objeto);
 
         $this->logObjetoCreateEditar->create($objeto);

@@ -115,13 +115,10 @@ class Objeto extends Root
         return $this->reserva;
     }
 
-    public function update(
-        string $nombre, string $descripcion, int $estado
-    )
+    public function update(string $nombre, string $descripcion): void
     {
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
-        $this->estado = $estado;
     }
 
     public function reservar(Reserva $reserva): void

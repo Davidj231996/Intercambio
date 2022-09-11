@@ -58,7 +58,7 @@ class ObjetoUpdateController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             try {
-                $this->objetoUpdate->update($objetoId, $data['nombre'], $data['descripcion'], 0);
+                $this->objetoUpdate->update($objetoId, $data['nombre'], $data['descripcion']);
                 $this->updateCategoriasObjeto->updateCategoriasObjeto($data['categorias'], $objeto);
                 $this->updateCategoriasObjetoIntercambio->updateCategoriasObjetoIntercambio($data['categoriasIntercambio'], $objeto);
                 $this->addFlash(

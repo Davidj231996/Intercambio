@@ -21,7 +21,7 @@ final class ObjetoUpdateTest extends ObjetoModuleUnitCase
 
         $this->shouldSave($objetoEditado);
 
-        $objeto->update($newName, $objeto->descripcion(), $objeto->estado());
+        $objeto->update($newName, $objeto->descripcion());
 
         $this->repository()->save($objeto);
     }
