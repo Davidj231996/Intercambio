@@ -3,6 +3,7 @@
 namespace App\Controller\Objeto;
 
 use App\CategoriaIntercambio\Application\UpdateCategorias\UpdateCategoriasObjetoIntercambio;
+use App\CategoriaIntercambio\Domain\CategoriaIntercambio;
 use App\CategoriaObjeto\Application\UpdateCategorias\UpdateCategoriasObjeto;
 use App\CategoriaObjeto\Domain\CategoriaObjeto;
 use App\Form\Objeto\ObjetoUpdateType;
@@ -37,14 +38,20 @@ class ObjetoUpdateController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_USER');
         $objeto = $this->objetoFinder->__invoke($objetoId);
         $categorias = [];
+        $categoriasIntercambio = [];
         /** @var CategoriaObjeto $categoriaObjeto */
         foreach ($objeto->categorias() as $categoriaObjeto) {
             $categorias[] = $categoriaObjeto->categoria();
         }
+        /** @var CategoriaIntercambio $categoriaObjeto */
+        foreach ($objeto->categoriasIntercambio() as $categoriaIntercambio) {
+            $categoriasIntercambio[] = $categoriaIntercambio->categoria();
+        }
         $form = $this->createForm(ObjetoUpdateType::class, [
             'nombre' => $objeto->nombre(),
             'descripcion' => $objeto->descripcion(),
-            'categorias' => $categorias
+            'categorias' => $categorias,
+            'categoriasIntercambio' => $categoriasIntercambio
         ]);
 
         $form->handleRequest($request);
