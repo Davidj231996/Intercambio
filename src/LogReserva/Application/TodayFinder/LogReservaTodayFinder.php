@@ -21,7 +21,6 @@ class LogReservaTodayFinder
             LogReserva::TIPO_CANCELAR => 0,
             LogReserva::TIPO_ELIMINAR => 0
         ];
-        var_dump($logs);
         foreach ($logs as $log) {
             $logsDevolucion[$log['tipo']] = $log['cantidad'];
         }
