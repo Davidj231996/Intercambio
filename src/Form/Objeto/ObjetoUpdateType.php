@@ -29,6 +29,18 @@ class ObjetoUpdateType extends AbstractType
                     'class' => 'selectpicker pl-4',
                 ]
             ])
+            ->add('categoriasIntercambio', EntityType::class, [
+                'class' => Categoria::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('categoria');
+                },
+                'choice_label' => 'nombre',
+                'multiple' => true,
+                'required' => false,
+                'attr' => [
+                    'class' => 'selectpicker pl-4',
+                ]
+            ])
             ->add('editar', SubmitType::class);
     }
 
@@ -36,7 +48,8 @@ class ObjetoUpdateType extends AbstractType
     {
         $resolver->setDefaults([
             // default form options
-            'categorias' => []
+            'categorias' => [],
+            'categoriasIntercambio' => []
         ]);
     }
 }
